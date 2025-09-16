@@ -1,0 +1,53 @@
+/**************************************************
+ * Autor: Felipe Vieira
+ * Date: 16/09/25
+ * Versão: 1.0
+ * Desc: App que irá conter as inserções para
+ *       o Banco de Dados
+ **************************************************/
+
+const {PrismaClient, Prisma} = require('@prisma/client')
+const prisma = new PrismaClient()
+
+import {insertUser} from "../../controller/Controller_users/InsertUser"
+
+const insertSQLUser = async function (user) {
+    try {
+        
+        let sql = `insert into tbl_responsavel(
+        email,
+        senha,
+        nome,
+        data_nascimento,
+        cpf,
+        telefone,
+        cep,
+        id_sexo
+        )
+        values(
+        '${user.email}',
+        '${user.senha}',
+        '${user.nome}',
+        '${user.data_nascimento}',
+        '${user.cpf}',
+        '${user.telefone}',
+        '${user.cep}',
+        '${user.id_sexo}'
+        )`
+
+        let result = await prisma.$executeRawUnsafe(sql)
+        if(result = true){
+            let getID = `SELECT * FROM tbl_responsavel WHERE email = '${user.email}' ORDER BY id_responsavel DESC LIMIT 1`
+            let ID = await prisma.$queryRawUnsafe(getID)
+
+            return ID[0]
+        }else{
+            return false
+        }
+
+
+    } catch (error) {
+        
+    }
+    
+}

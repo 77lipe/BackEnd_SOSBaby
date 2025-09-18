@@ -7,9 +7,10 @@
  ********************************************************/
 
 const message = require('../../config/status/status')
+import { deleteUser } from "../../model/ResponsableDAO/DeleteResp";
+import { idUser } from "../../model/ResponsableDAO/SelectIDResp";
 
-
-const DeleteUser = async function (id) {
+const DeleteResp = async function (id) {
     try {
 
         let IDrecebido = id
@@ -17,11 +18,11 @@ const DeleteUser = async function (id) {
             return message.ERROR_REQUIRED_FIELDS
         }else{
             
-            let resultUser = await userDAO.selectById(id)
+            let resultUser = await idUser(id)
             if(resultUser != false || typeof(resultUser) == 'object'){
                 if(resultUser.length > 0){
 
-                    let IdRecebido = await userDAO.DeleteUser(id)
+                    let IdRecebido = await deleteUser(id)
                     if(IdRecebido = true){
                         return message.SUCCES_DELETED_ITEM
                     }else{

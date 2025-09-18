@@ -9,7 +9,7 @@
 const message = require('../../config/status/status')
 
 
-const ListAllUsers = async function() {
+const ListAllResp = async function() {
     try {
         let 
 

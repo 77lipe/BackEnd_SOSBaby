@@ -6,9 +6,9 @@
  *       validações dos dados recebidos para UPDATE user
  ********************************************************/
 
-const message = require('../../config/status/status')
-import { idUser } from "../../model/ResponsableDAO/SelectIDResp"
-import { updateUser } from "../../model/ResponsableDAO/PutResp"
+const message = require('../../config/status/status.js')
+import { idUser } from "../../model/ResponsableDAO/SelectIDResp.js"
+import { updateUser } from "../../model/ResponsableDAO/PutResp.js"
 
 
 const UpdateResp = async function(id, user, contentType) {  

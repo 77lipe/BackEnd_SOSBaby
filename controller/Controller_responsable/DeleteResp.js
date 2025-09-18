@@ -6,9 +6,9 @@
  *       validações dos dados recebidos para DELETE user
  ********************************************************/
 
-const message = require('../../config/status/status')
-import { deleteUser } from "../../model/ResponsableDAO/DeleteResp";
-import { idUser } from "../../model/ResponsableDAO/SelectIDResp";
+const message = require('../../config/status/status.js')
+import { deleteUser } from "../../model/ResponsableDAO/DeleteResp.js";
+import { idUser } from "../../model/ResponsableDAO/SelectIDResp.js";
 
 const DeleteResp = async function (id) {
     try {

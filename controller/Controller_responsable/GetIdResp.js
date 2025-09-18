@@ -7,9 +7,9 @@
  *       responsável específico
  ********************************************************/
 
-const message = require('../../config/status/status')
-import { idResp } from "../../model/ResponsableDAO/SelectIDResp";
-import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser";
+const message = require('../../config/status/status.js')
+import { idResp } from "../../model/ResponsableDAO/SelectIDResp.js";
+import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser.js";
 
 const searchIDResp = async function (id) {
     try {

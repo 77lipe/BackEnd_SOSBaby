@@ -6,9 +6,9 @@
  *       validações dos dados recebidos para INSERT user
  ********************************************************/
 
-const message = require('../../config/status/status')
-import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser"
-import { deleteSQLUser } from "../../model/UserDAO/DeleteUser"
+const message = require('../../config/status/status.js')
+import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser.js"
+import { deleteSQLUser } from "../../model/UserDAO/DeleteUser.js"
 
 const deleteUser = async function (id) {
     try {

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*********************************************************
  * Autor: Eduardo Nascimento Couto Luiz
  * Date: 16/09/25
@@ -39,3 +40,5 @@ const insertGender = async function (sex, contentType) {
         return message.ERROR_INTERNAL_SERVER_CONTROLLER
     }
 }
+=======
+>>>>>>> 16cc315582b37f59444c34def45bb10258814fe6

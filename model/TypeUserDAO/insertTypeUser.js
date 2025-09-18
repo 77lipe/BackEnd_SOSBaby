@@ -9,7 +9,7 @@
 const {PrismaClient, Prisma} = require('@prisma/client')
 const prisma = new PrismaClient()
 
-import {insertTypeUser} from "../../controller/Controller_type_user/InsertTypeUser"
+import {insertTypeUser} from "../../controller/Controller_type_user/insertTypeUser"
 
 const insertTypeUserSQL = async function(type) {
     try {

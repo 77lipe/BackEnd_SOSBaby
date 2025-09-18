@@ -7,7 +7,8 @@
  ********************************************************/
 
 const message = require('../../config/status/status')
-import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser";
+import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser"
+import { idTypeUser } from "../../model/TypeUserDAO/SelectByIdTypeUser";
 
 const selectIDUser = async function (id) {
     try {
@@ -21,13 +22,13 @@ const selectIDUser = async function (id) {
             return message.ERROR_REQUIRED_FIELDS
         }else{
 
-            let resultUser = await selectIDUser(id)
+            let resultUser = await selectSQLIdUser(id)
             if(resultUser != false || typeof(resultUser) == 'object'){
                 if (resultUser.length > 0) {
                     jsonUser.message = message.SUCCES_SEARCH_ITEM
 
                     for(itemUser of resultUser){
-                        let tipo = await funcaodepegaridTIPO(id_tipo)
+                        let tipo = await idTypeUser(id_tipo)
                         itemUser.id_tipo = tipo
 
                         arrayUser.push(itemUser)

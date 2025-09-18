@@ -9,7 +9,7 @@
 const {PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient()
 
-const loginUser = async function (user) {
+const loginSQLUser = async function (user) {
     try {
         
         let sql = `SELECT * FROM tbl_responsavel WHERE email = '${user.email}' AND senha = '${user.senha}'`

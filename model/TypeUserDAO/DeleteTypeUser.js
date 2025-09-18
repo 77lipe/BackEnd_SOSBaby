@@ -1,30 +1,27 @@
 /**************************************************
- * Autor: Felipe Vieira
- * Date: 16/09/25
+ * Autor: Eduardo Couto
+ * Date: 18/09/25
  * Versão: 1.0
- * Desc: App que irá conter as inserções para
+ * Desc: App que irá conter os deletes para
  *       o Banco de Dados
  **************************************************/
+
 
 const {PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient()
 
-const idResp = async function (id) {
+const deleteTypeUserSQL = async function(id) {
     try {
+        let sql = `DELETE from tbl_type_user where id = ${id}`
+        let result =  await prisma.executeRawUnsafe(sql, id)
 
-        let sql = `SELECT * FROM tbl_responsavel WHERE id = ${id}`
-        let resultUser = await prisma.queryRawUnsafe(sql)
-
-        if (resultUser) {
+        if (result) {
             return true
-        }else{
+        } else {
             return false
         }
-
-
     } catch (error) {
         console.log(error)
-        return false;
+        return false
     }
-    
 }

@@ -9,7 +9,7 @@
 const PrismaClient = require('@prisma/client')
 const prisma = new PrismaClient()
 
-const insertSQLSex = async function (sexo) {
+const insertSQLGender = async function (sexo) {
     try {
         let sql = `INSERT INTO tbl_sexo = (
             sexo

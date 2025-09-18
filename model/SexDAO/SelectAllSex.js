@@ -11,7 +11,7 @@ const {PrismaClient, Prisma} = require('@prisma/client')
 const prisma = new PrismaClient()
 
 
-const SelectAllSexSQL = async function(){
+const SelectAllGenderSQL = async function(){
     try {
         let sql = 'select * from tbl_sexo order by id desc'
 

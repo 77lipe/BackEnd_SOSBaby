@@ -1,6 +1,6 @@
 /**************************************************
  * Autor: Felipe Vieira
- * Date: 16/09/25
+ * Date: 18/09/25
  * Versão: 1.0
  * Desc: App que irá conter as inserções para
  *       o Banco de Dados
@@ -9,13 +9,17 @@
 const {PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient()
 
-const idResp = async function (id) {
+const updateSQLUser = async function (user) {
     try {
+        let sql = `UPDATE tbl_user SET 
+        email  = '${user.email}',
+        senha = '${user.senha}',
+        id_tipo = '${user.id_tipo}'
 
-        let sql = `SELECT * FROM tbl_responsavel WHERE id = ${id}`
-        let resultUser = await prisma.queryRawUnsafe(sql)
+        where id = ${user.id}`
 
-        if (resultUser) {
+        let resultUser = await prisma.$executeRawUnsafe(sql)
+        if (resultUser == true) {
             return true
         }else{
             return false
@@ -23,8 +27,7 @@ const idResp = async function (id) {
 
 
     } catch (error) {
-        console.log(erro)
+        console.log(error)
         return false;
     }
-    
 }

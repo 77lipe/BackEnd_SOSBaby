@@ -8,7 +8,8 @@
  ********************************************************/
 
 const message = require('../../config/status/status')
-import { idUser } from "../../model/ResponsableDAO/SelectIDResp";
+import { idResp } from "../../model/ResponsableDAO/SelectIDResp";
+import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser";
 
 const searchIDResp = async function (id) {
     try {
@@ -20,13 +21,13 @@ const searchIDResp = async function (id) {
             return message.ERROR_REQUIRED_FIELDS
         }else{
 
-            let resultResp = await idUser(idGet)
+            let resultResp = await idResp(idGet)
             if (resultResp != false || typeof(resultResp) == 'object') {
                 if (resultResp.length > 0) {
                     dadosResp.message = message.SUCCES_SEARCH_ITEM
 
                     for(itemRespon of resultResp){
-                        let dadosUser = await funcaoDeBuscarUser(id_user)
+                        let dadosUser = await selectSQLIdUser(id_user)
                         itemRespon.usuario = dadosUser
 
                         respArray.push(itemRespon)

@@ -10,7 +10,7 @@ const {PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient()
 
 
-const updateUser = async function(user){
+const updateResp = async function(user){
     try {
         let sql = ` update tbl_responsavel set
             nome            = '${user.nome}',

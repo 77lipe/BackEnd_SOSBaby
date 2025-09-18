@@ -1,0 +1,47 @@
+/*********************************************************
+ * Autor: Felipe Vieira
+ * Date: 18/09/25
+ * Versão: 1.0
+ * Desc: App que irá realizar as 
+ *       validações dos dados recebidos para INSERT user
+ ********************************************************/
+
+const message = require('../../config/status/status')
+import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser"
+import { updateSQLUser } from "../../model/UserDAO/PutUser"
+
+const updateUser = async function (id, user, contentType) {
+    try {
+        
+        if (String(contentType).toLocaleLowerCase == 'application/json') {
+            if (
+                user.email   == "" || user.email   == undefined || user.email   == null || user.email > 100 ||
+                user.senha   == "" || user.senha   == undefined || user.senha   == null || user.senha > 45  ||
+                user.id_tipo == "" || user.id_tipo == undefined || user.id_tipo == null || isNaN(user.id_tipo)
+            ){
+              return message.ERROR_REQUIRED_FIELDS  
+            }else{
+                let resultUser = await selectSQLIdUser(id)
+                
+                if(resultUser != false || typeof(resultUser) == 'object'){
+                    if(resultUser.length > 0){
+                        user.id = id
+                        let result = await updateSQLUser(user)
+                    }if (result == true) {
+                        return message.SUCCES_UPDATE_ITEM
+                    }else{
+                        return message.ERROR_INTERNAL_SERVER_MODEL
+                    }
+                }else{
+                    return message.ERROR_NOT_FOUND
+                }
+            }
+        }else{
+            return message.ERROR_CONTENT_TYPE
+        }
+
+    } catch (error) {
+        console.log(error)
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER;
+    }
+}

@@ -11,7 +11,7 @@ const prisma = new PrismaClient()
 
 import {insertUser} from "../../controller/Controller_users/InsertUser"
 
-const insertSQLUser = async function (user) {
+const insertSQLResp = async function (user) {
     try {
         
         let sql = `insert into tbl_responsavel(

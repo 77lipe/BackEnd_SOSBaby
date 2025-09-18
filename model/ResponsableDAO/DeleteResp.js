@@ -9,7 +9,7 @@
 const {PrismaClient} = require('@prisma/client')
 const prisma = new PrismaClient()
 
-const deleteUser = async function(id) {
+const deleteResp = async function(id) {
     try {
 
         let sql = `DELETE from tbl_responsavel where id = ${id}`

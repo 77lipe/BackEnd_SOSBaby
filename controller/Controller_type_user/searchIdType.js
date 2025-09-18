@@ -7,8 +7,8 @@
  *******************************************************************/
 
 
-const message = require('../../config/status/status')
-import { idTypeUser } from "../../model/TypeUserDAO/SelectByIdTypeUser"
+const message = require('../../config/status/status.js')
+import { idTypeUser } from "../../model/TypeUserDAO/SelectByIdTypeUser.js"
 
 const searchIDTypeUser = async function(id) {
     try {

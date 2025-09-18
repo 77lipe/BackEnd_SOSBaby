@@ -14,11 +14,10 @@ const bodyParser    = require('body-parser')
 const bodyParserJSON = bodyParser.json()
 
 //Import das controllers
-import { insertSex } from "./controller/Controller_sexo/insertGender"
-import { insertUser } from "./controller/Controller_user/insertUser"
-import { insertTypeUser } from "./controller/Controller_type_user/insertTypeUser"
-import { insertResp } from "./controller/Controller_responsable/InsertResp"
-import {  } from "module"
+import { insertSex } from "./controller/Controller_sexo/insertSex.js"
+import { insertUser } from "./controller/Controller_user/insertUser.js"
+import { insertTypeUser } from "./controller/Controller_type_user/insertTypeUser.js"
+import { insertResp } from "./controller/Controller_responsable/InsertResp.js"
 
 //Cria o objeto app com referencias do express para criar a API 
 const app = express()
@@ -130,7 +129,7 @@ app.post('/v1/responsable', cors(), bodyParserJSON, async function (request, res
 
   //Recebe do body da requisição os dados encaminhados
   let dadosBody = request.body
-  let resultUser = await insertTypeUser(dadosBody,contentType)
+  let resultUser = await insertResp(dadosBody,contentType)
 
   response.status(resultUser.status_code)
   response.json(resultUser)

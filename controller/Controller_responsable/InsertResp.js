@@ -6,8 +6,8 @@
  *       validações dos dados recebidos para INSERT user
  ********************************************************/
 
-const message = require('../../config/status/status')
-import { insertSQLUser } from "../../model/ResponsableDAO/InsertResp";
+const message = require('../../config/status/status.js')
+import { insertSQLUser } from "../../model/ResponsableDAO/InsertResp.js";
 
 
 const insertResp = async function (user, contentType) {

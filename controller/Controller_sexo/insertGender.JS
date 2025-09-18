@@ -7,7 +7,7 @@
  ********************************************************/
 
 const message = require('../../config/status/status')
-
+import { insertSQLSex } from "../../model/TypeUserDAO/insertTypeUser";
 
 const insertSex = async function (sex, contentType) {
     try {
@@ -19,7 +19,7 @@ const insertSex = async function (sex, contentType) {
             ){
                 return message.ERROR_REQUIRED_FIELDS
             }else{
-                let resultUser = await SexoDAO(sex)
+                let resultUser = await insertSQLSex(sex)
 
                 if(resultUser = true){
                     return{

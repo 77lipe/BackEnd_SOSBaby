@@ -22,7 +22,7 @@ const DeleteTypeUser = async function (id) {
             let result = await idTypeUser(id)
             if (result != false || typeof(result) == 'object') {
                 if (result.length > 0 ) {
-                    let IdRecebido = await DeleteTypeUser(id)
+                    let IdRecebido = await DeleteTypeUserSQL(id)
                     if (IdRecebido = true) {
                         return message.SUCCES_DELETED_ITEM
                     } else {

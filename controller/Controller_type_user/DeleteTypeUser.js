@@ -19,7 +19,7 @@ const DeleteTypeUser = async function (id) {
         ) {
             return message.ERROR_REQUIRED_FIELDS
         } else {
-            let result = await idTypeUser SelectByIdTypeUser(id)
+            let result = await idTypeUser(id)
             if (result != false || typeof(result) == 'object') {
                 if (result.length > 0 ) {
                     let IdRecebido = await DeleteTypeUser(id)

@@ -6,7 +6,7 @@
  *       validações dos dados recebidos para INSERT user
  ********************************************************/
 
-const message = require('../../config/status/status.js')
+import message from '../../config/status/status.js'
 import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser.js"
 import { updateSQLUser } from "../../model/UserDAO/PutUser.js"
 
@@ -27,7 +27,7 @@ export const updateUser = async function (id, user, contentType) {
                     if(resultUser.length > 0){
                         user.id = id
                         let result = await updateSQLUser(user)
-                    }if (result == true) {
+                    }if (result) {
                         return message.SUCCES_UPDATE_ITEM
                     }else{
                         return message.ERROR_INTERNAL_SERVER_MODEL

@@ -6,7 +6,7 @@
  *       validações dos dados recebidos para INSERT tipo sanguneo
  ********************************************************/
 
-const message = require ('../../modulo')
+import message from '../../config/status/status.js'
 
 const insertSangue = async function (tipo) {
     try {

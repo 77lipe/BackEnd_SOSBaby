@@ -6,7 +6,7 @@
  *       validações dos dados recebidos para INSERT user
  ********************************************************/
 
-const message = require('../../config/status/status.js')
+import message from '../../config/status/status.js'
 import { insertSQLUser } from "../../model/UserDAO/InsertUser.js";
 
 export const insertUser = async function (user,contentType) {
@@ -21,7 +21,7 @@ export const insertUser = async function (user,contentType) {
                }else{
                    let resultUser = await insertSQLUser(user)
        
-                   if (resultUser == true) {
+                   if (resultUser) {
                        return{
                            ...message.SUCCES_CREATED_ITEM,
                            data: resultUser

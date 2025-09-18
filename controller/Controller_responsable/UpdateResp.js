@@ -6,7 +6,7 @@
  *       validações dos dados recebidos para UPDATE user
  ********************************************************/
 
-const message = require('../../config/status/status.js')
+import message from '../../config/status/status.js'
 import { idUser } from "../../model/ResponsableDAO/SelectIDResp.js"
 import { updateUser } from "../../model/ResponsableDAO/PutResp.js"
 

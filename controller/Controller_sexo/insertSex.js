@@ -6,8 +6,8 @@
  *       validações dos dados recebidos para INSERT sexo
  ********************************************************/
 
- const message = require('../../config/status/status.js')
- import { insertSQLGender } from "../../model/SexDAO/insertGender.js";
+import message from '../../config/status/status.js'
+import { insertSQLGender } from "../../model/SexDAO/insertGender.js";
  
  export const insertSex = async function (sex, contentType) {
      try {

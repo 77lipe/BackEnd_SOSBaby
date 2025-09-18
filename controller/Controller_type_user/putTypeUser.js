@@ -6,7 +6,7 @@
  *       o Banco de Dados
  **************************************************/
 
-const message = require('../../config/status/status.js')
+import message from '../../config/status/status.js'
 import { IdTypeUser } from "../../model/TypeUserDAO/SelectByIdTypeUser.js"
 import { updateTypeUser } from "../../model/TypeUserDAO/PutTypeUser.js"
 

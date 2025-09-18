@@ -6,7 +6,7 @@
  *       validações dos dados recebidos para INSERT um tipo user
  ********************************************************/
 
-const message = require('../../config/status/status.js')
+import message from '../../config/status/status.js'
 import { insertTypeUserSQL } from "../../model/TypeUserDAO/insertTypeUser.js";
 
 export const insertTypeUser = async function (type, contentType) {

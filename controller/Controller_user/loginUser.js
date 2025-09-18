@@ -6,7 +6,7 @@
  *       validações dos dados recebidos para LOGIN do Usuário 
  ********************************************************/
 
-const message = require('../../config/status/status.js')
+import message from '../../config/status/status.js'
 import { loginSQLUser } from "../../model/UserDAO/LoginUser.js"
 
 export const loginUser = async function (user, contentType) {

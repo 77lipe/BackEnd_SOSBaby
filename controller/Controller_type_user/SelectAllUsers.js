@@ -6,7 +6,7 @@
  *       validações dos dados recebidos para Listar todos os  users
  *******************************************************************/
 
-const message = require('../../config/status/status.js')
+import message from '../../config/status/status.js'
 import { SelectAllTypeUsersSQL } from "../../model/TypeUserDAO/SelectAllUsers.js";
 
 export const SelectAllUsers = async function () {

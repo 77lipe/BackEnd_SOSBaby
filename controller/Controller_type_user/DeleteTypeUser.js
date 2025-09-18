@@ -10,7 +10,7 @@ const message = require ('../../config/status/status.js')
 import{DeleteTypeUserSQL} from "../../model/TypeUserDAO/DeleteTypeUser.js"
 import{idTypeUser} from "../../model/TypeUserDAO/SelectByIdTypeUser.js"
 
-const DeleteTypeUser = async function (id) {
+export const DeleteTypeUser = async function (id) {
     try {
         let IdRecebido = id
         if 

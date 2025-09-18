@@ -6,10 +6,10 @@
  *       o Banco de Dados
  **************************************************/
 
-const {PrismaClient} = require('@prisma/client')
+ import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
-const loginSQLUser = async function (user) {
+export const loginSQLUser = async function (user) {
     try {
         
         let sql = `SELECT * FROM tbl_responsavel WHERE email = '${user.email}' AND senha = '${user.senha}'`

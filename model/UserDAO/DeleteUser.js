@@ -6,10 +6,10 @@
  *       o Banco de Dados
  **************************************************/
 
-const {PrismaClient} = require('@prisma/client')
+ import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
-const deleteSQLUser = async function (id) {
+export const deleteSQLUser = async function (id) {
     try {
         
         let sql = `DELETE * FROM tbl_user where id = ${id}`

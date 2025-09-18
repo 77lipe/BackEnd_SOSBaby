@@ -10,7 +10,7 @@ const message = require('../../config/status/status.js')
 import { deleteUser } from "../../model/ResponsableDAO/DeleteResp.js";
 import { idUser } from "../../model/ResponsableDAO/SelectIDResp.js";
 
-const DeleteResp = async function (id) {
+export const DeleteResp = async function (id) {
     try {
 
         let IDrecebido = id

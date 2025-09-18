@@ -10,7 +10,7 @@ const message = require('../../config/status/status.js')
 import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser.js"
 import { idTypeUser } from "../../model/TypeUserDAO/SelectByIdTypeUser.js";
 
-const selectIDUser = async function (id) {
+export const selectIDUser = async function (id) {
     try {
 
         let arrayUser = []

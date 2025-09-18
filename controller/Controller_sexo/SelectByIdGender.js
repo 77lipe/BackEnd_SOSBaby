@@ -10,7 +10,7 @@
 const message = require('../../config/status/status')
 import { idGender} from "../../model/TypeUserDAO/SelectByIdTypeUser"
 
-const SearchIDGender = async function(id) {
+export const SearchIDGender = async function(id) {
     try {
         let idGet = id
         let dadosGender = {}

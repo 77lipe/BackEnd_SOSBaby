@@ -6,10 +6,10 @@
  *       o Banco de Dados
  **************************************************/
 
-const {PrismaClient} = require('@prisma/client')
+ import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
-const selectSQLIdUser = async function (id) {
+export const selectSQLIdUser = async function (id) {
     try {
         let sql = `SELECT * FROM tbl_user WHERE id_user = ${id}`
         let resultUser = await prisma.$queryRawUnsafe(sql)

@@ -7,10 +7,10 @@
  **************************************************/
 
 
-const {PrismaClient} = require('@prisma/client')
-const prisma = new PrismaClient()
+ import {PrismaClient} from '@prisma/client'
+ const prisma = new PrismaClient()
 
-const idGender = async function (id) {
+ export const idGender = async function (id) {
     try {
         let sql = `SELECT * FROM tbl_sexo WHERE id = ${id} `
         let result = await prisma.queryRawUnsafe(sql)

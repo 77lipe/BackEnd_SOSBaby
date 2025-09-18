@@ -6,10 +6,10 @@
  *       o Banco de Dados
  **************************************************/
 
-const {PrismaClient} = require('@prisma/client')
+ import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
-const updateSQLUser = async function (user) {
+export const updateSQLUser = async function (user) {
     try {
         let sql = `UPDATE tbl_user SET 
         email  = '${user.email}',

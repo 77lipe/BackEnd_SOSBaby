@@ -6,10 +6,10 @@
  *       o Banco de Dados
  **************************************************/
 
-const {PrismaClient} = require('@prisma/client')
+ import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
-const deleteResp = async function(id) {
+export const deleteResp = async function(id) {
     try {
 
         let sql = `DELETE from tbl_responsavel where id = ${id}`

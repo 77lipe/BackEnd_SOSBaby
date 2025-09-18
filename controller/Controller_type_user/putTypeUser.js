@@ -10,7 +10,7 @@ const message = require('../../config/status/status.js')
 import { IdTypeUser } from "../../model/TypeUserDAO/SelectByIdTypeUser.js"
 import { updateTypeUser } from "../../model/TypeUserDAO/PutTypeUser.js"
 
-const UpdateTypeUser = async function(idType, type, contentType) {
+export const UpdateTypeUser = async function(idType, type, contentType) {
     try {
         if (String(contentType).toLowerCase() == 'application/json') {
             if (

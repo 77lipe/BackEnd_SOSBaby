@@ -9,7 +9,7 @@
 const message = require('../../config/status/status.js')
 import { insertSQLUser } from "../../model/UserDAO/InsertUser.js";
 
-const insertUser = async function (user,contentType) {
+export const insertUser = async function (user,contentType) {
     try {
         if (String(contentType).toLocaleLowerCase == 'application/json') {
             if(

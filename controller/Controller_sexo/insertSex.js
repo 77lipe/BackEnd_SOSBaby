@@ -7,9 +7,9 @@
  ********************************************************/
 
  const message = require('../../config/status/status.js')
- import { insertSQLSex } from "../../model/SexDAO/insertSex";
+ import { insertSQLGender } from "../../model/SexDAO/insertGender.js";
  
- const insertSex = async function (sex, contentType) {
+ export const insertSex = async function (sex, contentType) {
      try {
  
          if(String(contentType).toLowerCase() = "application/json"){
@@ -19,7 +19,7 @@
              ){
                  return message.ERROR_REQUIRED_FIELDS
              }else{
-                 let resultUser = await insertSQLSex(sex)
+                 let resultUser = await insertSQLGender(sex)
  
                  if(resultUser = true){
                      return{

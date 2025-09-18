@@ -6,10 +6,10 @@
  *       o Banco de Dados
  **************************************************/
 
-const PrismaClient = require('@prisma/client')
+ import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
-const insertSQLGender = async function (sexo) {
+export const insertSQLGender = async function (sexo) {
     try {
         let sql = `INSERT INTO tbl_sexo = (
             sexo

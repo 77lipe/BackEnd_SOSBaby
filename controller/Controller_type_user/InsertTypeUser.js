@@ -9,7 +9,7 @@
 const message = require('../../config/status/status.js')
 import { insertTypeUserSQL } from "../../model/TypeUserDAO/insertTypeUser.js";
 
-const insertTypeUser = async function (type, contentType) {
+export const insertTypeUser = async function (type, contentType) {
     try {
         
         if(String(contentType).toLowerCase()= "application/json"){

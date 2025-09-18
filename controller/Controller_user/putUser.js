@@ -10,7 +10,7 @@ const message = require('../../config/status/status.js')
 import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser.js"
 import { updateSQLUser } from "../../model/UserDAO/PutUser.js"
 
-const updateUser = async function (id, user, contentType) {
+export const updateUser = async function (id, user, contentType) {
     try {
         
         if (String(contentType).toLocaleLowerCase == 'application/json') {

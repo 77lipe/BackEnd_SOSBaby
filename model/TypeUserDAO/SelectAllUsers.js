@@ -7,11 +7,12 @@
  *******************************************************************/
 
 
-const {PrismaClient, Prisma} = require('@prisma/client')
+ import {PrismaClient} from '@prisma/client'
+
 const prisma = new PrismaClient()
 
 
-const SelectAllTypeUsersSQL = async function(){
+export const SelectAllTypeUsersSQL = async function(){
     try {
         let sql = 'select * from tbl_type_user order by id desc'
 

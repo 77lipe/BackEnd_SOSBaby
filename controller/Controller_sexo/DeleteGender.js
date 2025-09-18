@@ -15,11 +15,11 @@
  *       validações dos dados recebidos para DELETE um tipo de user
  ********************************************************/
 
-const message = require ('../../config/status/status')
-import{DeleteGenderSQL} from "../../model/SexDAO/DeleteGender"
+const message = require ('../../config/status/status.js')
+import{DeleteGenderSQL} from "../../model/SexDAO/DeleteGender.js"
 import{idGender} from "../../model/"
 
-const DeleteTypeUser = async function (id) {
+export const DeleteTypeUser = async function (id) {
     try {
         let IdRecebido = id
         if 

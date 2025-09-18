@@ -10,7 +10,7 @@
 const message = require('../../config/status/status')
 import { insertSQLGender } from "../../model/TypeUserDAO/insertTypeUser";
 
-const insertGender = async function (sex, contentType) {
+export const insertGender = async function (sex, contentType) {
     try {
 
         if(String(contentType).toLowerCase() = "application/json"){

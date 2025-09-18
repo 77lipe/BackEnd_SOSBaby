@@ -9,9 +9,9 @@
 const message = require('../../config/status/status')
 
 
-const ListAllResp = async function() {
+export const ListAllResp = async function() {
     try {
-        let 
+    
 
 
     } catch (error) {

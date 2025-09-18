@@ -9,7 +9,7 @@
 const message = require('../../config/status/status.js')
 import { SelectAllTypeUsersSQL } from "../../model/TypeUserDAO/SelectAllUsers.js";
 
-const SelectAllUsers = async function () {
+export const SelectAllUsers = async function () {
     try {
         let dadosType = {}
 

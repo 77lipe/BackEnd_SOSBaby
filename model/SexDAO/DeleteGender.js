@@ -7,10 +7,10 @@
  **************************************************/
 
 
-const {PrismaClient} = require('@prisma/client')
-const prisma = new PrismaClient()
+ import {PrismaClient} from '@prisma/client'
+ const prisma = new PrismaClient()
 
-const DeleteGenderSQL = async function(id) {
+ export const DeleteGenderSQL = async function(id) {
     try {
         let sql = `DELETE from tbl_sexo where id = ${id}`
         let result =  await prisma.executeRawUnsafe(sql, id)

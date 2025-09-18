@@ -10,7 +10,7 @@ const message = require('../../config/status/status.js')
 import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser.js"
 import { deleteSQLUser } from "../../model/UserDAO/DeleteUser.js"
 
-const deleteUser = async function (id) {
+export const deleteUser = async function (id) {
     try {
         if(
             id == undefined || id == null || id == "" || isNaN(id)

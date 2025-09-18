@@ -6,12 +6,12 @@
  *       o Banco de Dados
  **************************************************/
 
-const {PrismaClient, Prisma} = require('@prisma/client')
+ import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
 //import {insertUser} from "../../controller/Controller_users/InsertUser"
 
-const insertSQLResp = async function (user) {
+export const insertSQLResp = async function (user) {
     try {
         
         let sql = `insert into tbl_responsavel(

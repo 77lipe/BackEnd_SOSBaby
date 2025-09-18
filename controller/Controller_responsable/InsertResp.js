@@ -7,10 +7,10 @@
  ********************************************************/
 
 const message = require('../../config/status/status.js')
-import { insertSQLUser } from "../../model/ResponsableDAO/InsertResp.js";
+import { insertSQLResp } from "../../model/ResponsableDAO/InsertResp.js";
 
 
-const insertResp = async function (user, contentType) {
+export const insertResp = async function (user, contentType) {
     try {
 
         if(String(contentType).toLocaleLowerCase() = "application/json"){
@@ -27,7 +27,7 @@ const insertResp = async function (user, contentType) {
             ){
                 return message.ERROR_REQUIRED_FIELDS
             }else{
-                let resultUser = await insertSQLUser(user)
+                let resultUser = await insertSQLResp(user)
 
                 if(resultUser = true){
                     return{

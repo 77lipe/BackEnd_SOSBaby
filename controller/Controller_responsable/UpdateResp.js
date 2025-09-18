@@ -11,7 +11,7 @@ import { idUser } from "../../model/ResponsableDAO/SelectIDResp.js"
 import { updateUser } from "../../model/ResponsableDAO/PutResp.js"
 
 
-const UpdateResp = async function(id, user, contentType) {  
+export const UpdateResp = async function(id, user, contentType) {  
     try {
 
         if(String(contentType).toLocaleLowerCase() == 'application/json'){

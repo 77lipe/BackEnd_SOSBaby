@@ -11,7 +11,7 @@ const message = require('../../config/status/status.js')
 import { idResp } from "../../model/ResponsableDAO/SelectIDResp.js";
 import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser.js";
 
-const searchIDResp = async function (id) {
+export const searchIDResp = async function (id) {
     try {
         let idGet = id
         let respArray = []

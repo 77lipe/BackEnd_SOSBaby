@@ -9,7 +9,7 @@
 const message = require('../../config/status/status.js')
 import { loginSQLUser } from "../../model/UserDAO/LoginUser.js"
 
-const loginUser = async function (user, contentType) {
+export const loginUser = async function (user, contentType) {
     try {
         
 

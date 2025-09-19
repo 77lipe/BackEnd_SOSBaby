@@ -15,7 +15,7 @@
  *       validações dos dados recebidos para DELETE um tipo de user
  ********************************************************/
 
-import message from '../../config/status/status.js'
+import * as message from '../../config/status/status.js'
 import{DeleteGenderSQL} from "../../model/SexDAO/DeleteGender.js"
 import{idGender} from "../../model/"
 

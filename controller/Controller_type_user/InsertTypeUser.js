@@ -6,13 +6,13 @@
  *       validações dos dados recebidos para INSERT um tipo user
  ********************************************************/
 
-import message from '../../config/status/status.js'
+import * as message from '../../config/status/status.js'
 import { insertTypeUserSQL } from "../../model/TypeUserDAO/insertTypeUser.js";
 
 export const insertTypeUser = async function (type, contentType) {
     try {
         
-        if(String(contentType).toLowerCase()= "application/json"){
+        if(String(contentType).toLowerCase() === "application/json"){
             if (
                 type.tipo == "" || type.tipo == undefined || type.tipo == null || type.tipo.length > 100
             ) {
@@ -20,10 +20,10 @@ export const insertTypeUser = async function (type, contentType) {
             } else {
                 let resultType = await insertTypeUserSQL(type)
 
-                if (resultType = true) {
+                if (resultType) {
                     return{
                          ...message.SUCCES_CREATED_ITEM,
-                         data: resultUser
+                         data: resultType
                     }
                 } else {
                     return message.ERROR_INTERNAL_SERVER_MODEL

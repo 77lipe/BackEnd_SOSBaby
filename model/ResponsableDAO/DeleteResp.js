@@ -6,7 +6,7 @@
  *       o Banco de Dados
  **************************************************/
 
- import {PrismaClient} from '@prisma/client'
+import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
 export const deleteResp = async function(id) {

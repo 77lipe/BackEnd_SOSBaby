@@ -6,22 +6,22 @@
  *       validações dos dados recebidos para INSERT sexo
  ********************************************************/
 
-import message from '../../config/status/status.js'
+import * as message from '../../config/status/status.js'
 import { insertSQLGender } from "../../model/SexDAO/insertGender.js";
  
  export const insertSex = async function (sex, contentType) {
      try {
  
-         if(String(contentType).toLowerCase() = "application/json"){
+         if(String(contentType).toLowerCase() === "application/json"){
              if(
-                 sex.sexo          == "" || sex.sexo           == undefined || sex.sexo           == null || sex.sexo.length > 20   
+                 sex.sexo          == "" || sex.sexo           == undefined || sex.sexo           == null || sex.sexo.length > 12   
               
              ){
                  return message.ERROR_REQUIRED_FIELDS
              }else{
+
                  let resultUser = await insertSQLGender(sex)
- 
-                 if(resultUser = true){
+                 if(resultUser){
                      return{
                          ...message.SUCCES_CREATED_ITEM,
                          data: resultUser
@@ -36,6 +36,7 @@ import { insertSQLGender } from "../../model/SexDAO/insertGender.js";
          }
  
      } catch (error) {
-         return message.ERROR_INTERNAL_SERVER_CONTROLLER
+        console.log(error);
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER
      }
  }

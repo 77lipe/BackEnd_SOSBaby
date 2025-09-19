@@ -6,15 +6,15 @@
  *       validações dos dados recebidos para INSERT user
  ********************************************************/
 
-import message from '../../config/status/status.js'
+import * as message from '../../config/status/status.js'
 import { insertSQLUser } from "../../model/UserDAO/InsertUser.js";
 
 export const insertUser = async function (user,contentType) {
     try {
-        if (String(contentType).toLocaleLowerCase == 'application/json') {
+        if (String(contentType).toLocaleLowerCase() === 'application/json') {
             if(
-                user.email   == "" || user.email   == undefined || user.email   == null || user.email > 100 ||
-                user.senha   == "" || user.senha   == undefined || user.senha   == null || user.senha > 45  ||
+                user.email   == "" || user.email   == undefined || user.email   == null || user.email.length > 100 ||
+                user.senha   == "" || user.senha   == undefined || user.senha   == null || user.senha.length > 100 ||
                 user.id_tipo == "" || user.id_tipo == undefined || user.id_tipo == null || isNaN(user.id_tipo)
                ){ 
                 return message.ERROR_REQUIRED_FIELDS

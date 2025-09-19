@@ -7,13 +7,13 @@
  *       validações dos dados recebidos para INSERT sexo
  ********************************************************/
 
-import message from '../../config/status/status.js'
+import * as message from '../../config/status/status.js'
 import { insertSQLGender } from "../../model/TypeUserDAO/insertTypeUser";
 
 export const insertGender = async function (sex, contentType) {
     try {
 
-        if(String(contentType).toLowerCase() = "application/json"){
+        if(String(contentType).toLowerCase() === "application/json"){
             if(
                 sex.sexo          == "" || sex.sexo           == undefined || sex.sexo           == null || sex.sexo.length > 20   
              

@@ -6,7 +6,7 @@
  *       validações dos dados recebidos para DELETE user
  ********************************************************/
 
-import message from '../../config/status/status.js'
+import * as message from '../../config/status/status.js'
 import { deleteUser } from "../../model/ResponsableDAO/DeleteResp.js";
 import { idUser } from "../../model/ResponsableDAO/SelectIDResp.js";
 

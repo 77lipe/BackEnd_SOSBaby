@@ -7,7 +7,7 @@
  *       responsável específico
  ********************************************************/
 
-import message from '../../config/status/status.js'
+import * as message from '../../config/status/status.js'
 import { idResp } from "../../model/ResponsableDAO/SelectIDResp.js";
 import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser.js";
 

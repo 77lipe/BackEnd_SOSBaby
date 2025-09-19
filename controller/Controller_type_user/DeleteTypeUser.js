@@ -6,7 +6,7 @@
  *       validações dos dados recebidos para DELETE um tipo de user
  ********************************************************/
 
-import message from '../../config/status/status.js'
+import * as message from '../../config/status/status.js'
 import{DeleteTypeUserSQL} from "../../model/TypeUserDAO/DeleteTypeUser.js"
 import{idTypeUser} from "../../model/TypeUserDAO/SelectByIdTypeUser.js"
 

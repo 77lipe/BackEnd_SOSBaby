@@ -6,7 +6,7 @@
  *       validações dos dados recebidos para Listar todos os  users
  *******************************************************************/
 
-import message from '../../config/status/status.js'
+import * as message from '../../config/status/status.js'
 
 
 export const ListAllResp = async function() {

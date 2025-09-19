@@ -6,27 +6,27 @@
  * 
  * Instalações necessárias:
  *     Para criar a API precisamos instalar:
-*          * express           npm install express --save
-*          * cors              npm install cors --save
-*          * body-parser       npm install body-parser --save
-*
-*      Para criar a integração com o Banco de Dados precisamos instalar:
-*          * prisme            npm install prisma --save           (para fazer conexão com o BD)
-*          * prisma/client     npm install @prisma/client --save   (para rodar os scripts SQL)
-*        
-* 
-*            Após a instalação do prisma e do prisma client, devemos:
-*              npx prisma init
-*            Você deverá configurar o arquivo .env e schema.prisma com as credenciais do BD
-*            Após essa configuração deverá rodar o seguinte comando:
-*              npx prisma migrate dev
+ *          * express           npm install express --save
+ *          * cors              npm install cors --save
+ *          * body-parser       npm install body-parser --save
+ *
+ *      Para criar a integração com o Banco de Dados precisamos instalar:
+ *          * prisma            npm install prisma --save           (para fazer conexão com o BD)
+ *          * prisma/client     npm install @prisma/client --save   (para rodar os scripts SQL)
+ *        
+ * 
+ *            Após a instalação do prisma e do prisma client, devemos:
+ *              npx prisma init
+ *            Você deverá configurar o arquivo .env e schema.prisma com as credenciais do BD
+ *            Após essa configuração deverá rodar o seguinte comando:
+ *               npx prisma migrate dev
  * 
  **************************************************/
 
 //Import das bibliotecas para configurar a API 
-const express       = require('express')
-const cors          = require('cors')
-const bodyParser    = require('body-parser')
+import express from 'express'
+import cors from 'cors'
+import bodyParser from 'body-parser'
 
 //Manipular o body da quisição para chegar apenas JSON
 const bodyParserJSON = bodyParser.json()
@@ -57,7 +57,7 @@ app.get('/v1/controle-baby/sangue', cors(), bodyParserJSON, async function(reque
 
     //Recebe do body da requisição os dados encaminhados
     let dadosBody = request.body
-    let resultSangue = await controllerSangue.insertSangue(dadosBody,contentType)
+    let resultSangue = await insertSangue(dadosBody,contentType)
 
     response.status(resultSangue.status_code)
     response.json(resultSangue)
@@ -72,34 +72,15 @@ app.post('/v1/sexo', cors(), bodyParserJSON, async function (request, response){
 
     //Recebe do body da requisição os dados encaminhados
     let dadosBody = request.body
-    let resultSexo = await insertSex(dadosBody,contentType)
+    let resultReqSex = await insertSex(dadosBody,contentType)
 
     response.status(resultReqSex.status_code)
     response.json(resultReqSex)
 })
 
-//Listar Todos
-app.get('/v1/controle-sexo/sexo', cors(), bodyParserJSON, async function (request, response){
-
-    let resultSexo = await controllerSexo.listarSexo()
-
-    response.status(resultSexo.status_code)
-    response.json(resultSexo)
-})
-
-app.delete('v1/controle-sexo/sexo:id', cors(), bodyParserJSON, async function (request, response){
-    
-    let id = request.params.id
-
-    let resultSexo = await controllerSexo.DeletSex(id)
-
-    response.status(resultSexo.status_code)
-    response.json(resultSexo)
-})
-
 /************************************************ USER *************************************************************/
 
-//Inserir
+// USER
 app.post('/v1/user', cors(), bodyParserJSON, async function (request, response){
 
       let contentType = request.headers['content-type']
@@ -111,18 +92,6 @@ app.post('/v1/user', cors(), bodyParserJSON, async function (request, response){
     response.status(resultUser.status_code)
     response.json(resultUser)
 })
-
-//Listar Todos
-app.get('/v1/user', cors(), bodyParserJSON, async function (request, response){
-
-    let resultUser = await controllerUser.listAllUsers()
-
-    response.status(resultUser.status_code)
-    response.json(resultUser)
-})
-
-
-
 
 
 // TYPE-USER
@@ -140,7 +109,7 @@ app.post('/v1/typeUser', cors(), bodyParserJSON, async function (request, respon
 
 
 
-//RESPONSABLE
+// RESPONSABLE
 app.post('/v1/responsable', cors(), bodyParserJSON, async function (request, response){
 
     let contentType = request.headers['content-type']
@@ -151,4 +120,9 @@ app.post('/v1/responsable', cors(), bodyParserJSON, async function (request, res
 
   response.status(resultUser.status_code)
   response.json(resultUser)
+})
+
+
+app.listen('3030', function(){
+    console.log('API funcionando e aguardando requisições...')
 })

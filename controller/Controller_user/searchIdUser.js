@@ -6,7 +6,7 @@
  *       validações dos dados recebidos para INSERT user
  ********************************************************/
 
-import message from '../../config/status/status.js'
+import * as message from '../../config/status/status.js'
 import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser.js"
 import { idTypeUser } from "../../model/TypeUserDAO/SelectByIdTypeUser.js";
 

@@ -11,7 +11,7 @@ const prisma = new PrismaClient()
 
 export const insertSQLUser = async function (user) {
     try {
-        let sql = `INSERT INTO tbl_user = (
+        let sql = `INSERT INTO tbl_user (
             email,
             senha,
             id_tipo
@@ -22,8 +22,8 @@ export const insertSQLUser = async function (user) {
         )`
 
         let result = await prisma.$executeRawUnsafe(sql)
-        if (result == true) {
-            let getID = `SELECT * FROM tbl_user WHERE email = ${user.email} ORDER BY id_user DESC LIMIT 1`
+        if (result) {
+            let getID = `SELECT * FROM tbl_user WHERE email = '${user.email}' ORDER BY id_user DESC LIMIT 1`
             let id = await prisma.$queryRawUnsafe(getID)
 
             return id[0]

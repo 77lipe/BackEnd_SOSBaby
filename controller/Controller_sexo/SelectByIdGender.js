@@ -7,7 +7,7 @@
  *******************************************************************/
 
 
-import message from '../../config/status/status.js'
+import * as message from '../../config/status/status.js'
 import { idGender} from "../../model/TypeUserDAO/SelectByIdTypeUser"
 
 export const SearchIDGender = async function(id) {

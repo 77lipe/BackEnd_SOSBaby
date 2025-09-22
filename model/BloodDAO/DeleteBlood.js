@@ -1,28 +1,29 @@
 /**************************************************
- * Autor: Eduardo
- * Date: 16/09/25
+ * Autor: Felipe Vieira
+ * Date: 21/09/25
  * Versão: 1.0
  * Desc: App que irá conter as inserções para
  *       o Banco de Dados
  **************************************************/
 
+ import {PrismaClient} from '@prisma/client'
+ const prisma = new PrismaClient()
 
-import {PrismaClient} from '@prisma/client'
-const prisma = new PrismaClient()
-
-export const idTypeUser = async function (id) {
+ export const DeleteSQLBlood = async function (blood) {
     try {
 
-        let sql = `SELECT * FROM tbl_type_user  WHERE id = ${id} `
-        let result = await prisma.queryRawUnsafe(sql)
-        
+        let sql = `DELETE FROM tbl_sangue WHERE id = ${blood.id}`
+        let result = await prisma.$executeRawUnsafe(sql)
+
         if (result) {
             return true
-        } else {
+        }else{
             return false
         }
+
     } catch (error) {
         console.log(error)
         return false
+        
     }
-}
+ }

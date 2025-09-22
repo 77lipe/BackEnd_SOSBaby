@@ -21,6 +21,7 @@ export const ListAllResp = async function() {
             if (resultResps.length > 0) {
                 responDataJson.message = message.SUCCES_SEARCH_ITEM
                 responDataJson.items = resultResps.length
+                responDataJson.responsaveis = resultResps
 
                 for(item of resultResps){
                     let dadoUser = await selectSQLIdUser(item.id_user)
@@ -28,7 +29,7 @@ export const ListAllResp = async function() {
 
                     responsArray.push(item)
                 }
-                responDataJson.responsaveis = responsArray
+                responDataJson.tipo_usuario = responsArray
                 return responDataJson
             }else{
                 return message.ERROR_NOT_FOUND

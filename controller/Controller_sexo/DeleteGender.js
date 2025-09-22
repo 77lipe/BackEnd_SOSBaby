@@ -32,7 +32,7 @@ export const DeleteTypeUser = async function (id) {
             if (result != false || typeof(result) == 'object') {
                 if (result.length > 0 ) {
                     let IdRecebido = await DeleteGenderSQL(id)
-                    if (IdRecebido = true) {
+                    if (IdRecebido) {
                         return message.SUCCES_DELETED_ITEM
                     } else {
                         return message.ERROR_INTERNAL_SERVER_MODEL

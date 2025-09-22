@@ -16,7 +16,7 @@ export const idTypeUser = async function (id) {
         let sql = `SELECT * FROM tbl_type_user  WHERE id = ${id} `
         let result = await prisma.queryRawUnsafe(sql)
         if (result) {
-            returntrue
+            return true
         } else {
             return false
         }

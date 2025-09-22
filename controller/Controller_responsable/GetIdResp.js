@@ -28,7 +28,7 @@ export const searchIDResp = async function (id) {
 
                     for(itemRespon of resultResp){
                         let dadosUser = await selectSQLIdUser(id_user)
-                        itemRespon.usuario = dadosUser
+                        itemRespon.usuario = dadosUser.id_tipo
 
                         respArray.push(itemRespon)
                     }

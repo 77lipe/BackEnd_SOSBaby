@@ -23,7 +23,7 @@ export const DeleteResp = async function (id) {
                 if(resultUser.length > 0){
 
                     let IdRecebido = await deleteUser(id)
-                    if(IdRecebido = true){
+                    if(IdRecebido){
                         return message.SUCCES_DELETED_ITEM
                     }else{
                         return message.ERROR_INTERNAL_SERVER_MODEL

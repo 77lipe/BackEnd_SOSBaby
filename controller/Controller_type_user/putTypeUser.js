@@ -25,7 +25,7 @@ export const UpdateTypeUser = async function(idType, type, contentType) {
                         type.id = idType
                         let resultID = await updateTypeUser(type)
                         
-                        if (resultID = true) {
+                        if (resultID) {
                             return message.SUCCES_UPDATE_ITEM
                         } else {
                             return message.ERROR_INTERNAL_SERVER_MODEL

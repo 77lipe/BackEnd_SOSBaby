@@ -15,7 +15,7 @@
         let sql = `SELECT * FROM tbl_sexo WHERE id = ${id} `
         let result = await prisma.queryRawUnsafe(sql)
         if (result) {
-            returntrue
+            return true
         } else {
             return false
         }

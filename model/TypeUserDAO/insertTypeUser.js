@@ -9,12 +9,12 @@
 import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
-export const insertTypeUserSQL = async function(type) {
+export const insertTypeUserSQL = async function(tipo) {
     try {
         let sql = `insert into tbl_type_user(
                     tipo
                     )values(
-                     '${type.tipo}'
+                     '${tipo.tipo}'
                     )`
 
         let result = await prisma.$executeRawUnsafe(sql)

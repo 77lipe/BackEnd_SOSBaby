@@ -12,11 +12,11 @@ const prisma = new PrismaClient()
 export const loginSQLUser = async function (user) {
     try {
         
-        let sql = `SELECT * FROM tbl_responsavel WHERE email = '${user.email}' AND senha = '${user.senha}'`
+        let sql = `SELECT * FROM tbl_user WHERE email = '${user.email}' and senha = '${user.senha}'`
         let resultUser = await prisma.$queryRawUnsafe(sql)
 
         if (resultUser) {
-            return true
+            return resultUser
         }else{
             return false
         }

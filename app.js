@@ -68,12 +68,13 @@ import { DeleteResp } from "./controller/Controller_responsable/DeleteResp.js";
 
 //BABY
 
+/*
 import { insertBaby } from "./controller/Controller_baby/insertBebe.js"
 import { ListAllBaby } from "./controller/Controller_baby/selectAllBebe.js"
 import { searchIDBaby } from "./controller/Controller_baby/SelectIdBebe.js"
 import { UpdateBaby } from "./controller/Controller_baby/updateBebe.js"
 import { DeleteBaby } from "./controller/Controller_baby/deleteBebe.js"
-
+*/
 
 //Cria o objeto app com referencias do express para criar a API 
 const app = express()

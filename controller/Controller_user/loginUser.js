@@ -14,10 +14,10 @@ export const loginUser = async function (user, contentType) {
         
 
         let dadosLogin = {}
-        if (String(contentType).toLocaleLowerCase == 'application/json') {
+        if (String(contentType).toLowerCase().includes('application/json')) {
             if (
-                user.email == "" || user.email == undefined || user.email == null || user.email > 100  ||
-                user.senha == "" || user.senha == undefined || user.senha == null || user.senha > 50
+                user.email == "" || user.email == undefined || user.email == null || user.email.length > 100  ||
+                user.senha == "" || user.senha == undefined || user.senha == null || user.senha.length > 50
             ){
                 return message.ERROR_REQUIRED_FIELDS
             }else{
@@ -25,10 +25,10 @@ export const loginUser = async function (user, contentType) {
                 let resultUser = await loginSQLUser(user)
                 if(resultUser != false || typeof(resultUser) == 'object'){
                     if (resultUser.length > 0) {
-                        dadosLogin.message = message.SUCCES_LOGIN_COMPLETED
-                        dadosLogin.user = resultUser
-
-                        return dadosLogin
+                        return {
+                            ...message.SUCCES_LOGIN_COMPLETED,
+                            data: resultUser
+                        }
                     }
                     return message.ERROR_NOT_FOUND
                 }else{

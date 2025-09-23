@@ -7,8 +7,8 @@
  ********************************************************/
 
 import * as message from '../../config/status/status.js'
-import { idUser } from "../../model/ResponsableDAO/SelectIDResp.js"
-import { updateUser } from "../../model/ResponsableDAO/PutResp.js"
+import { idResp } from "../../model/ResponsableDAO/SelectIDResp.js"
+import { updateResp } from "../../model/ResponsableDAO/PutResp.js"
 
 
 export const UpdateResp = async function(id, user, contentType) {  
@@ -28,13 +28,13 @@ export const UpdateResp = async function(id, user, contentType) {
             ){
                 return message.ERROR_REQUIRED_FIELDS
             }else{
-                let resultUser = await idUser(id)
+                let resultUser = await idResp(id)
 
                 if (resultUser != false || typeof(resultUser) == 'object'){
                     if(resultUser.lenght > 0){
 
                         user.id = id
-                        let resultID = await updateUser(user)
+                        let resultID = await updateResp(user)
                         
                         if(resultID){
                             return message.SUCCES_UPDATE_ITEM

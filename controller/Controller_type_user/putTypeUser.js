@@ -7,7 +7,7 @@
  **************************************************/
 
 import * as message from '../../config/status/status.js'
-import { IdTypeUser } from "../../model/TypeUserDAO/SelectByIdTypeUser.js"
+import { idTypeUser } from "../../model/TypeUserDAO/SelectByIdTypeUser.js"
 import { updateTypeUser } from "../../model/TypeUserDAO/PutTypeUser.js"
 
 export const UpdateTypeUser = async function(idType, type, contentType) {
@@ -18,7 +18,7 @@ export const UpdateTypeUser = async function(idType, type, contentType) {
             ) {
                 return message.ERROR_REQUIRED_FIELDS
             } else {
-                let result = await IdTypeUser(id)
+                let result = await idTypeUser(id)
 
                 if (result != false  || typeof(result) == 'object') {
                     if (result.lenght > 0) {

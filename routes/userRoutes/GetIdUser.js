@@ -6,8 +6,7 @@
  *       rotas para GET ID DO USER
  ********************************************************/
 
-import express, {Router} from "express"
-import bodyParser from "body-parser"
+import {Router} from "express"
 import cors from 'cors'
 const routerIdUser = Router()
 

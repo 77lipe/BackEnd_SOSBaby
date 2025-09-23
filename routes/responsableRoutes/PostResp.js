@@ -3,7 +3,7 @@
  * Date:23/09/25
  * Versão: 1.0
  * Desc: App que irá realizar as 
- *       rotas para POST USER
+ *       rotas para POST RESPONSÁVEL
  ********************************************************/
 
 import cors from 'cors'

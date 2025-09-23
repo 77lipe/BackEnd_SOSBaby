@@ -6,15 +6,14 @@
  *       rotas para DELETE DO USER
  ********************************************************/
 
-import express, {Router} from "express";
-import bodyParser from "body-parser";
+import {Router} from "express";
 import cors from 'cors'
 
 import { deleteUser } from "../../controller/Controller_user/deleteUser";
 
 const routerDeleteUser = Router()
 
-routerDeleteUser.get('/user/delete', cors(), async(req, res) => {
+routerDeleteUser.get('/user/:id', cors(), async(req, res) => {
 
     let id = req.params.id
     let resultDeleteUser = await deleteUser(id)

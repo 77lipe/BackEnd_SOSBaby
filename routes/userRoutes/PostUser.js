@@ -6,9 +6,9 @@
  *       rotas para POST USER
  ********************************************************/
 
-import cors from 'cors'
+
 import bodyParser from 'body-parser'
-import express,{ Router } from 'express'
+import { Router } from 'express'
 const routerInsertUser = Router()
 
 import { insertUser } from "../../controller/Controller_user/insertUser.js"

@@ -3,7 +3,7 @@
  * Date:23/09/25
  * Versão: 1.0
  * Desc: App que irá realizar as 
- *       rotas para GET ID DO USER
+ *       rotas para GET ID DO RESPONSÁVEL
  ********************************************************/
 
 import express, {Router} from "express"

@@ -6,7 +6,7 @@
  *       rotas para POST USER
  ********************************************************/
 
-import express, {Router} from 'express'
+import {Router} from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
@@ -15,12 +15,13 @@ import {updateUser} from '../../controller/Controller_user/putUser'
 const routerUpdateUser = Router()
 const bodyJsonParser = bodyParser.json()
 
-routerUpdateUser.put('/user/update', bodyJsonParser, async (req, res) => {
+routerUpdateUser.put('/user/:id', cors(), bodyJsonParser, async (req, res) => {
 
+    let id = req.params.id
     let contentType = req.body['content-type']
     let dataUser = req.body
 
-    let resulUpdateUser = await updateUser(dataUser, contentType)
+    let resulUpdateUser = await updateUser( id, dataUser, contentType)
 
     return res.status(resulUpdateUser.status_code).json(resulUpdateUser)
 })

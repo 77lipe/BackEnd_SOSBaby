@@ -3,7 +3,7 @@
  * Date:23/09/25
  * Versão: 1.0
  * Desc: App que irá realizar as 
- *       rotas para GET ID DO USER
+ *       rotas para GET ID DO SANGUE
  ********************************************************/
 
 import express, {Router} from "express"
@@ -16,9 +16,9 @@ import {selectAllBlood} from "../../controller/Controller_blood/selectAllSangue"
 routerAllBlood.get('blood/:id', cors(), async (req, res) => {
 
     let id = req.params.id
-    let resultIdBlood = await selectIDBlood (id)
+    let resultAllBlood = await selectAllBlood (id)
 
-    return res.status(resultIdBlood.status_code).json(resultIdBlood)
+    return res.status(resulAllBlood.status_code).json(resultAllBlood)
 })
 
-export default routerIdBlood
+export default routerAllBlood

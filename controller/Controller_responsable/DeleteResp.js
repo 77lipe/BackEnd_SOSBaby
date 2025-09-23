@@ -7,8 +7,8 @@
  ********************************************************/
 
 import * as message from '../../config/status/status.js'
-import { deleteUser } from "../../model/ResponsableDAO/DeleteResp.js";
-import { idUser } from "../../model/ResponsableDAO/SelectIDResp.js";
+import { deleteResp } from "../../model/ResponsableDAO/DeleteResp.js";
+import { idResp } from "../../model/ResponsableDAO/SelectIDResp.js";
 
 export const DeleteResp = async function (id) {
     try {
@@ -18,11 +18,11 @@ export const DeleteResp = async function (id) {
             return message.ERROR_REQUIRED_FIELDS
         }else{
             
-            let resultUser = await idUser(id)
+            let resultUser = await idResp(id)
             if(resultUser != false || typeof(resultUser) == 'object'){
                 if(resultUser.length > 0){
 
-                    let IdRecebido = await deleteUser(id)
+                    let IdRecebido = await deleteResp(id)
                     if(IdRecebido){
                         return message.SUCCES_DELETED_ITEM
                     }else{

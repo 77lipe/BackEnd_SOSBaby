@@ -7,7 +7,7 @@
  ********************************************************/
 
 import * as message from '../../config/status/status.js'
-import{DeleteTypeUserSQL} from "../../model/TypeUserDAO/DeleteTypeUser.js"
+import{deleteTypeUserSQL} from "../../model/TypeUserDAO/DeleteTypeUser.js"
 import{idTypeUser} from "../../model/TypeUserDAO/SelectByIdTypeUser.js"
 
 export const DeleteTypeUser = async function (id) {
@@ -22,7 +22,7 @@ export const DeleteTypeUser = async function (id) {
             let result = await idTypeUser(id)
             if (result != false || typeof(result) == 'object') {
                 if (result.length > 0 ) {
-                    let IdRecebido = await DeleteTypeUserSQL(id)
+                    let IdRecebido = await deleteTypeUserSQL(id)
                     if (IdRecebido = true) {
                         return message.SUCCES_DELETED_ITEM
                     } else {

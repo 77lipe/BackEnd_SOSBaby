@@ -1,25 +1,16 @@
 /*********************************************************
- * Autor: Eduardo Nascimento Couto Luiz
- * Date: 16/09/25
+ * Autor: Felipe Vieira
+ * Date: 22/09/25
  * Versão: 1.0
  * Desc: App que irá realizar as 
  *       validações dos dados recebidos para DELETE sexo
  ********************************************************/
 
-
-/*********************************************************
- * Autor: Eduardo Couto
- * Date: 16/09/25
- * Versão: 1.0
- * Desc: App que irá realizar as 
- *       validações dos dados recebidos para DELETE um tipo de user
- ********************************************************/
-
 import * as message from '../../config/status/status.js'
 import{DeleteGenderSQL} from "../../model/SexDAO/DeleteGender.js"
-import{idGender} from "../../model/"
+import{idGender} from "../../model/SexDAO/SelectByIdGender.js"
 
-export const DeleteTypeUser = async function (id) {
+export const DeleteGender = async function (id) {
     try {
         let IdRecebido = id
         if 

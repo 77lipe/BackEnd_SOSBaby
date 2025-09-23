@@ -29,6 +29,7 @@ import cors from 'cors'
 
 import babyRoutes from './routes/babyRoutes/index.js'
 
+
 const app = express()
 app.use(cors())
 app.use(express.json)

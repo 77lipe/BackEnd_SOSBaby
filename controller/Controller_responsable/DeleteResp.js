@@ -1,15 +1,16 @@
 /*********************************************************
- * Autor: Eduardo Nascimento Couto Luiz
+ * Autor: Felipe Vieira
  * Date: 16/09/25
  * Versão: 1.0
  * Desc: App que irá realizar as 
- *       validações dos dados recebidos para DELETE sexo
+ *       validações dos dados recebidos para DELETE user
  ********************************************************/
 
-const message = require('../../config/status/status')
+import * as message from '../../config/status/status.js'
+import { deleteUser } from "../../model/ResponsableDAO/DeleteResp.js";
+import { idUser } from "../../model/ResponsableDAO/SelectIDResp.js";
 
-
-const DeleteSex = async function (id) {
+export const DeleteResp = async function (id) {
     try {
 
         let IDrecebido = id
@@ -17,12 +18,12 @@ const DeleteSex = async function (id) {
             return message.ERROR_REQUIRED_FIELDS
         }else{
             
-            let resultUser = await userDAO.selectById(id)
+            let resultUser = await idUser(id)
             if(resultUser != false || typeof(resultUser) == 'object'){
                 if(resultUser.length > 0){
 
-                    let IdRecebido = await userDAO.DeleteUser(id)
-                    if(IdRecebido = true){
+                    let IdRecebido = await deleteUser(id)
+                    if(IdRecebido){
                         return message.SUCCES_DELETED_ITEM
                     }else{
                         return message.ERROR_INTERNAL_SERVER_MODEL

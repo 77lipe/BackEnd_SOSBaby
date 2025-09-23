@@ -1,38 +1,34 @@
-/*********************************************************
- * Autor: Eduardo Nascimento Couto Luiz
- * Date: 16/09/25
+/*******************************************************************
+ * Autor: Felipe Vieira
+ * Date: 18/09/25
  * Versão: 1.0
  * Desc: App que irá realizar as 
- *       validações dos dados recebidos para Listar os sexo
- ********************************************************/
+ *       validações dos dados recebidos para Listar todos os  users
+ *******************************************************************/
 
-const listarSexo = async function(){
+import * as message from '../../config/status/status.js'
+import { SelectAllGenderSQL } from "../../model/SexDAO/SelectAllSex.js";
+
+export const SelectAllGender = async function () {
     try {
-        //Criando um Objeto JSON
-        let dadosSexo = {}
+        let dadosType = {}
 
-        //Chama a função para retornar as statuss do banco de dados
-        let resultSexo = await sexoDAO.selectAllSexo()
+        let resultType = await SelectAllGenderSQL()
 
-        if(resultSexo != false){
-            if(resultSexo.length > 0){
-                //Cria um JSON para colocar o ARRAY de statuss
-                dadosSexo.status = true
-                dadosSexo.status_code = 200,
-                dadosSexo.items = resultSexo.length
-                dadosSexo.sexo = resultSexo
+        if (resultType != false) {
+            if (resultType.length > 0) {
+                dadosType.message = message.SUCCES_SEARCH_ITEM
+                dadosType.items = resultType.length
+                dadosType.type = resultType
 
-                return dadosSexo
-
-            }else{
-                return message.ERROR_NO_FOUND//404
+                return dadosType
+            } else {
+                 return message.ERROR_NOT_FOUND
             }
-        }else{
-            return message.ERROR_INTERNAL_SERVER_MODEL//500
+        } else {
+             return message.ERROR_INTERNAL_SERVER_MODEL
         }
-        
     } catch (error) {
-        return message.ERROR_INTERNAL_SERVER_CONTROLLER //500
+         return message.ERROR_INTERNAL_SERVER_CONTROLLER 
     }
-    
 }

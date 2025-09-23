@@ -1,21 +1,39 @@
 /*********************************************************
- * Autor: Eduardo Nascimento
- * Date: 16/09/25
+ * Autor: Felipe Vieira
+ * Date: 21/09/25
  * Versão: 1.0
  * Desc: App que irá realizar as 
  *       validações dos dados recebidos para INSERT tipo sanguneo
  ********************************************************/
 
-const message = require ('../../modulo')
+import * as message from '../../config/status/status.js'
+import { InsertSQLBlood } from '../../model/BloodDAO/InsertBlood.js'
 
-const insertSangue = async function (tipo) {
+export const insertSangue = async function (blood, contentType) {
     try {
+
         if (String(contentType).toLowerCase() == 'application/json') {
-            
-        } else {
-            
+            if (
+                blood.tipo_sanguineo == "" || blood.tipo_sanguineo == null || blood.tipo_sanguineo == undefined || blood.tipo_sanguineo.length > 3
+            ){
+              return message.ERROR_REQUIRED_FIELDS
+            }else{
+                let resultBlood = await InsertSQLBlood(blood)
+
+                if (resultBlood) {
+                    return {
+                        ...message.SUCCES_CREATED_ITEM,
+                        data: resultBlood
+                    }
+                } else {
+                    return message.ERROR_INTERNAL_SERVER_MODEL
+                }
+            }
+        }else{
+            return message.ERROR_CONTENT_TYPE
         }
     } catch (error) {
-        
+        console.log(error)
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER   
     }
 }

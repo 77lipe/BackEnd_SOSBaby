@@ -1,5 +1,5 @@
 /*********************************************************
- * Autor: Felipe Vieira
+ * Autor: Isabelly Lima
  * Date:23/09/25
  * Versão: 1.0
  * Desc: App que irá realizar as 
@@ -9,21 +9,20 @@
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import express,{ Router } from 'express'
-const routerInsertUser = Router()
+const routerInsertBlood = Router()
 
-import { insertUser } from "../../controller/Controller_user/insertUser.js"
+import {insertBlood} from "../../controller/Controller_blood/insertSangue"
 
 const bodyJsonParser = bodyParser.json()
 
-routerInsertUser.post('/user/cadastro', bodyJsonParser, async (req,res) =>{
+routerInsertBlood.post('/blood/cadastro', bodyJsonParser, async (req,res) =>{
     
     let contentType = req.headers[content-type]
-    let dataUser = req.body
+    let dataBlood = req.body
 
-    let resultInsertUser = await insertUser(dataUser, contentType)
+    let resultInsertBlood = await insertBlood(dataBlood, contentType)
 
-    return res.status(resultInsertUser.status_code).json(resultInsertUser)
+    return res.status(resultInsertBlood.status_code).json(resultInsertBlood)
 })
 
-export default routerInsertUser
-
+export default routerInsertBlood

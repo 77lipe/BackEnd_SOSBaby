@@ -7,7 +7,7 @@
  *                            INSERT baby
  ********************************************************/
 
-import * as message from '../../module/message.js'
+import * as message from '../../config/status/status.js'
 import {insertSQLBaby} from '../../model/BabyDAO/InsertSQLBaby.js'
 
 export const insertBebe = async function (bebe, contentType) {

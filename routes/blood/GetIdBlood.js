@@ -1,5 +1,5 @@
 /*********************************************************
- * Autor: Felipe Vieira
+ * Autor: Isabelly Lima
  * Date:23/09/25
  * Versão: 1.0
  * Desc: App que irá realizar as 
@@ -9,16 +9,16 @@
 import express, {Router} from "express"
 import bodyParser from "body-parser"
 import cors from 'cors'
-const routerIdUser = Router()
+const routerIdBlood = Router()
 
-import { selectIDUser } from "../../controller/Controller_user/searchIdUser";
+import {selectIDBlood} from "../../controller/Controller_blood/insertSangue";
 
-routerIdUser.get('user/:id', cors(), async (req, res) => {
+routerIdBlood.get('resp/:id', cors(), async (req, res) => {
 
     let id = req.params.id
-    let resultIdUser = await selectIDUser(id)
+    let resultIdBlood = await selectIDBlood (id)
 
-    return res.status(resultIdUser.status_code).json(resultIdUser)
+    return res.status(resultIdBlood.status_code).json(resultIdBlood)
 })
 
-export default routerIdUser
+export default routerIdBlood

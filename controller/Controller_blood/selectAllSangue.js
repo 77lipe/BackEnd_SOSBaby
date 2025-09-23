@@ -7,13 +7,13 @@
  *******************************************************************/
 
 import * as message from '../../config/status/status.js'
-import { SelectAllBloodSQL } from "../../model/BloodDAO/ListAllBlood.js";
+import { ListSQLAllBlood } from "../../model/BloodDAO/ListAllBlood.js";
 
 export const selectAllBlood = async function (){
     try {
         
         let dadosBlood = {}
-        let resultBlood = await SelectAllBloodSQL()
+        let resultBlood = await ListSQLAllBlood()
         
         if(resultBlood != false){
             if(resultBlood.length > 0){

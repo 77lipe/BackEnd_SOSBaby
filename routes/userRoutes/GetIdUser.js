@@ -10,7 +10,7 @@ import {Router} from "express"
 import cors from 'cors'
 const routerIdUser = Router()
 
-import { selectIDUser } from "../../controller/Controller_user/searchIdUser";
+import { selectIDUser } from "../../controller/Controller_user/searchIdUser.js";
 
 routerIdUser.get('user/:id', cors(), async (req, res) => {
 

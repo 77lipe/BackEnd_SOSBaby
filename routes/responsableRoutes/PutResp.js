@@ -10,7 +10,7 @@ import express, {Router} from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
-import {updateResponsable} from '../../controller/Controller_responsable/UpdateResp'
+import {UpdateResp} from '../../controller/Controller_responsable/UpdateResp.js'
 
 const router = Router()
 const bodyJsonParser = bodyParser.json()
@@ -20,7 +20,7 @@ router.put('/resp/update', bodyJsonParser, async (req, res) => {
     let contentType = req.body['content-type']
     let dataResponsable = req.body
 
-    let resulUpdateResponsable = await updateResponsable(dataResponsable, contentType)
+    let resulUpdateResponsable = await UpdateResp(dataResponsable, contentType)
 
     return res.status(resulUpdateResponsable.status_code).json(resulUpdateResponsable)
 })

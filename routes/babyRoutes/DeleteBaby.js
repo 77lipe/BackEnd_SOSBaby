@@ -10,7 +10,7 @@ import {Router} from "express"
 import cors from 'cors'
 const routerDeleteBaby = Router()
 
-import { deleteBebe } from "../../controller/Controller_baby/deleteBebe";
+import { deleteBebe } from "../../controller/Controller_baby/deleteBebe.js";
 
 routerDeleteBaby.delete('/baby/:id', cors(), async(req, res) => {
 
@@ -20,4 +20,4 @@ routerDeleteBaby.delete('/baby/:id', cors(), async(req, res) => {
     return res.status(resultDeleteBaby.status_code).json(resultDeleteBaby)
 })
 
-export default resultDeleteBaby
+export default routerDeleteBaby

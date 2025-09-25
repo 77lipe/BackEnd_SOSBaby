@@ -10,7 +10,7 @@ import { Router } from "express";
 import cors from 'cors'
 const routerIdSex = Router()
 
-import { SearchIDGender } from "../../controller/Controller_sexo/SelectByIdGender";
+import { SearchIDGender } from "../../controller/Controller_sexo/SelectByIdGender.js";
 
 routerIdSex.get('/sex/:id', cors(), async (req, res) => {
 

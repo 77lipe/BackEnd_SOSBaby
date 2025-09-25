@@ -10,7 +10,7 @@ import {Router} from "express"
 import cors from 'cors'
 const routerAllBabys = Router()
 
-import { selectAllBebe } from "../../controller/Controller_baby/selectAllBebe";
+import { selectAllBebe } from "../../controller/Controller_baby/selectAllBebe.js";
 
 routerAllBabys.get('/babys', cors(), async(req, res) => {
 

@@ -10,12 +10,12 @@ import {Router} from "express"
 import cors from 'cors'
 const routerAllTypeUser = Router()
 
-import {selectAllTypeUser} from "../../controller/Controller_type_user/SelectAllUsers";
+import {SelectAllUsers} from "../../controller/Controller_type_user/SelectAllUsers.js";
 
 routerAllTypeUser.get('type/:id', cors(), async (req, res) => {
 
     let id = req.params.id
-    let resultAllTypeUser = await selectAllTypeUser (id)
+    let resultAllTypeUser = await SelectAllUsers (id)
 
     return res.status(resultAllTypeUser.status_code).json(resultAllTypeUser)
 })

@@ -9,7 +9,7 @@
 import {Router} from "express";
 import cors from 'cors'
 
-import { deleteUser } from "../../controller/Controller_user/deleteUser";
+import { deleteUser } from "../../controller/Controller_user/deleteUser.js";
 
 const routerDeleteUser = Router()
 

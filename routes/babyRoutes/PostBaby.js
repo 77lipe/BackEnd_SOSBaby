@@ -10,7 +10,7 @@ import {Router} from "express"
 import bodyParser from "body-parser"
 const routerInsertBaby = Router()
 
-import { insertBebe } from "../../controller/Controller_baby/insertBebe";
+import { insertBebe } from "../../controller/Controller_baby/insertBebe.js";
 
 routerInsertBaby.post('/baby/cadastro', bodyParser, async(req, res) => {
 

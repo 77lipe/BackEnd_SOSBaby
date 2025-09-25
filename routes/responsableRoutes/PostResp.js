@@ -11,7 +11,7 @@ import bodyParser from 'body-parser'
 import express,{ Router } from 'express'
 const routerInsertResponsable = Router()
 
-import {insertResponsable} from "../../controller/Controller_responsable/InsertResp"
+import {insertResp} from "../../controller/Controller_responsable/InsertResp.js"
 
 const bodyJsonParser = bodyParser.json()
 
@@ -20,7 +20,7 @@ routerInsertResponsable.post('/resp/cadastro', bodyJsonParser, async (req,res) =
     let contentType = req.headers[content-type]
     let dataResponsable = req.body
 
-    let resultInsertResponsable = await insertResponsable(dataResponsable, contentType)
+    let resultInsertResponsable = await insertResp(dataResponsable, contentType)
 
     return res.status(resultInsertResponsable.status_code).json(resultInsertResponsable)
 })

@@ -11,12 +11,12 @@ import bodyParser from "body-parser"
 import cors from 'cors'
 const routerIdBlood = Router()
 
-import {selectIDBlood} from "../../controller/Controller_blood/selectIDSangue";
+import {SelectIdBlood} from "../../controller/Controller_blood/selectIDSangue.js";
 
 routerIdBlood.get('resp/:id', cors(), async (req, res) => {
 
     let id = req.params.id
-    let resultIdBlood = await selectIDBlood (id)
+    let resultIdBlood = await SelectIdBlood (id)
 
     return res.status(resultIdBlood.status_code).json(resultIdBlood)
 })

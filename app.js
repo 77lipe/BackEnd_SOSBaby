@@ -28,6 +28,11 @@ import express from 'express'
 import cors from 'cors'
 
 import babyRoutes from './routes/babyRoutes/index.js'
+import userRoutes from './routes/UserRoutes/index.js'
+import responsableRoutes from './routes/ResponsableRoutes/index.js'
+import sexRoutes from './routes/SexRoutes/index.js'
+import bloodRoutes from './routes/BloodRoutes/index.js'
+import typeUserRoutes from './routes/TypeUserRoutes/index.js'
 
 
 const app = express()
@@ -36,6 +41,11 @@ app.use(express.json)
 
 
 app.use('/v1/sosbaby', babyRoutes)
+app.use('/v1/sosbaby', userRoutes)
+app.use('/v1/sosbaby', responsableRoutes)
+app.use('/v1/sosbaby', sexRoutes)
+app.use('/v1/sosbaby', bloodRoutes)
+app.use('/v1/sosbaby', typeUserRoutes)
 
 
 app.listen('3030', function(){

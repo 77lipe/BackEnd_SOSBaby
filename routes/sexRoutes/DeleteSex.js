@@ -10,7 +10,7 @@ import { Router } from "express";
 import cors from 'cors'
 const routerDeleteSex = Router()
 
-import {DeleteGender} from '../../controller/Controller_sexo/DeleteGender'
+import {DeleteGender} from '../../controller/Controller_sexo/DeleteGender.js'
 
 routerDeleteSex.delete('/sex/:id', cors(), async (req, res) => {
 

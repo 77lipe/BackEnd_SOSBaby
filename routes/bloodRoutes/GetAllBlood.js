@@ -11,14 +11,14 @@ import bodyParser from "body-parser"
 import cors from 'cors'
 const routerAllBlood = Router()
 
-import {selectAllBlood} from "../../controller/Controller_blood/selectAllSangue";
+import {selectAllBlood} from "../../controller/Controller_blood/selectAllSangue.js";
 
 routerAllBlood.get('blood/:id', cors(), async (req, res) => {
 
     let id = req.params.id
     let resultAllBlood = await selectAllBlood (id)
 
-    return res.status(resulAllBlood.status_code).json(resultAllBlood)
+    return res.status(resultAllBlood.status_code).json(resultAllBlood)
 })
 
 export default routerAllBlood

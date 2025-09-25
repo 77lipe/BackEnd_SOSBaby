@@ -10,7 +10,7 @@
  import cors from 'cors'
  const routerAllSex = Router()
  
- import { SelectAllGender } from "../../controller/Controller_sexo/LisAllGender";
+ import { SelectAllGender } from "../../controller/Controller_sexo/LisAllGender.js";
  
  routerAllSex.get('/sexs', cors(), async(req, res) => {
 

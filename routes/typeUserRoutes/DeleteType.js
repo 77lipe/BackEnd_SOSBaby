@@ -9,14 +9,14 @@
 import {Router} from "express";
 import cors from 'cors'
 
-import {deleteTypeUser} from "../../controller/Controller_type_user/DeleteTypeUser";
+import {DeleteTypeUser} from "../../controller/Controller_type_user/DeleteTypeUser.js";
 
 const routerDeleteTypeUser = Router()
 
 routerDeleteTypeUser.get('/type/delete', cors(), async(req, res) => {
 
     let id = req.params.id
-    let resultDeleteTypeUser = await deleteTypeUser(id)
+    let resultDeleteTypeUser = await DeleteTypeUser(id)
 
     return res.status(resultDeleteTypeUser.status_code).json(resultDeleteTypeUser)
 })

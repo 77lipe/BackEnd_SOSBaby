@@ -10,7 +10,7 @@ import bodyParser from 'body-parser'
 import { Router } from 'express'
 const routerInsertTypeUser = Router()
 
-import {insertTypeUser} from "../../controller/Controller_type_user/InsertTypeUser"
+import {insertTypeUser} from "../../controller/Controller_type_user/InsertTypeUser.js"
 
 const bodyJsonParser = bodyParser.json()
 

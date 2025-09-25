@@ -11,12 +11,12 @@ import bodyParser from "body-parser"
 import cors from 'cors'
 const routerAllResp = Router()
 
-import {selectAllResp} from "../../controller/Controller_responsable/ListAllResp";
+import {ListAllResp} from "../../controller/Controller_responsable/ListAllResp.js";
 
 routerAllResp.get('resp/:id', cors(), async (req, res) => {
 
     let id = req.params.id
-    let resultAllResp = await selectAllResp (id)
+    let resultAllResp = await ListAllResp (id)
 
     return res.status(resultAllResp.status_code).json(resultAllResp)
 })

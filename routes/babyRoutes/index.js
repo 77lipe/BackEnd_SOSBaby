@@ -5,11 +5,11 @@
  * Desc: App que irá controlar as rotas de BEBÊ
  ********************************************************/
 
-import PostBaby from './PostBaby'
-import PutBaby from './PutBaby'
-import GetAllBaby from './GetAllBaby'
-import GetIdBaby from './GetIdBaby'
-import DeleteBaby from './DeleteBaby'
+import PostBaby from './PostBaby.js'
+import PutBaby from './PutBaby.js'
+import GetAllBaby from './GetAllBaby.js'
+import GetIdBaby from './GetIdBaby.js'
+import DeleteBaby from './DeleteBaby.js'
 import { Router } from "express"
 
 const router = Router()

@@ -11,7 +11,7 @@ import bodyParser from 'body-parser'
 import express,{ Router } from 'express'
 const routerInsertBlood = Router()
 
-import {insertBlood} from "../../controller/Controller_blood/insertSangue"
+import {insertSangue} from "../../controller/Controller_blood/insertSangue.js"
 
 const bodyJsonParser = bodyParser.json()
 
@@ -20,7 +20,7 @@ routerInsertBlood.post('/blood/cadastro', bodyJsonParser, async (req,res) =>{
     let contentType = req.headers[content-type]
     let dataBlood = req.body
 
-    let resultInsertBlood = await insertBlood(dataBlood, contentType)
+    let resultInsertBlood = await insertSangue(dataBlood, contentType)
 
     return res.status(resultInsertBlood.status_code).json(resultInsertBlood)
 })

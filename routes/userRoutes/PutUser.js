@@ -10,7 +10,7 @@ import {Router} from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
-import {updateUser} from '../../controller/Controller_user/putUser'
+import {updateUser} from '../../controller/Controller_user/putUser.js'
 
 const routerUpdateUser = Router()
 const bodyJsonParser = bodyParser.json()

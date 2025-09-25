@@ -16,7 +16,7 @@ const bodyJsonParser = bodyParser.json()
 
 routerInsertTypeUser.post('/type/cadastro', bodyJsonParser, async (req,res) =>{
     
-    let contentType = req.headers[content-type]
+    let contentType = req.headers['content-type']
     let dataTypeUser = req.body
 
     let resultInsertTypeUser = await insertTypeUser(dataTypeUser, contentType)

@@ -17,7 +17,7 @@ const bodyJsonParser = bodyParser.json()
 
 routerInsertBlood.post('/blood/cadastro', bodyJsonParser, async (req,res) =>{
     
-    let contentType = req.headers[content-type]
+    let contentType = req.headers['content-type']
     let dataBlood = req.body
 
     let resultInsertBlood = await insertSangue(dataBlood, contentType)

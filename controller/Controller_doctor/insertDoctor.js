@@ -14,7 +14,7 @@ export const insertDoctor = async function (dataDoctor, contentType) {
         
         if (String(contentType).toLocaleLowerCase() === 'application/json') {
             if (
-                data
+                dataDoctor
             ) {
                 
             }

@@ -1,6 +1,10 @@
 create database sosbaby;
 use sosbaby;
 
+create database sosbaby;
+use sosbaby;
+
+
 create table tbl_sexo (
 	id_sexo int auto_increment primary key,
     sexo VARCHAR(12) not null
@@ -16,6 +20,10 @@ create table tbl_type_user(
     tipo varchar(50)
 );
 
+create table tbl_especialidade(
+      id_especialidade int auto_increment primary key not null,
+      especialidade varchar(100)
+);
 
 create table tbl_type_messager(
     id_tipo_mensagem int auto_increment primary key not null,
@@ -27,14 +35,12 @@ create table tbl_status_messager(
     status_messagem varchar(50)
 );
 
-
-
 create table tbl_user(
     id_user int auto_increment primary key not null,
     email varchar(100) not null,
     senha varchar(100) not null,
     id_tipo int,
-
+    
     constraint FK_TIPO_USER
     foreign key(id_tipo)
     references tbl_type_user(id_tipo)
@@ -69,6 +75,16 @@ create table tbl_chat(
     references tbl_user(id_user)
 );
 
+
+create table tbl_cep(
+	id_cep int auto_increment primary key not null,
+    cep varchar(20) not null,
+    logradouro varchar(100) not null,
+    cidade varchar(50) not null,
+    uf varchar (2) not null,
+    id_responsavel int
+    
+);
 create table tbl_responsavel (
 	id_responsavel int auto_increment primary key,
     nome  varchar(100) not null,
@@ -80,6 +96,11 @@ create table tbl_responsavel (
     cep varchar(20) not null,
     id_sexo int,
     id_user int,
+    id_cep int,
+    
+    constraint FK_CEP_RESPONSAVEL
+    foreign key (id_cep)
+    references tbl_cep(id_cep),
     
 	constraint FK_RESPONSAVEL_SEX
     foreign key (id_sexo)
@@ -89,20 +110,6 @@ create table tbl_responsavel (
     foreign key (id_user)
     references tbl_user(id_user)
 );
-
-create table tbl_cep(
-	id_cep int auto_increment primary key not null,
-    cep varchar(20) not null,
-    logradouro varchar(100) not null,
-    cidade varchar(50) not null,
-    uf varchar (2) not null,
-    id_responsavel int,
-    
-    constraint FK_RESPONSAVEL_CEP
-    foreign key (id_responsavel)
-    references tbl_responsavel(id_responsavel)
-);
-
 
 create table tbl_bebe (
 	id_bebe int auto_increment primary key not null ,
@@ -116,8 +123,8 @@ create table tbl_bebe (
     imagem_certidao TEXT (100) not null,
     id_sexo int ,
     id_cep int,
-    id_sangue int ,
-    
+    id_sangue int,
+	
 	constraint FK_SEXO_BEBE
     foreign key (id_sexo)
     references tbl_sexo(id_sexo),
@@ -144,4 +151,100 @@ create table tbl_responsavel_bebe (
     foreign key (id_responsavel)
     references tbl_responsavel(id_responsavel)
 
+);
+
+create table tbl_medico(
+	id_medico int auto_increment primary key not null,
+    nome varchar(60) not null,
+    email varchar(100) not null,
+    telefone varchar(20) not null,
+    crm varchar(20) not null,
+    cpf varchar(20) not null,
+    foto text(200) not null,
+    id_sexo int,
+    id_user int,
+    
+    constraint FK_SEXO_MEDICO
+    foreign key (id_sexo)
+    references tbl_sexo(id_sexo),
+    
+	constraint FK_USUARIO_MEDICO
+    foreign key (id_user)
+    references tbl_user(id_user)
+    
+);
+
+create table tbl_especialidade_medico(
+	id int auto_increment primary key not null,
+    id_medico int,
+    id_especialidade int,
+    
+	constraint FK_MEDICO
+    foreign key (id_medico)
+    references tbl_medico(id_medico),
+    
+	constraint FK_ESPECIALIDADE_MEDICO
+    foreign key (id_especialidade)
+    references tbl_especialidade(id_especialidade)
+);
+
+create table tbl_clinica(
+	id_clinica int auto_increment primary key not null,
+    nome varchar(100) not null,
+    cnpj varchar(20) not null,
+    telefone varchar(20) not null,
+    email varchar(100) not null,
+    id_cep int,
+    id_user int,
+    
+    constraint FK_CEP_CLINICA
+    foreign key (id_cep)
+    references tbl_cep(id_cep),
+    
+	constraint FK_USUARIO_CLINICA
+    foreign key (id_user)
+    references tbl_user(id_user)
+);
+
+create table tbl_especialidade_clinica (
+	id int auto_increment primary key not null,
+    id_clinica int,
+    id_especialidade int,
+    
+    constraint FK_CLINICA
+    foreign key (id_clinica)
+    references tbl_clinica(id_clinica),
+    
+	constraint FK_ESPECIALIDADE_CLINICA
+    foreign key (id_especialidade)
+    references tbl_especialidade(id_especialidade)
+);
+
+create table tbl_rotina_base(
+	id_rotina_base int auto_increment primary key not null,
+    titulo varchar(100) not null,
+    cor char(10) not null,
+    data_rotina date not null,
+    hora time not null,
+    descricao text(200) not null
+);
+
+
+create table tbl_rotina(
+	id_base int auto_increment primary key not null,
+    titulo varchar(100) not null,
+    cor char(10) not null,
+    data_rotina date not null,
+    hora time not null,
+    descricao text(200) not null,
+    id_user int,
+    id_rotina_base int,
+    
+	constraint FK_ROTINA_USUARIO
+    foreign key (id_user)
+    references tbl_user(id_user),
+
+    constraint FK_BASE_ROTINA
+    foreign key (id_rotina_base)
+    references tbl_rotina_base( id_rotina_base)
 )

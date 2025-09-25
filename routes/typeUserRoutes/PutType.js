@@ -1,6 +1,6 @@
 /*********************************************************
- * Autor: Isabell Lima
- * Date:23/09/25
+ * Autor: Isabelly Lima
+ * Date:  23/09/25
  * Versão: 1.0
  * Desc: App que irá realizar as 
  *       rotas para POST TYPE USER

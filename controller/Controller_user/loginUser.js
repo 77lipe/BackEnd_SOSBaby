@@ -13,7 +13,7 @@ export const loginUser = async function (user, contentType) {
     try {
         
 
-        let dadosLogin = {}
+      
         if (String(contentType).toLowerCase().includes('application/json')) {
             if (
                 user.email == "" || user.email == undefined || user.email == null || user.email.length > 100  ||

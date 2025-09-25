@@ -14,8 +14,8 @@ import { loginUser } from "../../controller/Controller_user/LoginUser.js"
 const routerLoginUser = Router()
 const bodyJsonParser = bodyParser.json()
 
-routerLoginUser.post('/login', bodyJsonParser, async (req, res) => {
-    let contentType = req.body['content-type']
+routerLoginUser.post('/user/login', bodyJsonParser, async (req, res) => {
+    let contentType = req.headers['content-type']
     let dataLogin = req.body
 
     let resultLoginUser = await loginUser(dataLogin, contentType)

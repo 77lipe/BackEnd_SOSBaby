@@ -37,7 +37,7 @@ import typeUserRoutes from './routes/TypeUserRoutes/index.js'
 
 const app = express()
 app.use(cors())
-app.use(express.json)
+app.use(express.json())
 
 
 app.use('/v1/sosbaby', babyRoutes)

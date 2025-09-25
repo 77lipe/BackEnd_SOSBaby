@@ -12,7 +12,7 @@ const routerIdBaby = Router()
 
 import { selectIdBebe } from "../../controller/Controller_baby/SelectIdBebe.js";
 
-routerIdBaby.get('/babys', cors(), async (req, res) => {
+routerIdBaby.get('/baby/:id', cors(), async (req, res) => {
 
     let id = req.params.id
     let resultIdBaby = await selectIdBebe(id)

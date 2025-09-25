@@ -6,15 +6,14 @@
  *       rotas para DELETE DO RESPONSÁVEL
  ********************************************************/
 
-import express, {Router} from "express";
-import bodyParser from "body-parser";
+import {Router} from "express";
 import cors from 'cors'
 
 import {DeleteResp} from "../../controller/Controller_responsable/DeleteResp.js";
 
 const routerDeleteResponsable = Router()
 
-routerDeleteResponsable.get('/resp/delete', cors(), async(req, res) => {
+routerDeleteResponsable.delete('/resp/:id', cors(), async(req, res) => {
 
     let id = req.params.id
     let resultDeleteResponsable = await DeleteResp(id)

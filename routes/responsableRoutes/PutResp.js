@@ -6,16 +6,15 @@
  *       rotas para POST RESPONSÁVEL
  ********************************************************/
 
-import express, {Router} from 'express'
+import {Router} from 'express'
 import bodyParser from 'body-parser'
-import cors from 'cors'
 
 import {UpdateResp} from '../../controller/Controller_responsable/UpdateResp.js'
 
 const router = Router()
 const bodyJsonParser = bodyParser.json()
 
-router.put('/resp/update', bodyJsonParser, async (req, res) => {
+router.put('/resp/:id', bodyJsonParser, async (req, res) => {
 
     let contentType = req.body['content-type']
     let dataResponsable = req.body

@@ -13,7 +13,7 @@ import { deleteUser } from "../../controller/Controller_user/deleteUser.js";
 
 const routerDeleteUser = Router()
 
-routerDeleteUser.get('/user/:id', cors(), async(req, res) => {
+routerDeleteUser.delete('/user/:id', cors(), async(req, res) => {
 
     let id = req.params.id
     let resultDeleteUser = await deleteUser(id)

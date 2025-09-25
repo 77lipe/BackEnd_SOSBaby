@@ -6,15 +6,15 @@
  *       rotas para DELETE DO SANGUE
  ********************************************************/
 
-import express, {Router} from "express";
-import bodyParser from "body-parser";
+import {Router} from "express";
+
 import cors from 'cors'
 
 import {DeleteBlood} from "../../controller/Controller_blood/deleteSangue.js";
 
 const routerDeleteBlood = Router()
 
-routerDeleteBlood.get('/blood/delete', cors(), async(req, res) => {
+routerDeleteBlood.delete('/blood/:id', cors(), async(req, res) => {
 
     let id = req.params.id
     let resultDeleteBlood = await DeleteBlood(id)

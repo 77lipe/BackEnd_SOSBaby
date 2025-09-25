@@ -13,7 +13,7 @@ import {DeleteTypeUser} from "../../controller/Controller_type_user/DeleteTypeUs
 
 const routerDeleteTypeUser = Router()
 
-routerDeleteTypeUser.get('/type/delete', cors(), async(req, res) => {
+routerDeleteTypeUser.delete('/type/:id', cors(), async(req, res) => {
 
     let id = req.params.id
     let resultDeleteTypeUser = await DeleteTypeUser(id)

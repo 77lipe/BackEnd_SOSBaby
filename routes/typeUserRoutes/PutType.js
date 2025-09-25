@@ -14,7 +14,7 @@ import {UpdateTypeUser} from '../../controller/Controller_type_user/putTypeUser.
 const router = Router()
 const bodyJsonParser = bodyParser.json()
 
-router.put('/type/update', bodyJsonParser, async (req, res) => {
+router.put('/type/:id', bodyJsonParser, async (req, res) => {
 
     let contentType = req.body['content-type']
     let dataTypeUser = req.body

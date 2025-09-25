@@ -28,7 +28,7 @@ import express from 'express'
 import cors from 'cors'
 
 import babyRoutes from './routes/babyRoutes/index.js'
-import userRoutes from './routes/UserRoutes/index.js'
+import userRoutes from './routes/userRoutes/index.js'
 import responsableRoutes from './routes/ResponsableRoutes/index.js'
 import sexRoutes from './routes/SexRoutes/index.js'
 import bloodRoutes from './routes/BloodRoutes/index.js'

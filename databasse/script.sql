@@ -233,6 +233,7 @@ create table tbl_rotina_base(
 create table tbl_rotina(
 	id_base int auto_increment primary key not null,
     titulo varchar(100) not null,
+    data_rotina DATE NOT NULL,
     cor char(10) not null,
     data_rotina date not null,
     hora time not null,
@@ -254,7 +255,6 @@ CREATE TABLE rotina_item (
     id_rotina INT NOT NULL,
     titulo VARCHAR(100) NOT NULL,
     descricao TEXT,
-    data_rotina DATE NOT NULL,
     hora TIME NOT NULL,
 	
 	constraint FK_ITEM_ROTINA

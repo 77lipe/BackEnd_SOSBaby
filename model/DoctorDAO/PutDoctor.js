@@ -12,7 +12,7 @@ const prisma = new PrismaClient()
 export const updateSQLDoctor = async function(id, dataDoctor){
     try {
         
-        let sql = `CALL updateDoctor(?, ?, ?, ?, ?, ?, ?, ?, ?)`
+        let sql = `CALL updateMedico(?, ?, ?, ?, ?, ?, ?, ?, ?)`
         let resultDoctor = await prisma.$executeRawUnsafe(
             sql,
             id,

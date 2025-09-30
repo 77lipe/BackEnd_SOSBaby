@@ -1,3 +1,4 @@
+
 -- PROCEDURES
 
 
@@ -91,6 +92,7 @@ END $$
 
 
 -- PROCEDURE TBL_SANGUE --
+
 -- INSERT
 DELIMITER $$
 DROP procedure IF EXISTS insertSangue;

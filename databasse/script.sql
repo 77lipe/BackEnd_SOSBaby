@@ -247,4 +247,17 @@ create table tbl_rotina(
     constraint FK_BASE_ROTINA
     foreign key (id_rotina_base)
     references tbl_rotina_base( id_rotina_base)
-)
+);
+
+CREATE TABLE rotina_item (
+    id_item INT AUTO_INCREMENT PRIMARY KEY,
+    id_rotina INT NOT NULL,
+    titulo VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    data_rotina DATE NOT NULL,
+    hora TIME NOT NULL,
+	
+	constraint FK_ITEM_ROTINA
+    foreign key (id_rotina)
+    references tbl_rotina( id_rotina)
+);

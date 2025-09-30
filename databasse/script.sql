@@ -231,26 +231,19 @@ create table tbl_rotina_base(
 
 
 create table tbl_rotina(
-	id_base int auto_increment primary key not null,
+	id_rotina int auto_increment primary key not null,
     titulo varchar(100) not null,
     data_rotina DATE NOT NULL,
     cor char(10) not null,
     data_rotina date not null,
-    hora time not null,
-    descricao text(200) not null,
     id_user int,
-    id_rotina_base int,
     
 	constraint FK_ROTINA_USUARIO
     foreign key (id_user)
-    references tbl_user(id_user),
-
-    constraint FK_BASE_ROTINA
-    foreign key (id_rotina_base)
-    references tbl_rotina_base( id_rotina_base)
+    references tbl_user(id_user)
 );
 
-CREATE TABLE rotina_item (
+create table tbl_rotina_item (
     id_item INT AUTO_INCREMENT PRIMARY KEY,
     id_rotina INT NOT NULL,
     titulo VARCHAR(100) NOT NULL,
@@ -261,3 +254,4 @@ CREATE TABLE rotina_item (
     foreign key (id_rotina)
     references tbl_rotina( id_rotina)
 );
+

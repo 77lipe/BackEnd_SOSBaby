@@ -1,0 +1,29 @@
+/*********************************************************
+ * Autor: Isabelly Lima
+ * Date: 30/09/25
+ * Versão: 1.0
+ * Desc: App que irá realizar as 
+ *       rotas para POST DOCTOR
+ ********************************************************/
+
+import {Router} from 'express'
+import bodyParser from 'body-parser'
+import cors from 'cors'
+
+import {updateDoctor} from '../../controller/Controller_doctor/putDoctor.js'
+
+const routerUpdateDoctor = Router()
+const bodyJsonParser = bodyParser.json()
+
+routerUpdateDoctor.put('/doctor/:id', cors(), bodyJsonParser, async (req, res) => {
+
+    let id = req.params.id
+    let contentType = req.body['content-type']
+    let dataDoc = req.body
+
+    let resulUpdateDoctor = await updateDoctor( id, dataDoc, contentType)
+
+    return res.status(resulUpdateDoctor.status_code).json(resulUpdateDoctor)
+})
+
+export default routerUpdateDoctor

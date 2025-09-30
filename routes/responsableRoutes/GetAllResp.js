@@ -1,24 +1,21 @@
 /*********************************************************
  * Autor: Isabelly Lima
- * Date:23/09/25
- * Versão: 1.0
+ * Date: 30/09/25
+ * Versão: 2.0
  * Desc: App que irá realizar as 
- *       rotas para GET ID DO RESPONSÁVEL
+ *       rotas para GET ALL RESPONSABLE
  ********************************************************/
 
-import express, {Router} from "express"
-import bodyParser from "body-parser"
+import {Router} from "express"
 import cors from 'cors'
-const routerAllResp = Router()
+const routerAllResponsable = Router()
 
-import {ListAllResp} from "../../controller/Controller_responsable/ListAllResp.js";
+import {SelectAllResponsable} from "../../controller/Controller_responsable/ListAllResp.js";
 
-routerAllResp.get('resp/:id', cors(), async (req, res) => {
+routerAllResponsable.get('/responsables', cors(), async(req, res) => {
 
-    let id = req.params.id
-    let resultAllResp = await ListAllResp (id)
-
-    return res.status(resultAllResp.status_code).json(resultAllResp)
+   let resultAllResponsable = await SelectAllResponsable()
+   return res.status(resultAllResponsable.status_code).json(resultAllResponsable)
 })
 
-export default routerAllResp
+export default routerAllResponsable

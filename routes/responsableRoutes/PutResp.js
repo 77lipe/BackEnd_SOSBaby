@@ -1,27 +1,29 @@
 /*********************************************************
- * Autor: Isabell Lima
- * Date:23/09/25
- * Versão: 1.0
+ * Autor: Isabelly Lima
+ * Date: 30/09/25
+ * Versão: 2.0
  * Desc: App que irá realizar as 
- *       rotas para POST RESPONSÁVEL
+ *       rotas para POST RESPONSABLE
  ********************************************************/
 
 import {Router} from 'express'
 import bodyParser from 'body-parser'
+import cors from 'cors'
 
 import {UpdateResp} from '../../controller/Controller_responsable/UpdateResp.js'
 
-const router = Router()
+const routerUpdateResponsable = Router()
 const bodyJsonParser = bodyParser.json()
 
-router.put('/resp/:id', bodyJsonParser, async (req, res) => {
+routerUpdateResponsable.put('/resp/:id', cors(), bodyJsonParser, async (req, res) => {
 
+    let id = req.params.id
     let contentType = req.body['content-type']
-    let dataResponsable = req.body
+    let dataResp = req.body
 
-    let resulUpdateResponsable = await UpdateResp(dataResponsable, contentType)
+    let resulUpdateResp = await UpdateResp ( id, dataResp, contentType)
 
-    return res.status(resulUpdateResponsable.status_code).json(resulUpdateResponsable)
+    return res.status(resulUpdateResp.status_code).json(resulUpdateResp)
 })
 
-export default router
+export default routerUpdateResponsable

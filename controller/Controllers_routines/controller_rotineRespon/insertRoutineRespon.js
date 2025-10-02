@@ -21,6 +21,8 @@ export const insertRoutineRespon = async function (routineRespon, contentType) {
                 routineRespon.id_user == undefined       || routineRespon.id_user == null       || routineRespon.id_user == "" || isNaN(routineRespon.id_user) ||
                 routineRespon.id_itemRotina == undefined || routineRespon.id_itemRotina == null || routineRespon.id_itemRotina == "" || isNaN(routineRespon.id_itemRotina)
             ) {
+                return message.ERROR_REQUIRED_FIELDS
+            }else{
                 
             }
         }

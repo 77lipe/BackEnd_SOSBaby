@@ -7,8 +7,8 @@
  ********************************************************/
 
 import * as message from '../../../config/status/status.js'
-import { updateItemRoutine } from '../../../model/Controllers_routines/model_itemRoutine/updateItemRoutine.js'
-import { getIdSQLItemRoutine } from "../../../model/routine" //Falta criar a model
+import { putSQLItemRoutine } from '../../../model/RoutinesDAO/ItemRoutine/PutItemRoutine.js'
+import { getIdSQLItemRoutine } from "../../../model/RoutinesDAO/ItemRoutine/GetIdItemRoutine.js"
 
 export const updateItemRoutine = async function (id ,itemRoutine, contentType){
     try {
@@ -28,7 +28,7 @@ export const updateItemRoutine = async function (id ,itemRoutine, contentType){
                 if(checkId != false  || typeof(checkId) == 'object'){
                     if(checkId.length > 0){
                         idItemRotina.id = id
-                        let result = await updateItemRoutine(idItemRotina)
+                        let result = await putSQLItemRoutine(idItemRotina)
 
                         if(result){
                             return message.SUCCES_UPDATE_ITEM

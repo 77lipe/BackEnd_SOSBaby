@@ -3,7 +3,7 @@
  * Date: 30/09/25
  * Versão: 2.0
  * Desc: App que irá realizar as 
- *       rotas para POST TYPE USER
+ *       rotas para PUT TYPE USER
  ********************************************************/
 
 import {Router} from 'express'

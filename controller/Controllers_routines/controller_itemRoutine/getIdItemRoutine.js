@@ -7,8 +7,8 @@
  *       ITEM DE ROTINA
  ********************************************************/
 import * as message from '../../../config/status/status.js'
-import { idItemRoutine } from '../../../model/Controllers_routines/model_itemRoutine/getIdItemRoutine.js'
-import { getIdRoutineRespon } from '../../../model/Controllers_routines/model_routine/getAllRoutines.js'
+import { idItemRoutine } from '../../../model/RoutinesDAO/ItemRoutine/GetIdItemRoutine.js'
+import { getIdRoutineRespon } from '../../../model/Controllers_routines/model_routine/getAllRoutines.js' // falta criar
 
 export const getIdItemRoutine = async function (id) {
     try {

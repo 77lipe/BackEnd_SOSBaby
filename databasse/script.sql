@@ -235,7 +235,6 @@ create table tbl_rotina(
     titulo varchar(100) not null,
     data_rotina DATE NOT NULL,
     cor char(10) not null,
-    data_rotina date not null,
     id_user int,
     
 	constraint FK_ROTINA_USUARIO

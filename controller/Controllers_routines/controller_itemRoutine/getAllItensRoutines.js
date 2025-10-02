@@ -8,8 +8,8 @@
  ********************************************************/
 
 import * as message from '../../../config/status/status.js'
-import { getAllItensRoutines } from '../../../model/Controllers_routines/model_itemRoutine/getAllItensRoutines.js'
-import { getIdRoutineRespon } from '../../../model/Controllers_routines/model_routine/getAllRoutines.js'
+import { getAllItensRoutines } from '../../../model/RoutinesDAO/ItemRoutine/GetAllItemRoutine.js'
+import { getIdRoutineRespon } from '../../../model/Controllers_routines/model_routine/getAllRoutines.js' // falta criar
 
 export const getAllItensRoutines = async function () {
     try {

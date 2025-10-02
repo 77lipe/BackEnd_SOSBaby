@@ -20,23 +20,23 @@ export const deleteItemRoutine = async function (id) {
     }else{
       
         let resultItemRoutine = await selectByIdItemRoutine(id);
-      if (resultItemRoutine != false || typeof resultItemRoutine == "object") {
-        if (resultItemRoutine.length > 0) {
+        if (resultItemRoutine != false || typeof resultItemRoutine == "object") {
+          if (resultItemRoutine.length > 0) {
         
             let idResultItem = await deleteItemRoutine(id);
+            
             if (idResultItem) {
-            return message.SUCCES_DELETED_ITEM;
-          
-        } else {
-            return message.ERROR_INTERNAL_SERVER_MODEL;
-        }
-        } else {
-          return message.ERROR_NOT_FOUND;
+              return message.SUCCES_DELETED_ITEM;
+            } else {
+              return message.ERROR_INTERNAL_SERVER_MODEL;
+            }
+          }else{
+            return message.ERROR_NOT_FOUND;
+          }
         }
       }
-    }
   } catch (error) {
     console.log(error);
-    return message.ERROR_INTERNAL_SERVER;
+    return message.ERROR_INTERNAL_SERVER_CONTROLLER;
   }
 };

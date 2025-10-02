@@ -9,14 +9,14 @@
 import {Router} from "express";
 import cors from 'cors'
 
-import {DeleteDoctor} from "../../controller/Controller_doctor/deleteDoctor.js";
+import {deleteDoctor} from "../../controller/Controller_doctor/deleteDoctor.js";
 
 const routerDeleteDoctor = Router()
 
 routerDeleteDoctor.delete('/doctor/:id', cors(), async(req, res) => {
 
     let id = req.params.id
-    let resultDeleteDoctor = await DeleteDoctor(id)
+    let resultDeleteDoctor = await deleteDoctor(id)
 
     return res.status(resultDeleteDoctor.status_code).json(resultDeleteDoctor)
 })

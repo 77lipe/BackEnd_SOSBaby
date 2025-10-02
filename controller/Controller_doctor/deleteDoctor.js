@@ -8,7 +8,7 @@
 
 import * as message from '../../config/status/status.js'
 import { deleteSQLDoctor } from '../../model/DoctorDAO/DeleteDoctor.js'
-import { selectByIdDoctor } from '../../model/DoctorDAO/SelectByIdDoctor.js'
+import { getIdSQLDoctor } from '../../model/DoctorDAO/GetIdDoctor.js'
 
 export const deleteDoctor = async function (id) {
     try {
@@ -17,7 +17,7 @@ export const deleteDoctor = async function (id) {
             return message.ERROR_REQUIRED_FIELDS
         } else {
 
-            let resultDeleteDoctor = await selectByIdDoctor(id)
+            let resultDeleteDoctor = await getIdSQLDoctor(id)
             if (resultDeleteDoctor != false || typeof (resultDeleteDoctor) == 'object') {
                 if (resultDeleteDoctor.length > 0) {
                     

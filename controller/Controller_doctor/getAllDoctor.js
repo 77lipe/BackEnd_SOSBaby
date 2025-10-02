@@ -25,10 +25,10 @@ export const getAllDoctor = async function () {
 
                 for (item of resultAllDoctor) {
                     let dadoUser = await selectSQLIdUser(item.id_user)
-                    item.usuario = dadoUser.id_tipo
+                    item.usuario = dadoUser.id_user
 
                     let dadoGender = await idGender(item.id_sexo)
-                    item.sexo = dadoGender.descricao
+                    item.sexo = dadoGender.id_sexo
 
                     doctorArray.push(item)
                 }

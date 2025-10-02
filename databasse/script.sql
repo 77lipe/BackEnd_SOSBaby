@@ -220,15 +220,6 @@ create table tbl_especialidade_clinica (
     references tbl_especialidade(id_especialidade)
 );
 
-create table tbl_rotina_base(
-	id_rotina_base int auto_increment primary key not null,
-    titulo varchar(100) not null,
-    cor char(10) not null,
-    data_rotina date not null,
-    hora time not null,
-    descricao text(200) not null
-);
-
 
 create table tbl_rotina(
 	id_rotina int auto_increment primary key not null,
@@ -243,15 +234,15 @@ create table tbl_rotina(
     references tbl_user(id_user)
 );
 
-create table tbl_rotina_item (
+CREATE TABLE tbl_rotina_item (
     id_item INT AUTO_INCREMENT PRIMARY KEY,
     id_rotina INT NOT NULL,
     titulo VARCHAR(100) NOT NULL,
     descricao TEXT,
+    data_rotina DATE NOT NULL,
     hora TIME NOT NULL,
-	
-	constraint FK_ITEM_ROTINA
+    
+	constraint FK_ROTINA_ITEM
     foreign key (id_rotina)
-    references tbl_rotina( id_rotina)
+    references tbl_rotina(id_rotina)
 );
-

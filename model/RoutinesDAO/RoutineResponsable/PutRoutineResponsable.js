@@ -28,10 +28,13 @@ export const putSQLRoutineResponsable = async function (dataRoutine){
         )
 
         if (resultSQL) {
-            
+            return true            
+        }else{
+            return false
         }
 
     } catch (error) {
-        
+        console.log(error)
+        return false
     }
 }

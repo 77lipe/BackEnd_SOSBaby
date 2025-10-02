@@ -27,7 +27,8 @@ export const loginUser = async function (user, contentType) {
                     if (resultUser.length > 0) {
                         return {
                             ...message.SUCCES_LOGIN_COMPLETED,
-                            data: resultUser
+                            data: user
+                            
                         }
                     }
                     return message.ERROR_NOT_FOUND

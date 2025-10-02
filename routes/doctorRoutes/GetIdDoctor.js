@@ -6,17 +6,16 @@
  *       rotas para GET ID DO DOCTOR
  ********************************************************/
 
-import express, {Router} from "express"
-import bodyParser from "body-parser"
+import {Router} from "express"
 import cors from 'cors'
 const routerIdDoctor = Router()
 
-import {searchIdDoctor} from "../../controller/Controller_doctor/getIdDoctor.js";
+import {getIdDoctor} from "../../controller/Controller_doctor/getIdDoctor.js";
 
 routerIdDoctor.get('doctor/:id', cors(), async (req, res) => {
 
     let id = req.params.id
-    let resultIdDoctor= await searchIdDoctor(id)
+    let resultIdDoctor= await getIdDoctor(id)
 
     return res.status(resultIdDoctor.status_code).json(resultIdDoctor)
 })

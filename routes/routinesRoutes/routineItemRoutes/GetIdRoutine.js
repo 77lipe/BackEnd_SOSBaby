@@ -10,12 +10,12 @@ import {Router} from "express"
 import cors from 'cors'
 const routerIdRoutineItem = Router()
 
-import {selectIDRoutineItem} from "../../controller/Controllers_routines/controller_itemRoutine/getIdItemRoutine";
+import {getIdItemRoutine} from "../../controller/Controllers_routines/controller_itemRoutine/getIdItemRoutine";
 
 routerIdRoutineItem.get('routineItem/:id', cors(), async (req, res) => {
 
     let id = req.params.id
-    let resultIdRoutineItem = await selectIDRoutineItem(id)
+    let resultIdRoutineItem = await getIdItemRoutine(id)
 
     return res.status(resultIdRoutineItem.status_code).json(resultIdRoutineItem)
 })

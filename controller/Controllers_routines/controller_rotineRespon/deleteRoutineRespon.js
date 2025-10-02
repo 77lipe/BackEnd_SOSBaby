@@ -17,9 +17,28 @@ export const deleteRoutineResponsable = async function (id){
         if(
             getId == null || getId == undefined || getId == "" || isNaN(getId)
         ){
+            return message.ERROR_REQUIRED_FIELDS
+        }else{
+            
+            let resultRoutine = await getIdSQLRoutineResponsable(id)
+            if (resultRoutine != false || typeof(resultRoutine) == 'object') {
+                if(resultRoutine.length > 0){
 
+                    let deleteRoutine = await deleteSQLRoutineResponsable(id)
+                    if(deleteRoutine){
+                        return message.SUCCES_DELETED_ITEM
+                    }else{
+                        return message.ERROR_INTERNAL_SERVER_MODEL
+                    }
+                }else{
+                    return message.ERROR_NOT_FOUND
+                }
+            }else{ 
+                return message.ERROR_INTERNAL_SERVER_MODEL
+            }
         }
     } catch (error) {
-        
+        console.log(error)
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER
     }
 }

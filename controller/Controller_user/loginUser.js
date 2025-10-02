@@ -24,14 +24,10 @@ export const loginUser = async function (user, contentType) {
 
                 let resultUser = await loginSQLUser(user)
                 if(resultUser != false || typeof(resultUser) == 'object'){
-                    if (resultUser.length > 0) {
-                        return {
-                            ...message.SUCCES_LOGIN_COMPLETED,
-                            data: user
-                            
-                        }
+                    return {
+                        ...message.SUCCES_LOGIN_COMPLETED,
+                        data: resultUser    
                     }
-                    return message.ERROR_NOT_FOUND
                 }else{
                     return message.ERROR_INTERNAL_SERVER_MODEL
                 }

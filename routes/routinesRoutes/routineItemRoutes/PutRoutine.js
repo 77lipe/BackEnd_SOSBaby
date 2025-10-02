@@ -10,7 +10,7 @@ import {Router} from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
-import {updateRoutineItem} from '../../controller/Controllers_routines/controller_itemRoutine/updateItemRoutine'
+import {updateItemRoutine} from '../../controller/Controllers_routines/controller_itemRoutine/updateItemRoutine'
 
 const routerUpdateRoutineItem = Router()
 const bodyJsonParser = bodyParser.json()
@@ -21,7 +21,7 @@ routerUpdateRoutineItem.put('/routine/:id', cors(), bodyJsonParser, async (req, 
     let contentType = req.body['content-type']
     let dataItem = req.body
 
-    let resulUpdateRoutineItem = await updateRoutineItem ( id, dataItem, contentType)
+    let resulUpdateRoutineItem = await updateItemRoutine ( id, dataItem, contentType)
 
     return res.status(resulUpdateRoutineItem.status_code).json(resulUpdateRoutineItem)
 })

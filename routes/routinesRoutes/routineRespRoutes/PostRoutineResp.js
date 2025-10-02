@@ -20,7 +20,6 @@ routerInsertRoutineRespon.post('/routine/responsable', bodyJsonParser, async (re
     let dataRespon = req.body
 
     let resultInsertRoutineRespon = await insertRoutineRespon(dataRespon, contentType)
-
     return res.status(resultInsertRoutineRespon.status_code).json(resultInsertRoutineRespon)
 })
 

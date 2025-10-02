@@ -158,18 +158,16 @@ SELECT * FROM tbl_cep WHERE id_cep = 1;
 -- vw_all_responsavel
 DROP VIEW IF EXISTS vw_all_responsavel;
 CREATE VIEW vw_all_responsavel AS
-SELECT r.id_responsavel, r.nome, r.cpf, r.telefone, u.email, c.cep
+SELECT r.id_responsavel, r.nome, r.cpf, r.telefone, u.email
 FROM tbl_responsavel r
-LEFT JOIN tbl_user u ON r.id_user = u.id_user
-LEFT JOIN tbl_cep c ON r.id_cep = c.id_cep;
+LEFT JOIN tbl_user u ON r.id_user = u.id_user;
 
 -- vw_responsavel_by_id
 DROP VIEW IF EXISTS vw_responsavel_by_id;
 CREATE VIEW vw_responsavel_by_id AS
-SELECT r.id_responsavel, r.nome, r.cpf, r.telefone, u.email, c.cep
+SELECT r.id_responsavel, r.nome, r.cpf, r.telefone, u.email
 FROM tbl_responsavel r
 LEFT JOIN tbl_user u ON r.id_user = u.id_user
-LEFT JOIN tbl_cep c ON r.id_cep = c.id_cep
 WHERE r.id_responsavel = 1;
 
 
@@ -262,16 +260,14 @@ WHERE em.id = 1;
 -- vw_all_clinica
 DROP VIEW IF EXISTS vw_all_clinica;
 CREATE VIEW vw_all_clinica AS
-SELECT c.id_clinica, c.nome, c.cnpj, c.telefone, c.email, ce.cep
-FROM tbl_clinica c
-LEFT JOIN tbl_cep ce ON c.id_cep = ce.id_cep;
+SELECT c.id_clinica, c.nome, c.cnpj, c.telefone, c.email
+FROM tbl_clinica c;
 
 -- vw_clinica_by_id
 DROP VIEW IF EXISTS vw_clinica_by_id;
 CREATE VIEW vw_clinica_by_id AS
-SELECT c.id_clinica, c.nome, c.cnpj, c.telefone, c.email, ce.cep
+SELECT c.id_clinica, c.nome, c.cnpj, c.telefone, c.email
 FROM tbl_clinica c
-LEFT JOIN tbl_cep ce ON c.id_cep = ce.id_cep
 WHERE c.id_clinica = 1;
 
 
@@ -296,35 +292,39 @@ WHERE ec.id = 1;
 
 
 
-
--- ROTINA BASE --
--- vw_all_rotina_base
-DROP VIEW IF EXISTS vw_all_rotina_base;
-CREATE VIEW vw_all_rotina_base AS
-SELECT * FROM tbl_rotina_base;
-
--- vw_rotina_base_by_id
-DROP VIEW IF EXISTS vw_rotina_base_by_id;
-CREATE VIEW vw_rotina_base_by_id AS
-SELECT * FROM tbl_rotina_base WHERE id_rotina_base = 1;
-
-
-
 -- ROTINA --
 -- vw_all_rotina
 DROP VIEW IF EXISTS vw_all_rotina;
-CREATE VIEW vw_all_rotina AS
-SELECT r.id_base, r.titulo, r.cor, r.data_rotina, r.hora, r.descricao, u.email AS usuario, rb.titulo AS rotina_base
+CREATE VIEW view_rotinas AS
+SELECT r.id_rotina, r.titulo, r.cor, u.id_user
 FROM tbl_rotina r
-LEFT JOIN tbl_user u ON r.id_user = u.id_user
-LEFT JOIN tbl_rotina_base rb ON r.id_rotina_base = rb.id_rotina_base;
+JOIN tbl_user u ON r.id_user = u.id_user;
+
 
 -- vw_rotina_by_id
 DROP VIEW IF EXISTS vw_rotina_by_id;
-CREATE VIEW vw_rotina_by_id AS
-SELECT r.id_base, r.titulo, r.cor, r.data_rotina, r.hora, r.descricao, 
-       u.email AS usuario, rb.titulo AS rotina_base
-FROM tbl_rotina r
-LEFT JOIN tbl_user u ON r.id_user = u.id_user
-LEFT JOIN tbl_rotina_base rb ON r.id_rotina_base = rb.id_rotina_base
-WHERE r.id_base = 1;
+CREATE VIEW view_rotina_itens AS
+SELECT i.id_item, i.titulo, i.descricao, i.data_rotina, i.hora,
+       r.id_rotina, r.titulo AS rotina_titulo
+FROM tbl_rotina_item i
+JOIN tbl_rotina r ON i.id_rotina = r.id_rotina;
+
+
+-- vw_all_rotina_item -- 
+DROP VIEW IF EXISTS vw_all_rotina_itens;
+CREATE VIEW vw_all_rotina_itens AS
+SELECT i.id_item, i.titulo, i.descricao, i.data_rotina, i.hora,
+       r.id_rotina, r.titulo AS rotina_titulo
+FROM tbl_rotina_item i
+JOIN tbl_rotina r ON i.id_rotina = r.id_rotina;
+
+-- vw_rotina_item_by_id
+CREATE VIEW view_rotina_item_by_id AS
+SELECT i.id_item, i.titulo, i.descricao, i.data_rotina, i.hora,
+       r.id_rotina, r.titulo AS rotina_titulo
+FROM tbl_rotina_item i
+JOIN tbl_rotina r ON i.id_rotina = r.id_rotina
+WHERE i.id_item = i.id_item; 
+
+
+

@@ -8,7 +8,6 @@
 
 import * as message from '../../config/status/status.js'
 import { getIdSQLClinica } from '../../model/ClinicaDAO/GetIdClinica.js'
-import { idCep } from '../../model'
 import {selectSQLIdUser} from '../../model/UserDAO/SelectIDUser.js'
 
 export const GetIdClinica = async function (id) {
@@ -30,9 +29,6 @@ export const GetIdClinica = async function (id) {
                     dadosClinica.message = message.SUCCES_SEARCH_ITEM
 
                     for (let item of resultClinica) {
-                        let dadosCep = await idCep(item.id_cep)
-                        item.endereco = dadosCep
-
                         let dadosUser = await selectSQLIdUser(item.id_usuario)
                         item.usuario = dadosUser
 

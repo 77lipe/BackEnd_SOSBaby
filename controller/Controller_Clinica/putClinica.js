@@ -19,7 +19,6 @@ export const updateClinica = async function (dataClinica, contentType) {
                 dataClinica.cnpj        == null   || dataClinica.cnpj       == undefined   || dataClinica.cnpj      == ""  || dataClinica.cnpj.length       > 20      ||
                 dataClinica.telefone    == null   || dataClinica.telefone   == undefined   || dataClinica.telefone  == ""  || dataClinica.telefone.length   > 15      ||
                 dataClinica.email       == null   || dataClinica.email      == undefined   || dataClinica.email     == ""  || dataClinica.email.length      > 100     ||
-                dataClinica.id_cep      == null   || dataClinica.id_cep     == undefined   || dataClinica.id_cep    == ""  || isNaN(dataClinica.id_cep)               ||
                 dataClinica.id_user     == null   || dataClinica.id_user    == undefined   || dataClinica.id_cep    == ""  || isNaN(dataClinica.id_user)
             ) {
 

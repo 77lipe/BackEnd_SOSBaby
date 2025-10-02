@@ -480,12 +480,11 @@ CREATE PROCEDURE insertResponsavel(
     IN p_nome VARCHAR(150),
     IN p_cpf VARCHAR(14),
     IN p_telefone VARCHAR(15),
-    IN p_id_user INT,
-    IN p_id_cep INT
+    IN p_id_user INT
 )
 BEGIN
     INSERT INTO tbl_responsavel (nome, cpf, telefone, id_user, id_cep)
-    VALUES (p_nome, p_cpf, p_telefone, p_id_user, p_id_cep);
+    VALUES (p_nome, p_cpf, p_telefone, p_id_user);
     SELECT LAST_INSERT_ID() AS novo_id;
 END $$
 
@@ -498,16 +497,14 @@ CREATE PROCEDURE updateResponsavel(
     IN p_nome VARCHAR(150),
     IN p_cpf VARCHAR(14),
     IN p_telefone VARCHAR(15),
-    IN p_id_user INT,
-    IN p_id_cep INT
+    IN p_id_user INT
 )
 BEGIN
     UPDATE tbl_responsavel
     SET nome = p_nome,
         cpf = p_cpf,
         telefone = p_telefone,
-        id_user = p_id_user,
-        id_cep = p_id_cep
+        id_user = p_id_user
     WHERE id_responsavel = p_id;
 END $$
 
@@ -745,12 +742,11 @@ CREATE PROCEDURE insertClinica(
     IN p_cnpj VARCHAR(20),
     IN p_telefone VARCHAR(20),
     IN p_email VARCHAR(100),
-    IN p_id_cep INT,
     IN p_id_user INT
 )
 BEGIN
     INSERT INTO tbl_clinica (nome, cnpj, telefone, email, id_cep, id_user)
-    VALUES (p_nome, p_cnpj, p_telefone, p_email, p_id_cep, p_id_user);
+    VALUES (p_nome, p_cnpj, p_telefone, p_email, p_id_user);
     SELECT LAST_INSERT_ID() AS novo_id;
 END $$
 
@@ -764,7 +760,6 @@ CREATE PROCEDURE updateClinica(
     IN p_cnpj VARCHAR(20),
     IN p_telefone VARCHAR(20),
     IN p_email VARCHAR(100),
-    IN p_id_cep INT,
     IN p_id_user INT
 )
 BEGIN
@@ -773,7 +768,6 @@ BEGIN
         cnpj = p_cnpj,
         telefone = p_telefone,
         email = p_email,
-        id_cep = p_id_cep,
         id_user = p_id_user
     WHERE id_clinica = p_id;
 END $$
@@ -834,6 +828,7 @@ CREATE PROCEDURE deleteEspecialidadeClinica(
 BEGIN
     DELETE FROM tbl_especialidade_clinica WHERE id = p_id;
 END $$
+
 
 
 
@@ -936,4 +931,6 @@ BEGIN
     WHERE id_item = p_id_item;
 END $$
 
-DELIMITER ;
+
+
+

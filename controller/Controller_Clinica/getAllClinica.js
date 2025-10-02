@@ -8,7 +8,6 @@
 import * as message from '../../config/status/status.js'
 import { getAllSQLClinica } from '../../model/ClinicaDAO/GetAllClinica.js'
 import { selectSQLIdUser } from '../../model/UserDAO/SelectIDUser.js'
-import { idCep } from '../../model/'
 
 export const getAllClinica = async function () {
     try {
@@ -26,9 +25,6 @@ export const getAllClinica = async function () {
                 for (item of resultClinica) {
                     let dadoUser = await selectSQLIdUser(item.id_user)
                     item.usuario = dadoUser.id_tipo
-
-                    let dadoCep = await idCep(item.id_cep)
-                    item.endereco = dadoCep.descricao
 
                     clinicaArray.push(item)
                 }

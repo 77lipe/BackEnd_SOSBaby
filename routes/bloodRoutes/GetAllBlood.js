@@ -1,24 +1,21 @@
 /*********************************************************
  * Autor: Isabelly Lima
- * Date:23/09/25
- * Versão: 1.0
+ * Date: 30/09/25
+ * Versão: 2.0
  * Desc: App que irá realizar as 
- *       rotas para GET ID DO SANGUE
+ *       rotas para GET ALL BLOOD
  ********************************************************/
 
-import express, {Router} from "express"
-import bodyParser from "body-parser"
+import {Router} from "express"
 import cors from 'cors'
 const routerAllBlood = Router()
 
 import {selectAllBlood} from "../../controller/Controller_blood/selectAllSangue.js";
 
-routerAllBlood.get('blood/:id', cors(), async (req, res) => {
+routerAllBlood.get('/blood', cors(), async(req, res) => {
 
-    let id = req.params.id
-    let resultAllBlood = await selectAllBlood (id)
-
-    return res.status(resultAllBlood.status_code).json(resultAllBlood)
+   let resultAllBlood = await selectAllBlood()
+   return res.status(resultAllBlood.status_code).json(resultAllBlood)
 })
 
 export default routerAllBlood

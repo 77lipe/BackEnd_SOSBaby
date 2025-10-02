@@ -1,9 +1,9 @@
 /*********************************************************
  * Autor: Isabelly Lima
- * Date:  23/09/25
- * Versão: 1.0
+ * Date: 30/09/25
+ * Versão: 2.0
  * Desc: App que irá realizar as 
- *       rotas para GET ID DO TYPE USER
+ *       rotas para GET ALL TYPE USER
  ********************************************************/
 
 import {Router} from "express"
@@ -12,12 +12,10 @@ const routerAllTypeUser = Router()
 
 import {SelectAllUsers} from "../../controller/Controller_type_user/SelectAllUsers.js";
 
-routerAllTypeUser.get('type/:id', cors(), async (req, res) => {
+routerAllTypeUser.get('/type', cors(), async(req, res) => {
 
-    let id = req.params.id
-    let resultAllTypeUser = await SelectAllUsers (id)
-
-    return res.status(resultAllTypeUser.status_code).json(resultAllTypeUser)
+   let resultAllTypeUser = await SelectAllUsers()
+   return res.status(resultAllTypeUser.status_code).json(resultAllTypeUser)
 })
 
 export default routerAllTypeUser

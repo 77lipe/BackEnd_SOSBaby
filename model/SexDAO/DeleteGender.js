@@ -1,5 +1,5 @@
 /**************************************************
- * Autor: Eduardo Couto
+ * Autor: Felipe Vieira
  * Date: 18/09/25
  * Versão: 1.0
  * Desc: App que irá conter os deletes para
@@ -12,8 +12,10 @@
 
  export const DeleteGenderSQL = async function(id) {
     try {
-        let sql = `DELETE from tbl_sexo where id = ${id}`
-        let result =  await prisma.executeRawUnsafe(sql, id)
+        let result =  await prisma.$executeRawUnsafe(
+            `CALL deleteSexo(?)`,
+            id
+        )
 
         if (result) {
             return true

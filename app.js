@@ -33,6 +33,7 @@ import responsableRoutes from './routes/ResponsableRoutes/index.js'
 import sexRoutes from './routes/SexRoutes/index.js'
 import bloodRoutes from './routes/BloodRoutes/index.js'
 import typeUserRoutes from './routes/TypeUserRoutes/index.js'
+import doctorRoutes from './routes/doctorRoutes/index.js'
 
 
 const app = express()
@@ -46,6 +47,7 @@ app.use('/v1/sosbaby', responsableRoutes)
 app.use('/v1/sosbaby', sexRoutes)
 app.use('/v1/sosbaby', bloodRoutes)
 app.use('/v1/sosbaby', typeUserRoutes)
+app.use('/v1/sosbaby', doctorRoutes)
 
 
 app.listen('3030', function(){

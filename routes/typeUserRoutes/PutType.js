@@ -1,27 +1,29 @@
 /*********************************************************
  * Autor: Isabelly Lima
- * Date:  23/09/25
- * Versão: 1.0
+ * Date: 30/09/25
+ * Versão: 2.0
  * Desc: App que irá realizar as 
- *       rotas para POST TYPE USER
+ *       rotas para PUT TYPE USER
  ********************************************************/
 
 import {Router} from 'express'
 import bodyParser from 'body-parser'
+import cors from 'cors'
 
 import {UpdateTypeUser} from '../../controller/Controller_type_user/putTypeUser.js'
 
-const router = Router()
+const routerUpdateTypeUser = Router()
 const bodyJsonParser = bodyParser.json()
 
-router.put('/type/:id', bodyJsonParser, async (req, res) => {
+routerUpdateTypeUser.put('/type/:id', cors(), bodyJsonParser, async (req, res) => {
 
+    let id = req.params.id
     let contentType = req.body['content-type']
-    let dataTypeUser = req.body
+    let dataType = req.body
 
-    let resultUpdateTypeUser = await UpdateTypeUser(dataTypeUser, contentType)
+    let resulUpdateTypeUser = await UpdateTypeUser ( id, dataType, contentType)
 
-    return res.status(resultUpdateTypeUser.status_code).json(resultUpdateTypeUser)
+    return res.status(resulUpdateTypeUser.status_code).json(resulUpdateTypeUser)
 })
 
-export default router
+export default routerUpdateTypeUser

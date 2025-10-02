@@ -13,7 +13,7 @@
  
  import {searchIDClinica} from "../../controller/Controller_Clinica/getIdClinica.js";
  
- routerIdClinica.get('resp/:id', cors(), async (req, res) => {
+ routerIdClinica.get('specialty/:id', cors(), async (req, res) => {
  
      let id = req.params.id
      let resultIdClinica = await searchIDClinica(id)

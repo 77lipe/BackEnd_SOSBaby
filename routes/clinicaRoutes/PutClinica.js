@@ -15,7 +15,7 @@
  const routerUpdateClinica = Router()
  const bodyJsonParser = bodyParser.json()
  
- routerUpdateClinica.put('/resp/:id', cors(), bodyJsonParser, async (req, res) => {
+ routerUpdateClinica.put('/specialty/:id', cors(), bodyJsonParser, async (req, res) => {
  
      let id = req.params.id
      let contentType = req.body['content-type']

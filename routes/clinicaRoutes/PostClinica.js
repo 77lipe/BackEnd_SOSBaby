@@ -15,7 +15,7 @@
  
  const bodyJsonParser = bodyParser.json()
  
- routerInsertClinica.post('/resp/cadastro', bodyJsonParser, async (req,res) =>{
+ routerInsertClinica.post('/specialty/cadastro', bodyJsonParser, async (req,res) =>{
      
      let contentType = req.headers['content-type']
      let dataClinica = req.body

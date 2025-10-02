@@ -13,10 +13,10 @@
  
  const routerDeleteClinica = Router()
  
- routerDeleteClinica.delete('/resp/:id', cors(), async(req, res) => {
+ routerDeleteClinica.delete('/specialty/:id', cors(), async(req, res) => {
  
      let id = req.params.id
-     let resultDeleteClinica = await DeleteResp(id)
+     let resultDeleteClinica = await DeleteClinica(id)
  
      return res.status(resultDeleteClinica.status_code).json(resultDeleteClinica)
  })

@@ -12,7 +12,7 @@
  
  import {SelectAllClinica} from "../../controller/Controller_Clinica/getAllClinica.js";
  
- routerAllClinica.get('/responsables', cors(), async(req, res) => {
+ routerAllClinica.get('/specialty', cors(), async(req, res) => {
  
     let resultAllClinica = await SelectAllClinica()
     return res.status(resultAllClinica.status_code).json(resultAllClinica)

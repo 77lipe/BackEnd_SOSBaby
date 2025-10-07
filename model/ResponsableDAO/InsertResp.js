@@ -22,7 +22,7 @@ export const insertSQLResp = async function (user) {
         cep,
         id_sexo,
         arquivo,
-        cartao,
+        cartao_medico,
         id_user
         )
         values(

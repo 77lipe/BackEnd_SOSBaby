@@ -12,7 +12,7 @@ const routerAllTypeUser = Router()
 
 import {SelectAllUsers} from "../../controller/Controller_type_user/SelectAllUsers.js";
 
-routerAllTypeUser.get('/type', cors(), async(req, res) => {
+routerAllTypeUser.get('/types', cors(), async(req, res) => {
 
    let resultAllTypeUser = await SelectAllUsers()
    return res.status(resultAllTypeUser.status_code).json(resultAllTypeUser)

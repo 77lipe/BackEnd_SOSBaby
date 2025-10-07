@@ -8,7 +8,7 @@
  ********************************************************/
 import * as message from '../../../config/status/status.js'
 import { getIdSQLItemRoutine } from '../../../model/RoutinesDAO/ItemRoutine/GetIdItemRoutine.js'
-import { getIdSQLRoutineResponsable } from '../../../model/RoutinesDAO/RoutineResponsable/GetIdRoutineResponsable' 
+import { getIdSQLRoutineResponsable } from '../../../model/RoutinesDAO/RoutineResponsable/GetIdRoutineResponsable.js' 
 
 export const getIdItemRoutine = async function (id) {
     try {

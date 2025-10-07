@@ -5,8 +5,8 @@
  * Desc: App que irá realizar a comunicação com o banco
  *       dados para GET ID DE ROTINA
  ********************************************************/
-import {PrismaCliente} from '@prisma/client'
-const prisma = new PrismaCliente()
+import {PrismaClient} from '@prisma/client'
+const prisma = new PrismaClient()
 
 export const getIdSQLRoutineResponsable = async function (id){
     try {

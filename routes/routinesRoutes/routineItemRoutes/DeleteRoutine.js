@@ -9,14 +9,14 @@
 import {Router} from "express";
 import cors from 'cors'
 
-import {DeleteRoutineItem} from "../../controller/Controllers_routines/controller_itemRoutine/deleteItemRoutine";
+import {deleteItemRoutine} from "../../../controller/Controllers_routines/controller_itemRoutine/deleteItemRoutine.js";
 
 const routerDeleteRoutineItem = Router()
 
 routerDeleteRoutineItem.delete('/routineItem/:id', cors(), async(req, res) => {
 
     let id = req.params.id
-    let resultDeleteRoutineItem = await DeleteRoutineItem(id)
+    let resultDeleteRoutineItem = await deleteItemRoutine(id)
 
     return res.status(resultDeleteRoutineItem.status_code).json(resultDeleteRoutineItem)
 })

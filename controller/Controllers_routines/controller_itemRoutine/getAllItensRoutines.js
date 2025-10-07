@@ -8,7 +8,7 @@
  ********************************************************/
 
 import * as message from '../../../config/status/status.js'
-import { getAllItensRoutines } from '../../../model/RoutinesDAO/ItemRoutine/GetAllItemRoutine.js'
+import { getAllSQLItemRoutine } from '../../../model/RoutinesDAO/ItemRoutine/GetAllItemRoutine.js'
 
 export const getAllItensRoutines = async function () {
     try {
@@ -16,7 +16,7 @@ export const getAllItensRoutines = async function () {
         let itensRoutinesArray = []
         let itensRoutinesJson = {}
 
-        let resultAllRoutines = await getAllItensRoutines()
+        let resultAllRoutines = await getAllSQLItemRoutine()
         if (resultAllRoutines != false || typeof(resultAllRoutines) == 'object') {
             if (resultAllRoutines.length > 0) {
                 itensRoutinesJson.message = message.SUCCES_SEARCH_ITEM

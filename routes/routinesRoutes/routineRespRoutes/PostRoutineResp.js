@@ -10,7 +10,7 @@ import bodyParser from 'body-parser'
 import { Router } from 'express'
 const routerInsertRoutineRespon = Router()
 
-import {insertRoutineRespon} from "../../controller/Controllers_routines/controller_rotineRespon/insertRoutineRespon"
+import {insertRoutineRespon} from "../../../controller/Controllers_routines/controller_rotineRespon/insertRoutineRespon.js"
 
 const bodyJsonParser = bodyParser.json()
 
@@ -20,7 +20,6 @@ routerInsertRoutineRespon.post('/routine/responsable', bodyJsonParser, async (re
     let dataRespon = req.body
 
     let resultInsertRoutineRespon = await insertRoutineRespon(dataRespon, contentType)
-
     return res.status(resultInsertRoutineRespon.status_code).json(resultInsertRoutineRespon)
 })
 

@@ -11,7 +11,7 @@ import bodyParser from 'body-parser'
 import {Router} from 'express'
 const routerInsertRoutineItem = Router()
 
-import {insertRoutineItem} from "../../controller/Controllers_routines/controller_itemRoutine/insertItemRoutine"
+import {insertItemRoutine} from "../../../controller/Controllers_routines/controller_itemRoutine/insertItemRoutine.js"
 
 const bodyJsonParser = bodyParser.json()
 
@@ -20,7 +20,7 @@ routerInsertRoutineItem.post('/routine/item', bodyJsonParser, async (req,res) =>
     let contentType = req.headers['content-type']
     let dataItem = req.body
 
-    let resultInsertRoutineItem = await insertRoutineItem(dataItem, contentType)
+    let resultInsertRoutineItem = await insertItemRoutine(dataItem, contentType)
 
     return res.status(resultInsertRoutineItem.status_code).json(resultInsertRoutineItem)
 })

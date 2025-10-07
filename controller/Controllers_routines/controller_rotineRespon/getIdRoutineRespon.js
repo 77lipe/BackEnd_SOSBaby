@@ -7,7 +7,7 @@
  *       ROTINA DO RESPONSAVEL
  ********************************************************/
 import * as message from '../../../config/status/status.js'
-import { getIdSQLRoutineResponsable } from "../../../model/RoutinesDAO/RoutineResponsable/GetIdRoutineResponsable"
+import { getIdSQLRoutineResponsable } from "../../../model/RoutinesDAO/RoutineResponsable/GetIdRoutineResponsable.js"
 import { selectSQLIdUser } from "../../../model/UserDAO/SelectIDUser.js";
 
 export const getIdRoutineResponsable = async function (id){

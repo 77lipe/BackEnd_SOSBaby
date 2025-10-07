@@ -12,7 +12,7 @@ const routerIdRoutineResp = Router()
 
 import {getIdRoutineResponsable} from "../../../controller/Controllers_routines/controller_rotineRespon/getIdRoutineRespon.js";
 
-routerIdRoutineResp.get('routine/:id', cors(), async (req, res) => {
+routerIdRoutineResp.get('routineResp/:id', cors(), async (req, res) => {
 
     let id = req.params.id
     let resultIdRoutineResp = await getIdRoutineResponsable(id)

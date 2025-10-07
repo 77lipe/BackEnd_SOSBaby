@@ -14,7 +14,7 @@ import {insertRoutineRespon} from "../../../controller/Controllers_routines/cont
 
 const bodyJsonParser = bodyParser.json()
 
-routerInsertRoutineRespon.post('/routine/responsable', bodyJsonParser, async (req,res) =>{
+routerInsertRoutineRespon.post('/routineResp/cadastro', bodyJsonParser, async (req,res) =>{
     
     let contentType = req.headers['content-type']
     let dataRespon = req.body

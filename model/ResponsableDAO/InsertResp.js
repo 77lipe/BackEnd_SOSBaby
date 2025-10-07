@@ -33,7 +33,7 @@ export const insertSQLResp = async function (user) {
         '${user.cep}',
         '${user.id_sexo}',
         '${user.arquivo}',
-        '${user.cartao}',
+        '${user.cartao_medico}',
         '${user.id_user}'
         )`
 

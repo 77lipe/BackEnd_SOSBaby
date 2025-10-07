@@ -15,7 +15,7 @@ import {updateItemRoutine} from '../../../controller/Controllers_routines/contro
 const routerUpdateRoutineItem = Router()
 const bodyJsonParser = bodyParser.json()
 
-routerUpdateRoutineItem.put('/routine/:id', cors(), bodyJsonParser, async (req, res) => {
+routerUpdateRoutineItem.put('/routineItem/:id', cors(), bodyJsonParser, async (req, res) => {
 
     let id = req.params.id
     let contentType = req.body['content-type']

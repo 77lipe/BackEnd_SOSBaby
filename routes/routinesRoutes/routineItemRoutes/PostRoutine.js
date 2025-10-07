@@ -15,7 +15,7 @@ import {insertItemRoutine} from "../../../controller/Controllers_routines/contro
 
 const bodyJsonParser = bodyParser.json()
 
-routerInsertRoutineItem.post('/routine/item', bodyJsonParser, async (req,res) =>{
+routerInsertRoutineItem.post('/routineItem/cadastro', bodyJsonParser, async (req,res) =>{
     
     let contentType = req.headers['content-type']
     let dataItem = req.body

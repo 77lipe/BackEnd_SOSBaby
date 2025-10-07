@@ -10,6 +10,8 @@ import PutUser from './PutUser.js'
 import GetIdUser from './GetIdUser.js'
 import DeleteUser from './DeleteUser.js'
 import LoginUser from './LoginUser.js'
+import ForgetUserPass from './resetUserPassRoutes/forgetPass.js'
+import ResetUserPass from  './resetUserPassRoutes/resetPass.js'
 import { Router } from "express"
 
 const router = Router()
@@ -19,5 +21,6 @@ router.use(GetIdUser)
 router.use(PutUser)
 router.use(DeleteUser)
 router.use(LoginUser)
-
+router.use(ForgetUserPass)
+router.use(ResetUserPass)
 export default router

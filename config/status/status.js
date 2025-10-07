@@ -15,6 +15,7 @@ export const ERROR_INTERNAL_SERVER_CONTROLLER = {status: false, status_code: 500
 export const ERROR_CONTENT_TYPE = {status: false, status_code: 415, message: "Não foi possivel processar a requisição, pois o tipo de dado encaminhado não é processado pelo servidor. Encaminhe dados apenas no formato JSON"}
 export const ERROR_NOT_FOUND = {status: false, status_code: 404, message:"Serviço não encontrado, Nenhum retorno encontrado"}
 export const ERROR_INCORRECT_LOGIN = {status: false, status_code: 404, message:"Seu Login não foi autorizado!!"}
+export const ERROR_INVALID_TOKEN = {status: false, status_code: 404, message:"Token INVÁLIDO!!"}
 
 
 /****************************MENSAGENS DE SUCESSO******************************/
@@ -23,3 +24,5 @@ export const SUCCES_DELETED_ITEM = {status: true, status_code: 200, message:"Ite
 export const SUCCES_UPDATE_ITEM = {status: true, status_code: 200, message:"Item atualizado com sucesso!!"}
 export const SUCCES_SEARCH_ITEM = {status: true, status_code: 200, message:"Procura realizada com sucesso!!"}
 export const SUCCES_LOGIN_COMPLETED = {status: true, status_code: 200, message:"Login realizado com sucesso!!"}
+export const SUCCES_PASSWORD_RESET = {status: true, status_code:200, message:"Senha atualizada com sucesso!!"}
+export const SUCCES_EMAIL_SENT = {status: true, status_code:200, message:"Email enviado!! Verifique seu Gmail."}

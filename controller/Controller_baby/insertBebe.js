@@ -22,8 +22,8 @@ export const insertBebe = async function (bebe, contentType) {
                 bebe.altura                 == undefined || bebe.altura             == null || bebe.altura              == '' || bebe.altura.length             > 3     ||
                 bebe.id_sangue              == undefined || bebe.id_sangue          == null || bebe.id_sangue           == '' || isNaN(bebe.id_sangue)                  ||
                 bebe.certidao_nascimento    == undefined || bebe.certidao_nascimento== null || bebe.certidao_nascimento == '' || bebe.certidao_nascimento.length > 45   ||
-                bebe.cartao_medico          == undefined || bebe.cartao_medico      == null || bebe.cartao_medico       == '' || bebe.cartao_medico.length      > 100   ||
-                bebe.imagem_certida         == undefined || bebe.imagem_certida     == null || bebe.imagem_certida      == '' || bebe.imagem_certida.length     > 100   
+                bebe.cartao_medico          == undefined || bebe.cartao_medico      == null || bebe.cartao_medico       == '' || bebe.cartao_medico.length       > 100  ||
+                bebe.imagem_certidao        == undefined || bebe.imagem_certidao    == null || bebe.imagem_certidao     == '' || bebe.imagem_certidap.length     > 100   
             ){
                 return message.ERROR_REQUIRED_FIELDS                
             }else{

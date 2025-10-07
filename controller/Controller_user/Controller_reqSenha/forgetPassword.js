@@ -33,7 +33,7 @@ export const forgotPassword = async function(email, contentType){
                         {expiresIn: '15min'}
                     )
                     
-                    const link = `${process.env.FRONTENDURL}/reset-password?token=${token}`
+                    const link = `${process.env.FRONTEND_URL}/reset-password?token=${token}`
                     const sendEmail = nodemailer.createTransport({
                         service: 'gmail',
                         auth: {

@@ -26,6 +26,8 @@
 
 import express from 'express'
 import cors from 'cors'
+import dotenv from 'dotenv'
+dotenv.config()
 
 import babyRoutes from './routes/babyRoutes/index.js'
 import userRoutes from './routes/userRoutes/index.js'

@@ -217,28 +217,44 @@ create table tbl_especialidade_clinica (
     references tbl_especialidade(id_especialidade)
 );
 
+
 create table tbl_rotina(
 	id_rotina int auto_increment primary key not null,
     titulo varchar(100) not null,
     cor char(10) not null,
     id_user int,
+    id_item_rotina int,
     
 	constraint FK_ROTINA_USUARIO
     foreign key (id_user)
-    references tbl_user(id_user)
+    references tbl_user(id_user),
+    
+    constraint FK_ITEM_ROTINA
+    foreign key (id_item_rotina)
+    references tbl_rotina_item(id_item)
 
 );
 
 
 CREATE TABLE tbl_rotina_item (
     id_item INT AUTO_INCREMENT PRIMARY KEY,
-    id_rotina INT NOT NULL,
     titulo VARCHAR(100) NOT NULL,
     descricao TEXT,
     data_rotina DATE NOT NULL,
-    hora TIME NOT NULL,
-    
-	constraint FK_ROTINA_ITEM
-    foreign key (id_rotina)
-    references tbl_rotina(id_rotina)
+    hora TIME NOT NULL
+
 );
+
+
+create table tbl_calendario (
+	id_calendario int auto_increment primary key,
+    titulo varchar(100) not null,
+    descricao TEXT(200) not null,
+    data_evento datetime not null,
+    cor char(10) null,
+    id_user int,
+    
+	constraint FK_CALENDARIO_USUARIO
+    foreign key (id_user)
+    references tbl_user(id_user)
+)

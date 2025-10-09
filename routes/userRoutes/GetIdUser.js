@@ -12,7 +12,7 @@ const routerIdUser = Router()
 
 import { selectIDUser } from "../../controller/Controller_user/searchIdUser.js";
 
-routerIdUser.get('user/:id', cors(), async (req, res) => {
+routerIdUser.get('/user/:id', cors(), async (req, res) => {
 
     let id = req.params.id
     let resultIdUser = await selectIDUser(id)

@@ -10,6 +10,7 @@
 import * as message from '../../config/status/status.js'
 import { idResp } from "../../model/ResponsableDAO/SelectIDResp.js";
 import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser.js";
+import {SearchIDGender} from '../../controller/Controller_sexo/SelectByIdGender.js'
 
 export const searchIDResp = async function (id) {
     try {
@@ -29,7 +30,12 @@ export const searchIDResp = async function (id) {
 
                     for(let itemRespon of resultResp){
                         let dadosUser = await selectSQLIdUser(itemRespon.id_user)
-                        itemRespon.usuario = dadosUser.id_user
+                        itemRespon.usuario = dadosUser
+                        delete itemRespon.id_user
+
+                        let dadosSex = await SearchIDGender(itemRespon.id_sexo)
+                        itemRespon.sexo = dadosSex.data[0].sexo
+                        delete itemRespon.id_sexo
 
                         respArray.push(itemRespon)
                     }

@@ -25,15 +25,18 @@ export const selectIDUser = async function (id) {
             let resultUser = await selectSQLIdUser(id)
             if(resultUser != false || typeof(resultUser) == 'object'){
                 if (resultUser.length > 0) {
-                    jsonUser.message = message.SUCCES_SEARCH_ITEM
+                    jsonUser.message = message.SUCCES_SEARCH_ITEM.message,
+                    jsonUser.status_code = message.SUCCES_SEARCH_ITEM.status_code
 
-                    for(itemUser of resultUser){
-                        let tipo = await idTypeUser(id_tipo)
-                        itemUser.id_tipo = tipo
+                    for(const itemUser of resultUser){
+                        let tipo = await idTypeUser(itemUser.id_tipo)
+                        itemUser.data_tipo = tipo
+                        delete itemUser.id_tipo
+                        
 
                         arrayUser.push(itemUser)
                     }
-                    jsonUser.tipo = arrayUser
+                    jsonUser.usuario = arrayUser
                     return jsonUser
                 }else{
                     return message.ERROR_NOT_FOUND

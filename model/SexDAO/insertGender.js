@@ -18,7 +18,7 @@ export const insertSQLGender = async function (sexo) {
             sexo.sexo
             )
         
-        if (resultSex) {
+        if (resultSex !== undefined && resultSex !== null) {
             return true
         }else{
             return false

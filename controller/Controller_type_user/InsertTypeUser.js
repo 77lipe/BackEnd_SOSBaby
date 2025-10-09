@@ -23,7 +23,7 @@ export const insertTypeUser = async function (type, contentType) {
                 if (resultType) {
                     return{
                          ...message.SUCCES_CREATED_ITEM,
-                         data: resultType
+                         data: type
                     }
                 } else {
                     return message.ERROR_INTERNAL_SERVER_MODEL

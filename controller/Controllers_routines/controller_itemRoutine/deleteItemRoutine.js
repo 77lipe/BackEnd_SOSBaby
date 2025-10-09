@@ -8,8 +8,8 @@
  ********************************************************/
 
 import * as message from "../../../config/status/status.js";
-import { deleteItemRoutine } from "../../../model/Controllers_routines/model_itemRoutine/deleteItemRoutine.js";
-import { selectByIdItemRoutine } from "../../../model/Controllers_routines/model_itemRoutine/selectByIdItemRoutine.js";
+import { deleteSQLItemRoutine } from "../../../model/RoutinesDAO/ItemRoutine/DeleteItemRoutine.js";
+import { getIdSQLItemRoutine } from "../../../model/RoutinesDAO/ItemRoutine/GetIdItemRoutine.js";
 
 export const deleteItemRoutine = async function (id) {
   try {
@@ -19,11 +19,11 @@ export const deleteItemRoutine = async function (id) {
         return message.ERROR_REQUIRED_FIELDS;
     }else{
       
-        let resultItemRoutine = await selectByIdItemRoutine(id);
+        let resultItemRoutine = await getIdSQLItemRoutine(id);
         if (resultItemRoutine != false || typeof resultItemRoutine == "object") {
           if (resultItemRoutine.length > 0) {
         
-            let idResultItem = await deleteItemRoutine(id);
+            let idResultItem = await deleteSQLItemRoutine(id);
             
             if (idResultItem) {
               return message.SUCCES_DELETED_ITEM;

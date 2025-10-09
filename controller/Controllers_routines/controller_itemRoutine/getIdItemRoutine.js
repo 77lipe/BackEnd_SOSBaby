@@ -7,8 +7,8 @@
  *       ITEM DE ROTINA
  ********************************************************/
 import * as message from '../../../config/status/status.js'
-import { idItemRoutine } from '../../../model/Controllers_routines/model_itemRoutine/getIdItemRoutine.js'
-import { getIdRoutineRespon } from '../../../model/Controllers_routines/model_routine/getAllRoutines.js'
+import { getIdSQLItemRoutine } from '../../../model/RoutinesDAO/ItemRoutine/GetIdItemRoutine.js'
+import { getIdSQLRoutineResponsable } from '../../../model/RoutinesDAO/RoutineResponsable/GetIdRoutineResponsable.js' 
 
 export const getIdItemRoutine = async function (id) {
     try {
@@ -23,7 +23,7 @@ export const getIdItemRoutine = async function (id) {
            
             let itemRoutineArray = []
             let itemRoutineJson = {}
-            let resultItemRoutine = await idItemRoutine(getId)
+            let resultItemRoutine = await getIdSQLItemRoutine(getId)
 
             if (resultItemRoutine != false || typeof(resultItemRoutine) == 'object') {
                 if (resultItemRoutine.length > 0) {
@@ -32,7 +32,7 @@ export const getIdItemRoutine = async function (id) {
                     itemRoutineJson.itens_rotinas = resultItemRoutine
 
                     for (item of resultItemRoutine) {
-                        let dadoRoutine = await getIdRoutine(item.id_rotina)
+                        let dadoRoutine = await getIdSQLRoutineResponsable(item.id_rotina)
                         item.rotina = dadoRoutine.titulo
 
                         itemRoutineArray.push(item)

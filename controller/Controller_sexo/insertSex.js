@@ -20,15 +20,15 @@ import { insertSQLGender } from "../../model/SexDAO/insertGender.js";
                  return message.ERROR_REQUIRED_FIELDS
              }else{
 
-                 let resultUser = await insertSQLGender(sex)
-                 if(resultUser){
-                     return{
-                         ...message.SUCCES_CREATED_ITEM,
-                         data: resultUser
-                     }
-                 }else{
-                     return message.ERROR_INTERNAL_SERVER_MODEL
-                 }
+                let resultUser = await insertSQLGender(sex)
+                if(resultUser){
+                    return{
+                        ...message.SUCCES_CREATED_ITEM,
+                        data: resultUser
+                    }
+                }else{
+                    return message.ERROR_INTERNAL_SERVER_MODEL
+                }
              }
  
          }else{

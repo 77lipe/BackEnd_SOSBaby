@@ -10,11 +10,11 @@ import {Router} from "express"
 import cors from 'cors'
 const routerAllResponsable = Router()
 
-import {SelectAllResponsable} from "../../controller/Controller_responsable/ListAllResp.js";
+import {ListAllResp} from "../../controller/Controller_responsable/ListAllResp.js";
 
 routerAllResponsable.get('/responsables', cors(), async(req, res) => {
 
-   let resultAllResponsable = await SelectAllResponsable()
+   let resultAllResponsable = await ListAllResp()
    return res.status(resultAllResponsable.status_code).json(resultAllResponsable)
 })
 

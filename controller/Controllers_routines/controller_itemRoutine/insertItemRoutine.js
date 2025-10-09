@@ -7,7 +7,7 @@
  ********************************************************/
 
 import * as message from '../../../config/status/status.js'
-import { insertItemRoutine } from '../../../model/Controllers_routines/model_itemRoutine/insertItemRoutine.js'
+import { insertSqlItemRoutine } from '../../../model/RoutinesDAO/ItemRoutine/InsertItemRoutine.js'
 
 export const insertItemRoutine = async function (itemRoutine, contentType){
     try {
@@ -23,7 +23,7 @@ export const insertItemRoutine = async function (itemRoutine, contentType){
                 return message.ERROR_REQUIRED_FIELDS                
             }else{
 
-                let resultInsertItemRoutine = await insertItemRoutine(itemRoutine)
+                let resultInsertItemRoutine = await insertSqlItemRoutine(itemRoutine)
 
                 if(resultInsertItemRoutine){
                     return {

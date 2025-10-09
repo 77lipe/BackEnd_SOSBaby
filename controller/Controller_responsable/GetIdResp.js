@@ -27,7 +27,7 @@ export const searchIDResp = async function (id) {
                     dadosResp.message = message.SUCCES_SEARCH_ITEM
 
                     for(itemRespon of resultResp){
-                        let dadosUser = await selectSQLIdUser(id_user)
+                        let dadosUser = await selectSQLIdUser(itemRespon.id_user)
                         itemRespon.usuario = dadosUser.id_tipo
 
                         respArray.push(itemRespon)

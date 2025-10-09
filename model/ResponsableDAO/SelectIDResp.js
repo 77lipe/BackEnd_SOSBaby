@@ -13,10 +13,10 @@ export const idResp = async function (id) {
     try {
 
         let sql = `SELECT * FROM tbl_responsavel WHERE id = ${id}`
-        let resultUser = await prisma.queryRawUnsafe(sql)
+        let resultUser = await prisma.$queryRawUnsafe(sql)
 
-        if (resultUser) {
-            return true
+        if (resultUser.length > 0) {
+            return resultUser
         }else{
             return false
         }

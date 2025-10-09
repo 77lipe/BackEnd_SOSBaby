@@ -16,7 +16,7 @@ export const insertCalendario = async function (calendario, contentType) {
         if(String(contentType).toLocaleLowerCase() === "application/json"){
             if(
                 calendario.dia             == "" || calendario.dia            == undefined || calendario.dia            == null || calendario.dia.length    > 365   ||
-                calendario.mes             == "" || calendario.mes            == undefined || calendario.mes            == null || calendario.mes.length    > 12    ||
+                calendario.mes             == "" || calendario.mes            == undefined || calendario.mes            == null || calendario.mes.length    > 2     ||
                 calendario.ano             == "" || calendario.ano            == undefined || calendario.ano            == null || calendario.ano           > 5000  ||
                 calendario.titulo          == "" || calendario.titulo         == undefined || calendario.titulo         == null || calendario.titulo.length > 100   ||
                 calendario.nota            == "" || calendario.nota           == undefined || calendario.nota           == null || calendario.nota.length   > 100   ||

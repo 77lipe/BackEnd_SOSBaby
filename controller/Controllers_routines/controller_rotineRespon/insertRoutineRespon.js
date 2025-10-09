@@ -17,8 +17,8 @@ export const insertRoutineRespon = async function (routineRespon, contentType) {
             if (
                 routineRespon.titulo == undefined        || routineRespon.titulo        == null || routineRespon.titulo         == "" || routineRespon.titulo.length > 100      ||
                 routineRespon.cor == undefined           || routineRespon.cor           == null || routineRespon.cor            == "" || routineRespon.cor.length > 20          ||
-                routineRespon.data_rotina == undefined   || routineRespon.data_rotina   == null || routineRespon.data_rotina    == "" || routineRespon.data_rotina.length > 10  ||
-                routineRespon.id_user == undefined       || routineRespon.id_user       == null || routineRespon.id_user        == "" || isNaN(routineRespon.id_user)           
+                routineRespon.id_user == undefined       || routineRespon.id_user       == null || routineRespon.id_user        == "" || isNaN(routineRespon.id_user)           ||
+                routineRespon.id_item_rotina == undefined|| routineRespon.id_item_rotina == null|| routineRespon.id_item_rotina == "" || isNaN(routineRespon.id_item_rotina)
             ) {
                 return message.ERROR_REQUIRED_FIELDS
             }else{

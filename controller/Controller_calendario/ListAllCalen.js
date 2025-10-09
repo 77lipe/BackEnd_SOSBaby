@@ -7,7 +7,7 @@
  *******************************************************************/
 
 import * as message from '../../config/status/status.js'
-import {ListSQLCalendario} from "../../model/UserDAO/ListAllUser.js"
+import {ListSQLCalendario} from "../../model/CalendarioDAO/GetAllCalendario"
 
 export const SelectAllCalendario = async function () {
     try {
@@ -17,11 +17,11 @@ export const SelectAllCalendario = async function () {
 
         if (resultCalendario != false) {
             if (resultCalendario.length > 0) {
-                dadosUser.message = message.SUCCES_SEARCH_ITEM
-                dadosUser.items = resultUser.length
-                dadosUser.type = resultUser
+                dadosCalendario.message = message.SUCCES_SEARCH_ITEM
+                dadosCalendario.items = resultCalendario.length
+                dadosCalendario.type = resultCalendario
 
-                return dadosUser
+                return dadosCalendario
             } else {
                  return message.ERROR_NOT_FOUND
             }

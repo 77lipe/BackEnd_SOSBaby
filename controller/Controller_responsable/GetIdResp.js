@@ -24,15 +24,17 @@ export const searchIDResp = async function (id) {
             let resultResp = await idResp(idGet)
             if (resultResp != false || typeof(resultResp) == 'object') {
                 if (resultResp.length > 0) {
-                    dadosResp.message = message.SUCCES_SEARCH_ITEM
+                    dadosResp.message = message.SUCCES_SEARCH_ITEM.message
+                    dadosResp.status_code = message.SUCCES_SEARCH_ITEM.status_code
 
-                    for(itemRespon of resultResp){
+                    for(let itemRespon of resultResp){
                         let dadosUser = await selectSQLIdUser(itemRespon.id_user)
-                        itemRespon.usuario = dadosUser.id_tipo
+                        itemRespon.usuario = dadosUser.id_user
 
                         respArray.push(itemRespon)
                     }
                     dadosResp.responsavel = respArray
+                    
                     return dadosResp
                 }else{
                     return message.ERROR_NOT_FOUND
@@ -43,6 +45,6 @@ export const searchIDResp = async function (id) {
         }
     } catch (error) {
         console.log(error)
-        return message.ERROR_INTERNAL_SERVER_CONTROLLER;
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER
     }
 }

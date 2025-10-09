@@ -6,14 +6,13 @@
  *       rotas para GET ID DO RESPONSÁVEL
  ********************************************************/
 
-import express, {Router} from "express"
-import bodyParser from "body-parser"
+import {Router} from "express"
 import cors from 'cors'
 const routerIdResponsable = Router()
 
 import {searchIDResp} from "../../controller/Controller_responsable/GetIdResp.js";
 
-routerIdResponsable.get('resp/:id', cors(), async (req, res) => {
+routerIdResponsable.get('/resp/:id', cors(), async (req, res) => {
 
     let id = req.params.id
     let resultIdResponsable = await searchIDResp(id)

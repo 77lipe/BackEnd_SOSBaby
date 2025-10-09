@@ -1,5 +1,5 @@
 /*******************************************************************
- * Autor: Eduardo Couto
+ * Autor: Felipe Vieira
  * Date: 16/09/25
  * Versão: 1.0
  * Desc: App que irá realizar as 
@@ -12,22 +12,19 @@ import { idGender} from "../../model/SexDAO/SelectByIdGender.js"
 
 export const SearchIDGender = async function(id) {
     try {
+
         let idGet = id
-        let dadosGender = {}
 
         if (idGet == undefined || idGet == null  || idGet == ""  || isNaN(idGet)) {
             return message.ERROR_REQUIRED_FIELDS
         } else {
             let result = await idGender(idGet)
             if (result != false || typeof(result == 'object')) {
-                if (resultType.length > 0) {
-                    dadosResp.message = message.SUCCES_SEARCH_ITEM
-                    dadosGender.status = true
-                    dadosGender.status_code = 200
-                    dadosGender.items = result.length
-                    dadosGender.type = result
-        
-                    return dadosGender
+                if (result.length > 0) {
+                    return{
+                        ...message.SUCCES_SEARCH_ITEM,
+                        data: result
+                    }
                 } else {
                     return message.ERROR_NOT_FOUND
                 }

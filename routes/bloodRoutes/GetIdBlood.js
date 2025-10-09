@@ -13,7 +13,7 @@ const routerIdBlood = Router()
 
 import {SelectIdBlood} from "../../controller/Controller_blood/selectIDSangue.js";
 
-routerIdBlood.get('resp/:id', cors(), async (req, res) => {
+routerIdBlood.get('/blood/:id', cors(), async (req, res) => {
 
     let id = req.params.id
     let resultIdBlood = await SelectIdBlood (id)

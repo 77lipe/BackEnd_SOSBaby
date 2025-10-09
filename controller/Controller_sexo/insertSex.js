@@ -1,5 +1,5 @@
 /*********************************************************
- * Autor: Eduardo Nascimento Couto Luiz
+ * Autor: Felipe Vieria
  * Date: 18/09/25
  * Versão: 1.0
  * Desc: App que irá realizar as 
@@ -24,7 +24,7 @@ import { insertSQLGender } from "../../model/SexDAO/insertGender.js";
                 if(resultUser){
                     return{
                         ...message.SUCCES_CREATED_ITEM,
-                        data: resultUser
+                        data: sex
                     }
                 }else{
                     return message.ERROR_INTERNAL_SERVER_MODEL

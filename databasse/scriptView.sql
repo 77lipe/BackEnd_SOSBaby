@@ -16,16 +16,35 @@ SELECT * FROM tbl_sexo WHERE id_sexo = 1;
 
 
 -- SANGUE --
--- vw_all_sangue
-DROP VIEW IF EXISTS vw_all_sangue;
-CREATE VIEW vw_all_sangue AS
-SELECT * FROM tbl_sangue;
+-- Procedure tbl_sexo
+-- INSERT
+DELIMITER $
+DROP procedure IF EXISTS insertSexo;
+CREATE PROCEDURE insertSexo(
+	IN p_sexo varchar(100)
+)
+BEGIN
+	INSERT INTO tbl_sexo (
+		sexo
+    )
+    VALUES (
+		p_sexo
+    );
+    
+     SELECT LAST_INSERT_ID() AS id_sexo;
+END $ 
 
--- vw_sangue_by_id
-DROP VIEW IF EXISTS vw_sangue_by_id;
-CREATE VIEW vw_sangue_by_id AS
-SELECT * FROM tbl_sangue WHERE id_sangue = 1;
+-- DELETE
 
+DELIMITER $$
+DROP PROCEDURE IF EXISTS deleteSexo; 
+CREATE PROCEDURE deleteSexo(
+    IN p_id INT
+)
+BEGIN
+    DELETE FROM tbl_sexo
+    WHERE id_sexo = p_id;
+END $$
 
 
 

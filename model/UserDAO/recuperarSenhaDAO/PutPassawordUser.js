@@ -9,11 +9,11 @@
  import { PrismaClient } from "@prisma/client"
  const prisma = new PrismaClient()
 
- export const updateUserPassword = async function(id, newPassword){
+ export const updateUserPassword = async function(data){
     try {
-        
-        let sql = `UPDATE tbl_user SET senha = '${newPassword} WHERE id_user = ${id}'`
-        let resultPass = await prisma.$executeRawUnsafe(sql)
+       
+        let sql = `UPDATE tbl_user SET senha = ? WHERE id_user = ?`
+        let resultPass = await prisma.$executeRawUnsafe(sql, data.newPass, data.userId)
 
         if(resultPass){
             return true

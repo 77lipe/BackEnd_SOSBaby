@@ -10,7 +10,7 @@ import { Router } from 'express'
 import cors from 'cors'
 const routerAllTip = Router()
 
-import { getAllDica } from '../../model/TipDAO/getAllTip.js'
+import { getAllDica } from '../../controller/Controller_tip/listAllTip.js'
 
 routerAllTip.get('/tip', cors(), async (req, res) => {
     

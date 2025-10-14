@@ -43,6 +43,7 @@ import doctorRoutes from './routes/doctorRoutes/index.js'
 import itemRoutineRoutes from './routes/routinesRoutes/routineItemRoutes/index.js'
 import routineRoutes from './routes/routinesRoutes/routineRespRoutes/index.js'
 import calenderRoutes from './routes/calendarioRoutes/index.js'
+import tipsRoutes from './routes/tipRoutes/index.js'
 
 
 const app = express()
@@ -60,6 +61,7 @@ app.use('/v1/sosbaby', doctorRoutes)
 app.use('/v1/sosbaby', itemRoutineRoutes)
 app.use('/v1/sosbaby', routineRoutes)
 app.use('/v1/sosbaby', calenderRoutes)
+app.use('/v1/sosbaby', tipsRoutes)
 
 
 app.listen('3030', function(){

@@ -11,7 +11,7 @@ import cors from 'cors'
 
 const routerIdTip = Router()
 
-import { getIdDica } from '../../model/TipDAO/getIdTip.js'
+import { getIdDica } from '../../controller/Controller_tip/getIdTip.js'
 
 routerIdTip.get('/tip/:id', cors(), async (req, res) => {
 

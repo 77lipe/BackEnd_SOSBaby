@@ -12,13 +12,13 @@
 
  export const idGender = async function (id) {
     try {
-        let sql = `SELECT * FROM ByIdSexo WHERE id_sexo = (?)`
+        let sql = `SELECT * FROM tbl_sexo WHERE id_sexo = (?)`
         let result = await prisma.$queryRawUnsafe(
             sql,
             id
         )
         if (result) {
-            return true
+            return result
         } else {
             return false
         }

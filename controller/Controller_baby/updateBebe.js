@@ -22,7 +22,6 @@ export const updateBebe = async function (id, bebe, contentType) {
                 bebe.altura                 == undefined || bebe.altura             == null || bebe.altura              == '' || bebe.altura.length             > 3     ||
                 bebe.id_sangue              == undefined || bebe.id_sangue          == null || bebe.id_sangue           == '' || isNaN(bebe.id_sangue)                  ||
                 bebe.certidao_nascimento    == undefined || bebe.certidao_nascimento== null || bebe.certidao_nascimento == '' || bebe.certidao_nascimento.length> 45    ||
-                bebe.cpf                    == undefined || bebe.cpf                == null || bebe.cpf                 == '' || bebe.cpf.length                > 15    ||
                 bebe.cartao_medico          == undefined || bebe.cartao_medico      == null || bebe.cartao_medico       == '' || bebe.cartao_medico.length      > 100   ||
                 bebe.imagem_certida         == undefined || bebe.imagem_certida     == null || bebe.imagem_certida      == '' || bebe.imagem_certida.length     > 100   
             ) {

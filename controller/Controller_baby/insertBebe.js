@@ -11,9 +11,9 @@ import * as message from '../../config/status/status.js'
 import {insertSQLBaby} from '../../model/BabyDAO/InsertSQLBaby.js'
 
 export const insertBebe = async function (bebe, contentType) {
-    try {
+    try {       
         
-        if (String(contentType).toLocaleLowerCase() === 'application/json') {
+        if (String(contentType).toLocaleLowerCase() == 'application/json') {
             if (
                 bebe.nome                   == undefined || bebe.nome               == null || bebe.nome                == '' || bebe.nome.length               > 45    ||
                 bebe.data_nascimento        == undefined || bebe.data_nascimento    == null || bebe.data_nascimento     == '' || bebe.data_nascimento.length    > 10    ||
@@ -22,9 +22,8 @@ export const insertBebe = async function (bebe, contentType) {
                 bebe.altura                 == undefined || bebe.altura             == null || bebe.altura              == '' || bebe.altura.length             > 3     ||
                 bebe.id_sangue              == undefined || bebe.id_sangue          == null || bebe.id_sangue           == '' || isNaN(bebe.id_sangue)                  ||
                 bebe.certidao_nascimento    == undefined || bebe.certidao_nascimento== null || bebe.certidao_nascimento == '' || bebe.certidao_nascimento.length > 45   ||
-                bebe.cpf                    == undefined || bebe.cpf                == null || bebe.cpf                 == '' || bebe.cpf.length                > 15    ||
-                bebe.cartao_medico          == undefined || bebe.cartao_medico      == null || bebe.cartao_medico       == '' || bebe.cartao_medico.length      > 100   ||
-                bebe.imagem_certida         == undefined || bebe.imagem_certida     == null || bebe.imagem_certida      == '' || bebe.imagem_certida.length     > 100   
+                bebe.cartao_medico          == undefined || bebe.cartao_medico      == null || bebe.cartao_medico       == '' || bebe.cartao_medico.length       > 100  ||
+                bebe.imagem_certidao        == undefined || bebe.imagem_certidao    == null || bebe.imagem_certidao     == '' || bebe.imagem_certidao.length     > 100   
             ){
                 return message.ERROR_REQUIRED_FIELDS                
             }else{
@@ -34,7 +33,7 @@ export const insertBebe = async function (bebe, contentType) {
                 if(resultInsertBaby){
                     return {
                         ...message.SUCCES_CREATED_ITEM,
-                        data: resultInsertBaby
+                        data: bebe
                     }
                 }else{
                     return message.ERROR_INTERNAL_SERVER

@@ -1,6 +1,6 @@
 /*********************************************************
  * Autor: Isabelly Lima
- * Date:23/09/25
+ * Date: 23/09/25
  * Versão: 1.0
  * Desc: App que irá realizar as 
  *       rotas para GET ID DO SANGUE
@@ -13,7 +13,7 @@ const routerIdBlood = Router()
 
 import {SelectIdBlood} from "../../controller/Controller_blood/selectIDSangue.js";
 
-routerIdBlood.get('resp/:id', cors(), async (req, res) => {
+routerIdBlood.get('/blood/:id', cors(), async (req, res) => {
 
     let id = req.params.id
     let resultIdBlood = await SelectIdBlood (id)

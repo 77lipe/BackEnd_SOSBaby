@@ -3,7 +3,7 @@
  * Date: 30/09/25
  * Versão: 2.0
  * Desc: App que irá realizar as 
- *       rotas para POST RESPONSABLE
+ *       rotas para PUTT RESPONSABLE
  ********************************************************/
 
 import {Router} from 'express'
@@ -19,9 +19,9 @@ routerUpdateResponsable.put('/resp/:id', cors(), bodyJsonParser, async (req, res
 
     let id = req.params.id
     let contentType = req.body['content-type']
-    let dataResp = req.body
+    let dataResponsable = req.body
 
-    let resulUpdateResp = await UpdateResp ( id, dataResp, contentType)
+    let resulUpdateResp = await UpdateResp ( id, dataResponsable, contentType)
 
     return res.status(resulUpdateResp.status_code).json(resulUpdateResp)
 })

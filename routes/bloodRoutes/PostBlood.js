@@ -6,14 +6,16 @@
  *       rotas para POST SANGUE
  ********************************************************/
 
-import cors from 'cors'
+
 import bodyParser from 'body-parser'
-import express,{ Router } from 'express'
+import { Router } from 'express'
 const routerInsertBlood = Router()
+
 
 import {insertSangue} from "../../controller/Controller_blood/insertSangue.js"
 
 const bodyJsonParser = bodyParser.json()
+
 
 routerInsertBlood.post('/blood/cadastro', bodyJsonParser, async (req,res) =>{
     

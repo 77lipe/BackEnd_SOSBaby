@@ -1,5 +1,5 @@
 /**************************************************
- * Autor: Eduardo
+ * Autor: Felipe Vieira
  * Date: 16/09/25
  * Versão: 1.0
  * Desc: App que irá conter as inserções para
@@ -13,11 +13,11 @@ const prisma = new PrismaClient()
 export const idTypeUser = async function (id) {
     try {
 
-        let sql = `SELECT * FROM tbl_type_user  WHERE id = ${id} `
-        let result = await prisma.queryRawUnsafe(sql)
+        let sql = `SELECT * FROM tbl_type_user  WHERE id_tipo = ${id} `
+        let result = await prisma.$queryRawUnsafe(sql)
         
         if (result) {
-            return true
+            return result
         } else {
             return false
         }

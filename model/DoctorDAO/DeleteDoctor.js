@@ -12,7 +12,7 @@ const prisma = new PrismaClient()
 export const deleteSQLDoctor = async function(id){
     try {
         
-        let sql = `CALL deleteDoctor(?)`
+        let sql = `CALL deleteMedico(?)`
         let resultDoctor = await prisma.$executeRawUnsafe(
             sql,
             id

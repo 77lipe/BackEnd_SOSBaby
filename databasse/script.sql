@@ -1,9 +1,13 @@
 create database sosbaby;
 use sosbaby;
 
-create database sosbaby;
-use sosbaby;
 
+create user 'sosbaby''@''%' identified BY '1234';
+GRANT ALL privileges ON sosbaby.* TO 'sosbaby''@''%';
+flush privileges;
+
+
+select * from tbl_user;
 
 create table tbl_sexo (
 	id_sexo int auto_increment primary key,
@@ -82,9 +86,10 @@ create table tbl_cep(
     logradouro varchar(100) not null,
     cidade varchar(50) not null,
     uf varchar (2) not null,
-    id_responsavel int
     
 );
+
+
 create table tbl_responsavel (
 	id_responsavel int auto_increment primary key,
     nome  varchar(100) not null,
@@ -96,11 +101,6 @@ create table tbl_responsavel (
     cep varchar(20) not null,
     id_sexo int,
     id_user int,
-    id_cep int,
-    
-    constraint FK_CEP_RESPONSAVEL
-    foreign key (id_cep)
-    references tbl_cep(id_cep),
     
 	constraint FK_RESPONSAVEL_SEX
     foreign key (id_sexo)
@@ -122,21 +122,17 @@ create table tbl_bebe (
     cartao_medico varchar(45)not null,
     imagem_certidao TEXT (100) not null,
     id_sexo int ,
-    id_cep int,
     id_sangue int,
 	
 	constraint FK_SEXO_BEBE
     foreign key (id_sexo)
     references tbl_sexo(id_sexo),
     
-   	constraint FK_CEP_BEBE
-    foreign key (id_cep)
-    references tbl_cep(id_cep),
-    
 	constraint FK_SANGUE_RESPONSAVEL
     foreign key (id_sangue)
     references tbl_sangue(id_sangue)
 );
+
 
 create table tbl_responsavel_bebe (
     id_bebe_responsavel int auto_increment primary key not null,
@@ -206,6 +202,7 @@ create table tbl_clinica(
     references tbl_user(id_user)
 );
 
+
 create table tbl_especialidade_clinica (
 	id int auto_increment primary key not null,
     id_clinica int,
@@ -220,38 +217,31 @@ create table tbl_especialidade_clinica (
     references tbl_especialidade(id_especialidade)
 );
 
-create table tbl_rotina_base(
-	id_rotina_base int auto_increment primary key not null,
-    titulo varchar(100) not null,
-    cor char(10) not null,
-    data_rotina date not null,
-    hora time not null,
-    descricao text(200) not null
-);
-
-
 create table tbl_rotina(
 	id_rotina int auto_increment primary key not null,
     titulo varchar(100) not null,
     cor char(10) not null,
-    data_rotina date not null,
     id_user int,
+    id_item_rotina int,
     
 	constraint FK_ROTINA_USUARIO
     foreign key (id_user)
-    references tbl_user(id_user)
+    references tbl_user(id_user),
+    
+    constraint FK_ITEM_ROTINA
+    foreign key (id_item_rotina)
+    references tbl_rotina_item(id_item)
+
 );
 
-create table tbl_rotina_item (
+
+CREATE TABLE tbl_rotina_item (
     id_item INT AUTO_INCREMENT PRIMARY KEY,
-    id_rotina INT NOT NULL,
     titulo VARCHAR(100) NOT NULL,
     descricao TEXT,
-    hora TIME NOT NULL,
-	
-	constraint FK_ITEM_ROTINA
-    foreign key (id_rotina)
-    references tbl_rotina( id_rotina)
+    data_rotina DATE NOT NULL,
+    hora TIME NOT NULL
+
 );
 
 

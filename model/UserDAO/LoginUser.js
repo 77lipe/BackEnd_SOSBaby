@@ -15,8 +15,8 @@ export const loginSQLUser = async function (user) {
         let sql = `SELECT * FROM tbl_user WHERE email = '${user.email}' and senha = '${user.senha}'`
         let resultUser = await prisma.$queryRawUnsafe(sql)
 
-        if (resultUser) {
-            return resultUser
+        if (resultUser.length > 0 ) {
+            return resultUser[0]
         }else{
             return false
         }

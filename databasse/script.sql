@@ -248,7 +248,9 @@ CREATE TABLE tbl_rotina_item (
 create table tbl_dicas (
 	id_dicas int auto_increment primary key,
     titulo varchar(100) not null,
-    descricao text(200) not null
+    descricao text(200) not null,
+    id_tipoDica 
+
 );
 
 

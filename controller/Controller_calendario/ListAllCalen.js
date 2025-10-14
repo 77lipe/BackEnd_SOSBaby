@@ -11,6 +11,7 @@ import {ListSQLCalendario} from "../../model/CalendarioDAO/GetAllCalendario.js"
 
 export const SelectAllCalendario = async function () {
     try {
+        
         let dadosCalendario = {}
 
         let resultCalendario = await ListSQLCalendario()

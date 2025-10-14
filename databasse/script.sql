@@ -254,3 +254,26 @@ create table tbl_rotina_item (
     references tbl_rotina( id_rotina)
 );
 
+
+create table tbl_dicas (
+	id_dicas int auto_increment primary key,
+    titulo varchar(100) not null,
+    descricao text(200) not null
+);
+
+
+create table tbl_favorito (
+    id_favorito INT AUTO_INCREMENT PRIMARY KEY,
+    id_user INT NOT NULL,
+    id_dica INT NOT NULL,
+    
+    CONSTRAINT FK_FAVORITO_USER
+	FOREIGN KEY (id_user) REFERENCES tbl_user(id_user)
+	ON DELETE CASCADE,
+        
+    CONSTRAINT FK_FAVORITO_DICA
+	FOREIGN KEY (id_dica) REFERENCES tbl_dica(id_dica)
+	ON DELETE CASCADE,
+        
+    UNIQUE (id_user, id_dica) 
+);

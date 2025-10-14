@@ -839,66 +839,8 @@ END $$
 
 
 
-
-
--- PROCEDURE ROTINA_BASE --
--- INSERT --
-DELIMITER $$
-DROP PROCEDURE IF EXISTS insertRotinaBase;
-CREATE PROCEDURE insertRotinaBase(
-    IN p_titulo VARCHAR(100),
-    IN p_cor CHAR(10),
-    IN p_data_rotina DATE,
-    IN p_hora TIME,
-    IN p_descricao TEXT
-)
-BEGIN
-    INSERT INTO tbl_rotina_base (titulo, cor, data_rotina, hora, descricao)
-    VALUES (p_titulo, p_cor, p_data_rotina, p_hora, p_descricao);
-    SELECT LAST_INSERT_ID() AS novo_id;
-END $$
-
-
--- UPDATE --
-DELIMITER $$
-DROP PROCEDURE IF EXISTS updateRotinaBase;
-CREATE PROCEDURE updateRotinaBase(
-    IN p_id INT,
-    IN p_titulo VARCHAR(100),
-    IN p_cor CHAR(10),
-    IN p_data_rotina DATE,
-    IN p_hora TIME,
-    IN p_descricao TEXT
-)
-BEGIN
-    UPDATE tbl_rotina_base
-    SET titulo = p_titulo,
-        cor = p_cor,
-        data_rotina = p_data_rotina,
-        hora = p_hora,
-        descricao = p_descricao
-    WHERE id_rotina_base = p_id;
-END $$
-
-
--- DELETE --
-DELIMITER $$
-DROP PROCEDURE IF EXISTS deleteRotinaBase;
-CREATE PROCEDURE deleteRotinaBase(
-    IN p_id INT
-)
-BEGIN
-    DELETE FROM tbl_rotina_base WHERE id_rotina_base = p_id;
-END $$
-
-
-
-
-
-
-
-
 -- PROCEDURE ROTINA --
+
 -- INSERT --
 DELIMITER $$
 DROP PROCEDURE IF EXISTS insertRotina;
@@ -906,14 +848,11 @@ CREATE PROCEDURE insertRotina(
     IN p_titulo VARCHAR(100),
     IN p_cor CHAR(10),
     IN p_data_rotina DATE,
-    IN p_hora TIME,
-    IN p_descricao TEXT,
     IN p_id_user INT,
-    IN p_id_rotina_base INT
 )
 BEGIN
-    INSERT INTO tbl_rotina (titulo, cor, data_rotina, hora, descricao, id_user, id_rotina_base)
-    VALUES (p_titulo, p_cor, p_data_rotina, p_hora, p_descricao, p_id_user, p_id_rotina_base);
+    INSERT INTO tbl_rotina (titulo, cor, data_rotina, id_user)
+    VALUES (p_titulo, p_cor, p_data_rotina, p_id_user );
     SELECT LAST_INSERT_ID() AS novo_id;
 END $$
 
@@ -926,20 +865,14 @@ CREATE PROCEDURE updateRotina(
     IN p_titulo VARCHAR(100),
     IN p_cor CHAR(10),
     IN p_data_rotina DATE,
-    IN p_hora TIME,
-    IN p_descricao TEXT,
     IN p_id_user INT,
-    IN p_id_rotina_base INT
 )
 BEGIN
     UPDATE tbl_rotina
     SET titulo = p_titulo,
         cor = p_cor,
         data_rotina = p_data_rotina,
-        hora = p_hora,
-        descricao = p_descricao,
         id_user = p_id_user,
-        id_rotina_base = p_id_rotina_base
     WHERE id_base = p_id;
 END $$
 

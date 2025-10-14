@@ -9,14 +9,14 @@
 import {Router} from "express";
 import cors from 'cors'
 
-import {DeleteCalendario} from "../../controller/Controller_calendario/DeleteCalen";
+import {deleteCalendario} from "../../controller/Controller_calendario/DeleteCalen.js";
 
 const routerDeleteCalendario = Router()
 
-routerDeleteCalendario.delete('/calen/:id', cors(), async(req, res) => {
+routerDeleteCalendario.delete('/calender/:id', cors(), async(req, res) => {
 
     let id = req.params.id
-    let resultDeleteCalendario= await DeleteCalendario(id)
+    let resultDeleteCalendario= await deleteCalendario(id)
 
     return res.status(resultDeleteCalendario.status_code).json(resultDeleteCalendario)
 })

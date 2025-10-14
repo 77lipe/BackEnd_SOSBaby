@@ -12,8 +12,8 @@ const prisma = new PrismaClient()
 export const deleteSQLCalendario = async function (id) {
     try {
         
-        let sql = `DELETE * FROM tbl_calendario where id = ${id}`
-        let resultCalendario = await prisma.$executeRawUnsafe(sql, id)
+        let sql = `DELETE FROM tbl_calendario WHERE id_calendario = ${id}`
+        let resultCalendario = await prisma.$executeRawUnsafe(sql)
 
         if (resultCalendario) {
             return true

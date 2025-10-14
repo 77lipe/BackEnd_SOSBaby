@@ -7,8 +7,8 @@
  ********************************************************/
 
 import * as message from '../../config/status/status.js'
-import {selectSQLIdCalendario} from "../../model/CalendarioDAO/GetIdCalendario"
-import {deleteSQLCalendario} from "../../model/CalendarioDAO/DeleteCalendario"
+import {selectSQLIdCalendario} from "../../model/CalendarioDAO/GetIdCalendario.js"
+import {deleteSQLCalendario} from "../../model/CalendarioDAO/DeleteCalendario.js"
 
 export const deleteCalendario = async function (id) {
     try {

@@ -5,11 +5,11 @@
  * Desc: App que irá controlar o CALENDÁRIO
  ********************************************************/
 
-import PostCalendario from './PostCalendario'
-import PutCalendario from './PutCalendario'
-import GetAllCalendario from './GetAllCalendario'
-import GetIdCalendario from './GetIdCalendario'
-import DeleteCalendario from './DeleteCalendario'
+import PostCalendario from './PostCalendario.js'
+import PutCalendario from './PutCalendario.js'
+import GetAllCalendario from './GetAllCalendario.js'
+import GetIdCalendario from './GetIdCalendario.js'
+import DeleteCalendario from './DeleteCalendario.js'
 import { Router } from "express"
 
 const router = Router()

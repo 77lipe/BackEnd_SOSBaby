@@ -12,8 +12,8 @@ const prisma = new PrismaClient()
 export const ListSQLCalendario = async function () {
     try {
         
-        let sql = `SELECT * FROM tbl_calendario ORDER BY id DESC`
-        let resultCalendario = await prisma.queryRawUnsafe(sql)
+        let sql = `SELECT * FROM tbl_calendario ORDER BY id_calendario DESC`
+        let resultCalendario = await prisma.$queryRawUnsafe(sql)
 
         if (resultCalendario) {
             return resultCalendario

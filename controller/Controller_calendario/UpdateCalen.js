@@ -7,32 +7,36 @@
  ***********************************************************/
 
 import * as message from '../../config/status/status.js'
-import {updateSQLCalendario} from '../../model/CalendarioDAO/PutCalendario' 
+import {updateSQLCalendario} from '../../model/CalendarioDAO/PutCalendario.js' 
+import { selectSQLIdCalendario } from "../../model/CalendarioDAO/GetIdCalendario.js";
 
-export const updateSQLCalendario = async function (dataCalendario, contentType) {
+export const updateCalendario = async function (id, dataCalendario, contentType) {
     try {
-        
-        if (String(contentType).toLocaleLowerCase() === 'application/json') {
+
+        if (String(contentType).toLocaleLowerCase() == 'application/json') {
             if (
-                dataCalendario.dia       == null   || dataCalendario.dia     == undefined   || dataCalendario.dia     == ""  || dataCalendario.dia.length     > 365     ||
-                dataCalendario.mes       == null   || dataCalendario.mes     == undefined   || dataCalendario.mes     == ""  || dataCalendario.mes.length     > 2       ||
-                dataCalendario.ano       == null   || dataCalendario.ano     == undefined   || dataCalendario.ano     == ""  || dataCalendario.ano.length     > 5000    ||
-                dataCalendario.titulo    == null   || dataCalendario.titulo  == undefined   || dataCalendario.titulo  == ""  || dataCalendario.titulo.length  > 100     ||
-                dataCalendario.nota      == null   || dataCalendario.nota    == undefined   || dataCalendario.nota    == ""  || dataCalendario.nota.length    > 100     ||
-                dataCalendario.cor       == null   || dataCalendario.cor     == undefined   || dataCalendario.cor     == ""  || isNaN(dataCalendario.cor)               ||
-                dataCalendario.alarme    == null   || dataCalendario.alarme  == undefined   || dataCalendario.alarme  == ""  || isNaN(dataCalendario.alarme)            ||
-                dataCalendario.id        == null   || dataCalendario.id      == undefined   || dataCalendario.id      == ""  || isNaN(dataCalendario.id)                   
-
+                dataCalendario.data_evento              == "" || dataCalendario.data_evento     == undefined || dataCalendario.data_evento      == null || dataCalendario.data_evento.length > 25   ||
+                dataCalendario.titulo                   == "" || dataCalendario.titulo          == undefined || dataCalendario.titulo           == null || dataCalendario.titulo.length > 100       ||
+                dataCalendario.descricao                == "" || dataCalendario.descricao       == undefined || dataCalendario.descricao        == null || dataCalendario.descricao.length   > 200  ||
+                dataCalendario.cor                      == "" || dataCalendario.cor             == undefined || dataCalendario.cor              == null || dataCalendario.cor.length > 10           ||
+                dataCalendario.id_user                  == "" || dataCalendario.id_user         == undefined || dataCalendario.id_user          == null || isNaN(dataCalendario.id_user)   
             ) {
-
                 return message.ERROR_REQUIRED_FIELDS
             }else{
-                let resultCalendario = await updateSQLCalendario(dataCalendario)
 
-                if(resultCalendario){
-                    return {
-                        ...message.SUCCES_UPDATE_ITEM,
-                        data: resultCalendario
+                let resultIdCalender = await selectSQLIdCalendario(id)
+                if (resultIdCalender != false || typeof (resultIdCalender) == 'object') {
+                    if (resultIdCalender.length > 0) {
+                        
+                        dataCalendario.id_calendario = id
+                        let resultCalender = await updateSQLCalendario(dataCalendario)
+
+                        if (resultCalender) {
+                            return {
+                                ...message.SUCCES_UPDATE_ITEM,
+                                data: dataCalendario
+                            }
+                        }
                     }
                 }else{
                     return message.ERROR_INTERNAL_SERVER_MODEL

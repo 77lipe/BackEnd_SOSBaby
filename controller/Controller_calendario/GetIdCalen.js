@@ -7,7 +7,8 @@
  ***********************************************************/
 
 import * as message from '../../config/status/status.js'
-import {getIdSQLCalendario} from '../../model/CalendarioDAO/GetIdCalendario'
+import {selectSQLIdCalendario} from '../../model/CalendarioDAO/GetIdCalendario.js'
+import {selectSQLIdUser} from '../../model/UserDAO/SelectIDUser.js'
 
 export const GetIdCalendario = async function (id) {
     try {
@@ -22,16 +23,19 @@ export const GetIdCalendario = async function (id) {
             return message.ERROR_REQUIRED_FIELDS
         } else {
         
-            let resultIdCalendario = await getIdSQLCalendario(id)
+            let resultIdCalendario = await selectSQLIdCalendario(id)
             if (resultIdCalendario) {
                 if (resultIdCalendario.length > 0) {
-                    dadosCalendario.message = message.SUCCES_SEARCH_ITEM
+                    dadosCalendario.message = message.SUCCES_SEARCH_ITEM.message
+                    dadosCalendario.status_code = message.SUCCES_SEARCH_ITEM.status_code
+                    dadosCalendario.calendario = resultIdCalendario
 
                     for (let itemCalendario of resultIdCalendario) {
-                        let dadosGender = await idGender(itemCalendario.id_calendario)
-                        itemCalendario.calendario = dadosGender
+                        let dadosUser = await selectSQLIdUser(itemCalendario.id_user)
+                        itemCalendario.user = dadosUser
+                        delete itemCalendario.id_user
 
-                         calendarioArray.push(itemCalendario)
+                        calendarioArray.push(itemCalendario)
                     }
                     
                     dadosCalendario.calendario = calendarioArray

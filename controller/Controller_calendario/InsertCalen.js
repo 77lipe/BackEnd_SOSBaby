@@ -7,22 +7,19 @@
  ********************************************************/
 
 import * as message from '../../config/status/status.js'
-import {insertSQLCalendario} from "../../model/CalendarioDAO/InsertCalendario";
+import {insertSQLCalendario} from "../../model/CalendarioDAO/InsertCalendario.js";
 
 
 export const insertCalendario = async function (calendario, contentType) {
     try {
 
-        if(String(contentType).toLocaleLowerCase() === "application/json"){
+        if(String(contentType).toLocaleLowerCase() == "application/json"){
             if(
-                calendario.dia             == "" || calendario.dia            == undefined || calendario.dia            == null || calendario.dia.length    > 365   ||
-                calendario.mes             == "" || calendario.mes            == undefined || calendario.mes            == null || calendario.mes.length    > 2     ||
-                calendario.ano             == "" || calendario.ano            == undefined || calendario.ano            == null || calendario.ano           > 5000  ||
-                calendario.titulo          == "" || calendario.titulo         == undefined || calendario.titulo         == null || calendario.titulo.length > 100   ||
-                calendario.nota            == "" || calendario.nota           == undefined || calendario.nota           == null || calendario.nota.length   > 100   ||
-                calendario.cor             == "" || calendario.cor            == undefined || calendario.cor            == null || isNaN(calendario.cor)            ||
-                calendario.alarme          == "" || calendario.alarme         == undefined || calendario.alarme         == null || isNaN(calendario.alarme)         ||
-                calendario.id_calendario   == "" || calendario.id_calendario  == undefined || calendario.id_calendario  == null || isNaN(calendario.id_calendario)   
+                calendario.data_evento              == "" || calendario.data_evento     == undefined || calendario.data_evento      == null || calendario.data_evento.length > 25   ||
+                calendario.titulo                   == "" || calendario.titulo          == undefined || calendario.titulo           == null || calendario.titulo.length > 100       ||
+                calendario.descricao                == "" || calendario.descricao       == undefined || calendario.descricao        == null || calendario.descricao.length   > 200  ||
+                calendario.cor                      == "" || calendario.cor             == undefined || calendario.cor              == null || calendario.cor.length > 10           ||
+                calendario.id_user                  == "" || calendario.id_user         == undefined || calendario.id_user          == null || isNaN(calendario.id_user)   
             ){
                 return message.ERROR_REQUIRED_FIELDS
             }else{
@@ -31,7 +28,7 @@ export const insertCalendario = async function (calendario, contentType) {
                 if(resultCalendario){
                     return{
                         ...message.SUCCES_CREATED_ITEM,
-                        data: resultCalendario
+                        data: calendario
                     }
                 }else{
                     return message.ERROR_INTERNAL_SERVER_MODEL

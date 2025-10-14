@@ -10,18 +10,18 @@ import {Router} from 'express'
 import bodyParser from 'body-parser'
 import cors from 'cors'
 
-import {UpdateCalendario} from '../../controller/Controller_calendario/UpdateCalen'
+import {updateCalendario} from '../../controller/Controller_calendario/UpdateCalen.js'
 
 const routerUpdateCalendario = Router()
 const bodyJsonParser = bodyParser.json()
 
-routerUpdateCalendario.put('/calendario/:id', cors(), bodyJsonParser, async (req, res) => {
+routerUpdateCalendario.put('/calender/:id', cors(), bodyJsonParser, async (req, res) => {
 
     let id = req.params.id
-    let contentType = req.body['content-type']
+    let contentType = req.headers['content-type']
     let dataCalendario = req.body
 
-    let resulUpdateCalendario = await UpdateCalendario ( id, dataCalendario, contentType)
+    let resulUpdateCalendario = await updateCalendario ( id, dataCalendario, contentType)
 
     return res.status(resulUpdateCalendario.status_code).json(resulUpdateCalendario)
 })

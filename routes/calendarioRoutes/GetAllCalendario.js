@@ -10,11 +10,11 @@ import {Router} from "express"
 import cors from 'cors'
 const routerAllCalendario = Router()
 
-import {ListAllCalendario} from "../../controller/Controller_calendario/ListAllCalen";
+import {SelectAllCalendario} from "../../controller/Controller_calendario/ListAllCalen.js";
 
-routerAllCalendario.get('/calendario', cors(), async(req, res) => {
+routerAllCalendario.get('/calenders', cors(), async(req, res) => {
 
-   let resultAllCalendario = await ListAllCalendario()
+   let resultAllCalendario = await SelectAllCalendario()
    return res.status(resultAllCalendario.status_code).json(resultAllCalendario)
 })
 

@@ -245,15 +245,25 @@ CREATE TABLE tbl_rotina_item (
 );
 
 
-create table tbl_calendario (
-	id_calendario int auto_increment primary key,
+create table tbl_dicas (
+	id_dicas int auto_increment primary key,
     titulo varchar(100) not null,
-    descricao TEXT(200) not null,
-    data_evento datetime not null,
-    cor char(10) null,
-    id_user int,
+    descricao text(200) not null
+);
+
+
+create table tbl_favorito (
+    id_favorito INT AUTO_INCREMENT PRIMARY KEY,
+    id_user INT NOT NULL,
+    id_dica INT NOT NULL,
     
-	constraint FK_CALENDARIO_USUARIO
-    foreign key (id_user)
-    references tbl_user(id_user)
-)
+    CONSTRAINT FK_FAVORITO_USER
+	FOREIGN KEY (id_user) REFERENCES tbl_user(id_user)
+	ON DELETE CASCADE,
+        
+    CONSTRAINT FK_FAVORITO_DICA
+	FOREIGN KEY (id_dica) REFERENCES tbl_dica(id_dica)
+	ON DELETE CASCADE,
+        
+    UNIQUE (id_user, id_dica) 
+);

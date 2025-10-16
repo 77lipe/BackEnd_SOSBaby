@@ -245,19 +245,56 @@ CREATE TABLE tbl_rotina_item (
 );
 
 
-create table tbl_dicas (
-	id_dicas int auto_increment primary key,
+create table tbl_calendario (
+    id_calendario int auto_increment primary key,
+    id_user int not null,
     titulo varchar(100) not null,
-    descricao text(200) not null,
-    id_tipoDica 
+    descricao text(200),
+    data_calendario date not null,
+    hora_calendario time not null,
+    cor char(10) not null,
+    alarme_ativo boolean default false,
+    
+    CONSTRAINT FK_CALENDARIO_USER
+    FOREIGN KEY (id_user)
+    REFERENCES tbl_user(id_user)
+);
 
+
+create table tbl_dica (
+    id_dica int auto_increment primary key,
+    titulo varchar(150) not null,
+    conteudo text(100) not null,
+    imagem varchar(255),
+    id_categoria int not null,
+
+    CONSTRAINT FK_DICA_CATEGORIA
+    FOREIGN KEY (id_categoria)
+    REFERENCES tbl_categoria(id_categoria)
+);
+
+
+CREATE TABLE tbl_categoria (
+    id_categoria int auto_increment primary key,
+    nome_categoria varchar(50) not null
+);
+
+
+CREATE TABLE tbl_subcategoria (
+    id_subcategoria int auto_increment primary key,
+    nome_subcategoria  varchar(50) not null,
+    id_categoria int not null,
+
+    CONSTRAINT FK_SUBCAT_CATEGORIA
+    FOREIGN KEY (id_categoria)
+    REFERENCES tbl_categoria(id_categoria)
 );
 
 
 create table tbl_favorito (
-    id_favorito INT AUTO_INCREMENT PRIMARY KEY,
-    id_user INT NOT NULL,
-    id_dica INT NOT NULL,
+    id_favorito int auto_increment primary key,
+    id_user int not null,
+    id_dica int not null,
     
     CONSTRAINT FK_FAVORITO_USER
 	FOREIGN KEY (id_user) REFERENCES tbl_user(id_user)

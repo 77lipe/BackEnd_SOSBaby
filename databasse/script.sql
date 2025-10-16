@@ -263,7 +263,7 @@ create table tbl_calendario (
 create table tbl_dica (
     id_dica int auto_increment primary key,
     titulo varchar(150) not null,
-    conteudo text(100) not null,
+    conteudo text(3000) not null,
     imagem varchar(255),
     id_categoria int not null,
 
@@ -271,6 +271,7 @@ create table tbl_dica (
     FOREIGN KEY (id_categoria)
     REFERENCES tbl_categoria(id_categoria)
 );
+
 
 create table tbl_categoria (
     id_categoria int auto_increment primary key,
@@ -297,6 +298,7 @@ create table tbl_categoria_subcategoria (
 	FOREIGN KEY (id_subcategoria)
 	REFERENCES tbl_subcategoria(id_subcategoria)
 );
+
 
 create table tbl_favorito (
     id_favorito int auto_increment primary key,

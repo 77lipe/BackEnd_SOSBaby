@@ -17,7 +17,7 @@ export const insertCalendario = async function (calendario, contentType) {
             if(
                 calendario.data_calendario          == "" || calendario.data_calendario     == undefined || calendario.data_calendario      == null || calendario.data_calendario.length > 25       ||
                 calendario.hora_calendario          == "" || calendario.hora_calendario     == undefined || calendario.hora_calendario      == null || calendario.hora_calendario.length > 10   ||
-                calendario.alarme_ativo             == "" || calendario.alarme_ativo        == undefined || calendario.alarme_ativo         == null || isNaN(calendario.alarme_ativo)           ||
+                isNaN(calendario.alarme_ativo)            ||
                 calendario.titulo                   == "" || calendario.titulo              == undefined || calendario.titulo               == null || calendario.titulo.length > 100           ||
                 calendario.descricao                == "" || calendario.descricao           == undefined || calendario.descricao            == null || calendario.descricao.length   > 200      ||
                 calendario.cor                      == "" || calendario.cor                 == undefined || calendario.cor                  == null || calendario.cor.length > 10               ||

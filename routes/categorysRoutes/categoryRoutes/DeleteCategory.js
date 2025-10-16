@@ -10,7 +10,7 @@ import { Router } from "express"
 import cors from 'cors'
 const routerDeleteCat = Router()
 
-import { deleteCategorys } from "../../../controller/Controller_categorys/zController_category/deleteCategory";
+import { deleteCategorys } from "../../../controller/Controller_categorys/zController_category/deleteCategory.js";
 
 routerDeleteCat.delete('/category/:id', cors(), async (res,req) => {
 

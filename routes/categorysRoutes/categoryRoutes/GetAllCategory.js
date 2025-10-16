@@ -11,7 +11,7 @@ import { Router } from "express"
 import cors from 'cors'
 const routerGetAllCat = Router()
 
-import { listAllCategory } from "../../../controller/Controller_categorys/zController_category/listAllCategory"
+import { listAllCategory } from "../../../controller/Controller_categorys/zController_category/listAllCategory.js"
 
 routerGetAllCat.get('/categorys', cors(), async (req,res) => {
 

@@ -11,7 +11,7 @@ import bodyParser from "body-parser"
 const routerPutCategory = Router()
  
 const bodyJsonParser = bodyParser.json()
-import { updateCategory } from "../../../controller/Controller_categorys/zController_category/updateCategory"
+import { updateCategory } from "../../../controller/Controller_categorys/zController_category/updateCategory.js"
 
 routerPutCategory.put('/category/:id', bodyJsonParser, async (req,res) => {
 

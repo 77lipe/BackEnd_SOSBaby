@@ -280,18 +280,18 @@ create table tbl_categoria (
 
 create table tbl_subcategoria (
     id_subcategoria int auto_increment primary key,
-    nome_subcategoria  varchar(50) not null,
+    nome_subcategoria  varchar(50) not null
 );
 
 create table tbl_categoria_subcategoria (
 	id_relacionamento int auto_increment primary key,
-    id_categoria_ int not null,
+    id_categoria int not null,
     id_subcategoria int not null,
 
 
     CONSTRAINT FK_CATEGORIA_SUB_CATEGORIA
-	FOREIGN KEY (id_categoria_)
-	REFERENCES tbl_categoria(id_categoria_),
+	FOREIGN KEY (id_categoria)
+	REFERENCES tbl_categoria(id_categoria),
 
     CONSTRAINT FK_CATEGORIA_SUB_SUB
 	FOREIGN KEY (id_subcategoria)

@@ -1,6 +1,6 @@
 /**************************************************
  * Autor: Felipe Vieira
- * Date: 14/10/25
+ * Date: 16/10/25
  * Versão: 1.0
  * Desc: App que irá conter as inserções para
  *       o Banco de Dados
@@ -9,24 +9,26 @@
 import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
-export const putSQLTip = async function(dataTip){
+export const putCategory = async function (category) {
     try {
-        let sql = `UPDATE tbl_dicas SET
-            titulo = '${dataTip.titulo}',
-            conteudo = '${dataTip.conteudo}',
-            imagem = '${dataTip.imagem}',
-            id_tipo_dica = '${dataTip.id_categoria}'
+        let sql = `update tbl_categoria set
+            nome_categoria = ?
+            where id_categoria = ?`
 
-        WHERE id_dica = ${dataTip.id_dica}`
-
-        let result = await prisma.$executeRawUnsafe(sql)
-        if(result){
+        let resultCategory = await prisma.$executeRawUnsafe(
+            sql,
+            category.id_categoria,
+            category.nome_categoria
+            )
+        
+        if (resultCategory) {
             return true
         }else{
             return false
         }
+
     } catch (error) {
         console.log(error)
-        return false
+        return false;
     }
 }

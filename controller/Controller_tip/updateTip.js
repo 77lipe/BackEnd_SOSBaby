@@ -16,8 +16,9 @@ export const updateDicas = async function (id, dataTip, contentType){
         if(String(contentType).toLocaleLowerCase() == 'application/json'){
             if (
                 dataTip.titulo          == "" || dataTip.titulo         == undefined || dataTip.titulo          == null || dataTip.titulo.length > 100      ||
-                dataTip.descricao       == "" || dataTip.descricao      == undefined || dataTip.descricao       == null || dataTip.descricao.length > 500   ||
-                dataTip.id_tipo_dica    == "" || dataTip.id_tipo_dica   == undefined || dataTip.id_tipo_dica    == null || isNaN(dataTip.id_tipo_dica)
+                dataTip.conteudo        == "" || dataTip.conteudo       == undefined || dataTip.conteudo        == null || dataTip.conteudo.length > 5000   ||
+                dataTip.imagem          == "" || dataTip.imagem         == undefined || dataTip.imagem          == null || dataTip.imagem.length > 225      ||
+                dataTip.id_categoria    == "" || dataTip.id_categoria   == undefined || dataTip.id_categoria    == null || isNaN(dataTip.id_categoria) 
             ) {
                 return message.ERROR_REQUIRED_FIELDS
             }else{

@@ -1,30 +1,26 @@
 /**************************************************
  * Autor: Felipe Vieira
- * Date: 16/09/25
+ * Date: 16/10/25
  * Versão: 1.0
  * Desc: App que irá conter as inserções para
  *       o Banco de Dados
  **************************************************/
 
- import {PrismaClient} from '@prisma/client'
+import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
-export const ListSQLresps = async function () {
+export const deleteCategory = async function(id) {
     try {
-        
-        let sql = `SELECT * FROM tbl_responsavel ORDER BY id DESC`
-        let resultResps = await prisma.$queryRawUnsafe(sql)
+        let sql = `DELETE from tbl_categoria where id_categoria = ${id}`
+        let result = await prisma.$executeRawUnsafe(sql, id)
 
-        if (resultResps) {
-            return resultResps
-        }else{
+        if (result) {
+            return true
+        } else {
             return false
         }
-
     } catch (error) {
         console.log(error)
         return false
-        
     }
 }
-    

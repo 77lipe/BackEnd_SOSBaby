@@ -7,7 +7,7 @@
  **************************************************/
 
 import * as message from '../../../config/status/status.js'
-import { getIdSQLSubCategory } from "../../../model/CategorysDAO/SubCategoryDAO/getIdSubCategory";
+import { getIdSQLSubCategory } from "../../../model/CategorysDAO/SubCategoryDAO/getIdSubCategory.js";
 
 export const getIdSub = async function (id){
     try {

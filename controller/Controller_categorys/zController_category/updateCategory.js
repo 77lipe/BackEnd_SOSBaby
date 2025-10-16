@@ -8,7 +8,7 @@
 
 import * as message from '../../../config/status/status.js'
 import { putCategory } from "../../../model/CategorysDAO/CategoryDAO/putCategory.js"
-import { getIdCategory } from '../../../model/CategorysDAO/CategoryDAO/getIdCategory.js'
+import { getIdSQLCategory } from '../../../model/CategorysDAO/CategoryDAO/getIdCategory.js'
 
 export const updateCategory = async function (idCategorys, category, contentType) {
     try {
@@ -21,7 +21,7 @@ export const updateCategory = async function (idCategorys, category, contentType
             ){
                 return message.ERROR_REQUIRED_FIELDS
             }else{
-                let resultId = await getIdCategory(idGet)
+                let resultId = await getIdSQLCategory(idGet)
 
                 if(resultId != false || typeof(resultId) == 'object'){
                     if(resultId.length > 0){

@@ -7,7 +7,7 @@
  **************************************************/
 
 import * as message from '../../../config/status/status.js'
-import { deleteSubCategory } from "../../../model/CategorysDAO/SubCategoryDAO/deleteSubCategory"
+import { deleteSubCategory } from "../../../model/CategorysDAO/SubCategoryDAO/deleteSubCategory.js"
 import { getIdSQLCategory } from "../../../model/CategorysDAO/CategoryDAO/getIdCategory.js"
 
 export const deleteSub = async function (id){

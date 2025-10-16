@@ -7,7 +7,7 @@
  **************************************************/
 
 import * as message from '../../../config/status/status.js'
-import {postSubCategory} from '../../../model/CategorysDAO/SubCategoryDAO/postSubCategory'
+import {postSubCategory} from '../../../model/CategorysDAO/SubCategoryDAO/postSubCategory.js'
 
 export const insertCategory = async function (dataSubCat, contentType){
     try {

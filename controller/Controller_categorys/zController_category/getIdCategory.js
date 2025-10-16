@@ -5,7 +5,8 @@
  * Desc: App que irá conter as validações para
  *                  Buscar ID de uma categoria 
  **************************************************/
-import * as message from '../../config/status/status.js'
+import * as message from '../../../config/status/status.js'
+import { getIdSQLCategory } from "../../../model/CategorysDAO/CategoryDAO/getIdCategory.js"
 
 export const getIdCategory = async function(idCategorys) {
     try {

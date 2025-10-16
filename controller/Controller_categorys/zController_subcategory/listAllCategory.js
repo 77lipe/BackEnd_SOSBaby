@@ -6,9 +6,9 @@
  *                  Buscar ID de uma Subcategoria 
  **************************************************/
 
- import res from 'express/lib/response';
+
 import * as message from '../../../config/status/status.js'
- import { getAllSubCategory } from "../../../model/CategorysDAO/SubCategoryDAO/getAllSubCategory";
+ import { getAllSubCategory } from "../../../model/CategorysDAO/SubCategoryDAO/getAllSubCategory.js";
 
 
  export const listAllSub = async function (){

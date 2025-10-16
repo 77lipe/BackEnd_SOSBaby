@@ -8,7 +8,7 @@
 
 import * as message from '../../../config/status/status.js'
 import { deleteCategory } from "../../../model/CategorysDAO/CategoryDAO/deleteCategory.js"
-import { getIdCategory } from '../../../model/CategorysDAO/CategoryDAO/getIdCategory.js'
+import { getIdSQLCategory } from '../../../model/CategorysDAO/CategoryDAO/getIdCategory.js'
 
 export const deleteCategorys = async function (idCategorys) {
     try {
@@ -20,7 +20,7 @@ export const deleteCategorys = async function (idCategorys) {
             return message.ERROR_REQUIRED_FIELDS
         }else{
 
-            let resultCategory = await getIdCategory(idGet)
+            let resultCategory = await getIdSQLCategory(idGet)
             if(resultCategory != false || typeof(resultCategory) == 'object'){
                 if (resultCategory.length > 0) {
 

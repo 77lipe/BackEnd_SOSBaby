@@ -11,14 +11,16 @@ import {insertSQLCalendario} from "../../model/CalendarioDAO/InsertCalendario.js
 
 
 export const insertCalendario = async function (calendario, contentType) {
-    try {
-
+       try {
+            
         if(String(contentType).toLocaleLowerCase() == "application/json"){
             if(
-                calendario.data_evento              == "" || calendario.data_evento     == undefined || calendario.data_evento      == null || calendario.data_evento.length > 25   ||
-                calendario.titulo                   == "" || calendario.titulo          == undefined || calendario.titulo           == null || calendario.titulo.length > 100       ||
-                calendario.descricao                == "" || calendario.descricao       == undefined || calendario.descricao        == null || calendario.descricao.length   > 200  ||
-                calendario.cor                      == "" || calendario.cor             == undefined || calendario.cor              == null || calendario.cor.length > 10           ||
+                calendario.data_calendario          == "" || calendario.data_calendario     == undefined || calendario.data_calendario      == null || calendario.data_calendario.length > 25       ||
+                calendario.hora_calendario          == "" || calendario.hora_calendario == undefined || calendario.hora_calendario  == null || calendario.hora_calendario.length > 10   ||
+                calendario.alarme_ativo             == "" || calendario.alarme_ativo    == undefined || calendario.alarme_ativo     == null || isNaN(calendario.alarme_ativo)           ||
+                calendario.titulo                   == "" || calendario.titulo          == undefined || calendario.titulo           == null || calendario.titulo.length > 100           ||
+                calendario.descricao                == "" || calendario.descricao       == undefined || calendario.descricao        == null || calendario.descricao.length   > 200      ||
+                calendario.cor                      == "" || calendario.cor             == undefined || calendario.cor              == null || calendario.cor.length > 10               ||
                 calendario.id_user                  == "" || calendario.id_user         == undefined || calendario.id_user          == null || isNaN(calendario.id_user)   
             ){
                 return message.ERROR_REQUIRED_FIELDS

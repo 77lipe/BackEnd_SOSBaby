@@ -12,18 +12,21 @@ const prisma = new PrismaClient()
 export const insertSQLCalendario = async function(calendario) {
     try {
         let sql = `insert into tbl_calendario(
+                    id_user,
                     titulo,
                     descricao,
-                    data_evento,
+                    data_calendario,
+                    hora_calendario,
                     cor,
-                    id_user
-                    )
-                    values(
+                    alarme_ativo
+                    )VALUES(
+                     '${calendario.id_user}',
                      '${calendario.titulo}',
                      '${calendario.descricao}',
-                     '${calendario.data_evento}',
+                     '${calendario.data_calendario}',
+                     '${calendario.hora_calendario}',
                      '${calendario.cor}',
-                     '${calendario.id_user}'
+                     '${calendario.alarme_ativo}'
                     )`
 
         let result = await prisma.$executeRawUnsafe(sql)

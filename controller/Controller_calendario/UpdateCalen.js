@@ -16,6 +16,8 @@ export const updateCalendario = async function (id, dataCalendario, contentType)
         if (String(contentType).toLocaleLowerCase() == 'application/json') {
             if (
                 dataCalendario.data_evento              == "" || dataCalendario.data_evento     == undefined || dataCalendario.data_evento      == null || dataCalendario.data_evento.length > 25   ||
+                calendario.hora_calendario              == "" || calendario.hora_calendario         == undefined || calendario.hora_calendario  == null || calendario.hora_calendario.length > 10   ||
+                calendario.alarme_ativo                 == "" || calendario.alarme_ativo            == undefined || calendario.alarme_ativo     == null ||
                 dataCalendario.titulo                   == "" || dataCalendario.titulo          == undefined || dataCalendario.titulo           == null || dataCalendario.titulo.length > 100       ||
                 dataCalendario.descricao                == "" || dataCalendario.descricao       == undefined || dataCalendario.descricao        == null || dataCalendario.descricao.length   > 200  ||
                 dataCalendario.cor                      == "" || dataCalendario.cor             == undefined || dataCalendario.cor              == null || dataCalendario.cor.length > 10           ||

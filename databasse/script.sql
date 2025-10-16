@@ -247,14 +247,74 @@ CREATE TABLE tbl_rotina_item (
 
 
 create table tbl_calendario (
-	id_calendario int auto_increment primary key,
+    id_calendario int auto_increment primary key,
+    id_user int not null,
     titulo varchar(100) not null,
-    descricao TEXT(200) not null,
-    data_evento datetime not null,
-    cor char(10) null,
-    id_user int,
+    descricao text(200),
+    data_calendario date not null,
+    hora_calendario time not null,
+    cor char(10) not null,
+    alarme_ativo boolean default false,
     
-	constraint FK_CALENDARIO_USUARIO
-    foreign key (id_user)
-    references tbl_user(id_user)
-)
+    CONSTRAINT FK_CALENDARIO_USER
+    FOREIGN KEY (id_user)
+    REFERENCES tbl_user(id_user)
+);
+
+
+create table tbl_dica (
+    id_dica int auto_increment primary key,
+    titulo varchar(150) not null,
+    conteudo text(100) not null,
+    imagem varchar(255),
+    id_categoria int not null,
+
+    CONSTRAINT FK_DICA_CATEGORIA
+    FOREIGN KEY (id_categoria)
+    REFERENCES tbl_categoria(id_categoria)
+);
+
+create table tbl_categoria (
+    id_categoria int auto_increment primary key,
+    nome_categoria varchar(50) not null
+);
+
+
+create table tbl_subcategoria (
+    id_subcategoria int auto_increment primary key,
+    nome_subcategoria  varchar(50) not null
+);
+
+create table tbl_categoria_subcategoria (
+	id_relacionamento int auto_increment primary key,
+    id_categoria int not null,
+    id_subcategoria int not null,
+
+
+    CONSTRAINT FK_CATEGORIA_SUB_CATEGORIA
+	FOREIGN KEY (id_categoria)
+	REFERENCES tbl_categoria(id_categoria),
+
+    CONSTRAINT FK_CATEGORIA_SUB_SUB
+	FOREIGN KEY (id_subcategoria)
+	REFERENCES tbl_subcategoria(id_subcategoria)
+);
+
+
+create table tbl_favorito (
+    id_favorito int auto_increment primary key,
+    id_user int not null,
+    id_dica int not null,
+    
+    CONSTRAINT FK_FAVORITO_USER
+	FOREIGN KEY (id_user) REFERENCES tbl_user(id_user)
+	ON DELETE CASCADE,
+        
+    CONSTRAINT FK_FAVORITO_DICA
+	FOREIGN KEY (id_dica) REFERENCES tbl_dica(id_dica)
+	ON DELETE CASCADE,
+        
+    UNIQUE (id_user, id_dica) 
+);
+
+

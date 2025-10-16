@@ -13,7 +13,7 @@ export const listAllCategory = async function () {
     try {
         let resultCategory = await getAllCategory()
 
-        if(resultCategory != false || typeof(resultCategory) == 'object'){
+        if(resultCategory != false){
             if(resultCategory.length > 0){
                 return{
                     ...message.SUCCES_SEARCH_ITEM,

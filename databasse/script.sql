@@ -265,7 +265,7 @@ create table tbl_dica (
     titulo varchar(150) not null,
     conteudo text(3000) not null,
     imagem varchar(255),
-    id_categoria int not null,
+    id_relacionamento int not null,
 
     CONSTRAINT FK_DICA_CATEGORIA
     FOREIGN KEY (id_categoria)

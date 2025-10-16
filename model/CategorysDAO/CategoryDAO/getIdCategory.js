@@ -9,7 +9,7 @@
 import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
-export const getIdCategory = async function (id) {
+export const getIdSQLCategory = async function (id) {
     try {
 
         let sql = `SELECT * FROM tbl_categoria WHERE id_categoria = ?`

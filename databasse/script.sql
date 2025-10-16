@@ -222,23 +222,50 @@ create table tbl_rotina(
     titulo varchar(100) not null,
     cor char(10) not null,
     id_user int,
+    id_item_rotina int,
     
 	constraint FK_ROTINA_USUARIO
     foreign key (id_user)
-    references tbl_user(id_user)
+    references tbl_user(id_user),
+    
+    constraint FK_ITEM_ROTINA
+    foreign key (id_item_rotina)
+    references tbl_rotina_item(id_item)
 
 );
 
 
 CREATE TABLE tbl_rotina_item (
     id_item INT AUTO_INCREMENT PRIMARY KEY,
-    id_rotina INT NOT NULL,
     titulo VARCHAR(100) NOT NULL,
     descricao TEXT,
     data_rotina DATE NOT NULL,
-    hora TIME NOT NULL,
+    hora TIME NOT NULL
+
+);
+
+
+create table tbl_dicas (
+	id_dicas int auto_increment primary key,
+    titulo varchar(100) not null,
+    descricao text(200) not null,
+    id_tipoDica 
+
+);
+
+
+create table tbl_favorito (
+    id_favorito INT AUTO_INCREMENT PRIMARY KEY,
+    id_user INT NOT NULL,
+    id_dica INT NOT NULL,
     
-	constraint FK_ROTINA_ITEM
-    foreign key (id_rotina)
-    references tbl_rotina(id_rotina)
+    CONSTRAINT FK_FAVORITO_USER
+	FOREIGN KEY (id_user) REFERENCES tbl_user(id_user)
+	ON DELETE CASCADE,
+        
+    CONSTRAINT FK_FAVORITO_DICA
+	FOREIGN KEY (id_dica) REFERENCES tbl_dica(id_dica)
+	ON DELETE CASCADE,
+        
+    UNIQUE (id_user, id_dica) 
 );

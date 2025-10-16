@@ -23,7 +23,7 @@ export const insertSangue = async function (blood, contentType) {
                 if (resultBlood) {
                     return {
                         ...message.SUCCES_CREATED_ITEM,
-                        data: resultBlood
+                        data: blood
                     }
                 } else {
                     return message.ERROR_INTERNAL_SERVER_MODEL

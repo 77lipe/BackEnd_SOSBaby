@@ -27,13 +27,18 @@ export const forgotPassword = async function(email, contentType){
 
                 let resultUser = await findUserEmail(email)
                 if(resultUser){
+                    console.log(resultUser.id_user);
                     const token = jwt.sign(
-                        {id: resultUser.id},
+                        {id_user: resultUser.id_user},
                         process.env.JWT_SECRET,
                         {expiresIn: '15min'}
                     )
                     
                     const link = `${process.env.FRONTEND_URL}/reset-password?token=${token}`
+                    
+                    console.log("Email:", process.env.EMAIL_USER);
+                    console.log("Senha:", process.env.EMAIL_PASS ? "OK" : "MISSING");
+
                     const sendEmail = nodemailer.createTransport({
                         service: 'gmail',
                         auth: {
@@ -46,7 +51,7 @@ export const forgotPassword = async function(email, contentType){
                         from: `"SOSBABY" <${process.env.EMAIL_USER}>`,
                         to: email,
                         subject: 'Redefinição de Senha',
-                        text: `Olá, clique no link abaixo para redefinir sua senha:\n\n${link}\n\nEsse link será expirado em 15 minutos. `
+                        text: `Olá, clique no link abaixo para redefinir sua senha:\n\n${link}\n\nEsse link será expirado em 15 minutos.\n\n seu token para alteração é ${token} `
                     })
 
                     return message.SUCCES_EMAIL_SENT

@@ -15,28 +15,28 @@ import dotenv from 'dotenv'
 
 dotenv.config()
 
-export const resetPassword = async function (token, newPass, contentType){
+export const resetPassword = async function ( data, contentType){
     try {
      
-        if(String(contentType).toLocaleLowerCase() === 'application/json'){
+        if(String(contentType).toLocaleLowerCase() == 'application/json'){
             if(
-                token   == null || token   == undefined || token   == '' ||
-                newPass == null || newPass == undefined || newPass == ''
+                data.token   == null ||  data.token   == undefined ||  data.token   == '' ||
+                data.newPass == null ||  data.newPass == undefined ||  data.newPass == ''
             ){
                 return message.ERROR_REQUIRED_FIELDS
             }else{
                 try {
-                   
-                    const decoded = jwt.verify(token, process.env.JWT_SECRET)
-                    const userId = decoded.id
 
-                    const hash = await bcrypt.hash(newPass, 10)
-                    const result = await updateUserPassword(userId, hash)
-
+                    const decoded = jwt.verify(data.token, process.env.JWT_SECRET)
+                    console.log('Decoded token:', decoded)
+                    const userId = decoded.id_user
+    
+                    const result = await updateUserPassword({userId, newPass: data.newPass})
+                    
                     if(result){
                         return{
                             ...message.SUCCES_PASSWORD_RESET,
-                            data: newPass
+                            nova_senha: data.newPass
                         }
                     }else{
                         return message.ERROR_INTERNAL_SERVER_MODEL

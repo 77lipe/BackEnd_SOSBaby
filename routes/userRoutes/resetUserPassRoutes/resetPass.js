@@ -17,10 +17,9 @@ const bodyJsonParser = bodyParser.json()
 routerResetPass.post('/user/auth/reset-password', bodyJsonParser, async(req, res) => {
 
     let contentType = req.headers['content-type']
-    let token = req.query.token
-    let newPassword = req.body.newPass
+    let newPassword = req.body
 
-    let resultResetPass = await resetPassword(token, newPassword, contentType)
+    let resultResetPass = await resetPassword(newPassword, contentType)
     return res.status(resultResetPass.status_code).json(resultResetPass)
 })
 

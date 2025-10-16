@@ -1,6 +1,6 @@
 /**************************************************
- * Autor: Felipe Vieira
- * Date: 18/09/25
+ * Autor: Isabelly Lima
+ * Date: 09/10/25
  * Versão: 1.0
  * Desc: App que irá conter as inserções para
  *       o Banco de Dados
@@ -9,24 +9,22 @@
  import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
-export const deleteSQLUser = async function (id) {
+export const ListSQLCalendario = async function () {
     try {
         
-        let sql = `DELETE * FROM tbl_user where id_user = ${id}`
-        let resultUser = await prisma.$executeRawUnsafe(sql)
+        let sql = `SELECT * FROM tbl_calendario ORDER BY id_calendario DESC`
+        let resultCalendario = await prisma.$queryRawUnsafe(sql)
 
-        if (resultUser) {
-            return true
+        if (resultCalendario) {
+            return resultCalendario
         }else{
             return false
         }
 
-
-
     } catch (error) {
         console.log(error)
-        return false;
+        return false
+        
     }
 }
-
-
+    

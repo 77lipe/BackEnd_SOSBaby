@@ -9,11 +9,11 @@
 
 import bodyParser from 'body-parser'
 import { Router } from 'express'
+
 const routerInsertUser = Router()
+const bodyJsonParser = bodyParser.json()
 
 import { insertUser } from "../../controller/Controller_user/insertUser.js"
-
-const bodyJsonParser = bodyParser.json()
 
 routerInsertUser.post('/user/cadastro', bodyJsonParser, async (req,res) =>{
     

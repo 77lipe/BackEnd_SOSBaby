@@ -9,22 +9,19 @@
 import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient()
 
-export const insertSqlItemRoutine = async function (itemRoutine){
+export const insertSqlItemRoutine = async function (dataRoutine){
     try {
         
-        let sql = `INSERT INTO tbl_rotina_item(
-        id_rotina,
-        titulo,
-        descricao,
-        hora
-        ) VALUES (
-        ${itemRoutine.id_rotina},
-        ${itemRoutine.titulo},
-        ${itemRoutine.descricao},
-        ${itemRoutine.hora},
-        )
-        `
-        const resultSql = await prisma.$executeRawUnsafe(sql)
+        let sql = `INSERT INTO tbl_rotina_item (titulo, descricao, data_rotina, hora) VALUES (?, ?, ?, ?)`;
+
+    const resultSql = await prisma.$executeRawUnsafe(
+        sql,
+        dataRoutine.titulo,
+        dataRoutine.descricao,
+        dataRoutine.data_rotina,
+        dataRoutine.hora
+    );
+
         if (resultSql) {
 
             let getID = `SELECT * FROM tbl_rotina_item ORDER BY id_item Desc LIMIT 1`

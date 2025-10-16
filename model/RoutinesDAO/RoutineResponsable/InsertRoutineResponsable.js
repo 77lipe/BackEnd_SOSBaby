@@ -13,9 +13,9 @@ export const inserSQLRoutineResponsable = async function (dataRoutine){
         
         let sql = `INSERT INTO tbl_rotina (
         titulo,
-        data_rotina,
         cor,
-        id_user
+        id_user,
+        id_item_rotina
         )VALUES(
         ?,
         ?,
@@ -24,21 +24,22 @@ export const inserSQLRoutineResponsable = async function (dataRoutine){
         )`
         const resultSQL = await prisma.$executeRawUnsafe(sql,
         dataRoutine.titulo,
-        dataRoutine.data_rotina,
         dataRoutine.cor,
-        dataRoutine.id_user
+        dataRoutine.id_user,
+        dataRoutine.id_item_rotina
+
         )
 
         if (resultSQL) {
             let getID = `SELECT * FROM tbl_rotina ORDER BY id_rotina DESC LIMIT 1`
-            const resultGetID = await prisma.$queryRawUnsafe(getID)
-
-            return resultGetID[0]
+            let id = await prisma.$queryRawUnsafe(getID)
+            return id[0]
         }else{
             return false
         }
 
     } catch (error) {
-        
+        console.log(error)
+        return false
     }
 }

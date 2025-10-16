@@ -15,7 +15,7 @@ export const selectSQLIdUser = async function (id) {
         let resultUser = await prisma.$queryRawUnsafe(sql)
 
         if (resultUser) {
-            return true
+            return resultUser
         }else{
             return false
         }

@@ -10,12 +10,14 @@ import {Router} from "express"
 import bodyParser from "body-parser"
 const routerInsertBaby = Router()
 
+const bodyJsonParser = bodyParser.json()
+
 import { insertBebe } from "../../controller/Controller_baby/insertBebe.js";
 
-routerInsertBaby.post('/baby/cadastro', bodyParser, async(req, res) => {
+routerInsertBaby.post('/baby/cadastro', bodyJsonParser , async(req, res) => {
 
-    let contentType = req.body
-    let dadosBaby = req.headers['content-type']
+    let contentType = req.headers['content-type']
+    let dadosBaby = req.body
 
     let resultInsertBaby = await insertBebe(dadosBaby, contentType)
     return res.status(resultInsertBaby.status_code).json(resultInsertBaby)

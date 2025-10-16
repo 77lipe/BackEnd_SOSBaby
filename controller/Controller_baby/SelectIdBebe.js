@@ -9,8 +9,8 @@
 
 import * as message from '../../config/status/status.js'
 import { SelectIdSQLBaby } from '../../model/BabyDAO/SelectIdSQLBaby.js'
-import { idGender } from '../../model/SexDAO/SelectByIdGender.js'
-import { SelectIdSQLBlood } from '../../model/BloodDAO/SelectIdBlood.js'
+import { SearchIDGender } from '../../controller/Controller_sexo/SelectByIdGender.js'
+import { SelectIdBlood } from '../../controller/Controller_blood/selectIDSangue.js'
 
 export const selectIdBebe = async function (id) {
     try {
@@ -26,19 +26,25 @@ export const selectIdBebe = async function (id) {
             let resultBaby = await SelectIdSQLBaby(idGet)
             if (resultBaby != false || typeof (resultBaby) == 'object') {
                 if (resultBaby.length > 0) {
-                    BabyDataJson.message = message.SUCCES_SEARCH_ITEM
-                    BabyDataJson.items = resultBaby.length
+                    BabyDataJson.message = message.SUCCES_SEARCH_ITEM.message
+                    BabyDataJson.status_code = message.SUCCES_SEARCH_ITEM.status_code
 
-                    for (item of resultBaby) {
-                        let dadoGender = await idGender(item.id_sexo)
-                        item.sexo = dadoGender.sexo
+                    for (const item of resultBaby) {
+                        let dadoGender = await SearchIDGender(item.id_sexo)
+                        console.log(dadoGender);
+                        item.sexo = dadoGender.data[0].sexo
+                        delete item.id_sexo
 
-                        let dadoBlood = await SelectIdSQLBlood(item.id_sangue)
-                        item.tipo_sanguineo = dadoBlood.tipo_sanguineo
+                        let dadoBlood = await SelectIdBlood(item.id_sangue)
+                        console.log(dadoBlood);
+                        item.tipo_sanguineo = dadoBlood.blood[0].tipo_sanguineo
+                        delete item.id_sangue
 
                         ArrayBaby.push(item)
                     }
-                    BabyDataJson.bebes = ArrayBaby
+                    BabyDataJson.bebe = ArrayBaby
+                    console.log(BabyDataJson);
+                    
                     return BabyDataJson
                 } else {
                     return message.ERROR_NOT_FOUND
@@ -48,8 +54,8 @@ export const selectIdBebe = async function (id) {
             }
         }
 
-
     } catch (error) {
-        
+        console.log(error)
+        return message.ERROR_INTERNAL_SERVER_CONTROLLER
     }
 }

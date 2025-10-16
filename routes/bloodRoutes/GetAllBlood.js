@@ -12,7 +12,7 @@ const routerAllBlood = Router()
 
 import {selectAllBlood} from "../../controller/Controller_blood/selectAllSangue.js";
 
-routerAllBlood.get('/blood', cors(), async(req, res) => {
+routerAllBlood.get('/bloods', cors(), async(req, res) => {
 
    let resultAllBlood = await selectAllBlood()
    return res.status(resultAllBlood.status_code).json(resultAllBlood)

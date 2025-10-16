@@ -12,7 +12,7 @@ const routerIdTypeUser = Router()
 
 import {searchIDTypeUser} from "../../controller/Controller_type_user/searchIdType.js";
 
-routerIdTypeUser.get('type/:id', cors(), async (req, res) => {
+routerIdTypeUser.get('/type/:id', cors(), async (req, res) => {
 
     let id = req.params.id
     let resultIdTypeUser = await searchIDTypeUser(id)

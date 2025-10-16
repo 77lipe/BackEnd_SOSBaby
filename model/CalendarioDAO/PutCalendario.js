@@ -12,11 +12,13 @@ const prisma = new PrismaClient()
 export const updateSQLCalendario = async function (calendario) {
     try {
         let sql = `UPDATE tbl_calendario SET 
+        id_user = '${calendario.id_user}',
         titulo = '${calendario.titulo}',
         descricao  = '${calendario.descricao}',
         data_evento  = '${calendario.data_evento}',
+        hora_calendario  = '${calendario.hora_calendario}',
         cor    = '${calendario.cor}',
-        id_user = '${calendario.id_user}'
+        alarme_ativo  = '${calendario.alarme_ativo}'
 
         where id_calendario = ${calendario.id_calendario}`
 

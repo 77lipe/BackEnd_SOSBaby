@@ -11,11 +11,15 @@
  const routerInsertCategory = Router()
  
  const bodyJsonParser = bodyParser.json()
- import { insertCategory } from "../../../controller/Controller_categorys/zController_category/insertCategory"
+ import { insertCategory } from "../../../controller/Controller_categorys/zController_category/insertCategory.js"
 
  routerInsertCategory.post('/category/cadastro', bodyJsonParser, async (req,res) => {
 
     let contentType = req.headers['content-type']
     let dadosBody = req.body
-    let resultCat = await 
+    let resultCat = await insertCategory(dadosBody,contentType)
+
+    return res.status(resultCat.status_code).json(resultCat)
  })
+
+ export default routerInsertCategory

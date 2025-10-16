@@ -11,7 +11,7 @@ import bodyParser from "body-parser"
 const routerInsertSub = Router()
 
 const bodyJsonParser = bodyParser.json()
-import { insertCategory} from "../../../controller/Controller_categorys/zController_subcategory/insertSubCategory"
+import { insertCategory} from "../../../controller/Controller_categorys/zController_subcategory/insertSubCategory.js"
 
 routerInsertSub.post('/subcategory/cadastro', bodyJsonParser, async (req, res) =>{
 

@@ -6,7 +6,6 @@
  *                  Buscar ID de uma categoria 
  **************************************************/
 import * as message from '../../config/status/status.js'
-import { getIdSQLCategory } from "../../../model/CategorysDAO/CategoryDAO/getIdCategory.js"
 
 export const getIdCategory = async function(idCategorys) {
     try {

@@ -15,7 +15,7 @@ export const postSubCategory = async function (subCategory) {
             nome_subcategoria,
         ) VALUES (
         ?
-         )`
+        )`
 
         let resultSubCategory = await prisma.$executeRawUnsafe(
             sql,
@@ -24,7 +24,9 @@ export const postSubCategory = async function (subCategory) {
         
         if (resultSubCategory) {
             let getID = `SELECT * FROM tbl_subcategoria ORDER BY id_subcategoria DESC LIMIT 1`
-            return true
+            let id = await prisma.$queryRawUnsafe(getID)
+
+            return id[0]
         }else{
             return false
         }

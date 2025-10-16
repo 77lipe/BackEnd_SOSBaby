@@ -17,5 +17,9 @@
 
     let contentType = req.headers['content-type']
     let dadosBody = req.body
-    let resultCat = await 
+    let resultCat = await insertCategory(dadosBody,contentType)
+
+    return res.status(resultCat.status_code).json(resultCat)
  })
+
+ export default routerInsertCategory

@@ -6,9 +6,9 @@
  ********************************************************/
 
  import PostSub from './PostSubCategory.js'
- import GetAllSub from './GetAllSubCategory'
- import GetIdSub from './GetIdSubCategory'
- import DeleteSub from './DeleteSubCategory'
+ import GetAllSub from './GetAllSubCategory.js'
+ import GetIdSub from './GetIdSubCategory.js'
+ import DeleteSub from './DeleteSubCategory.js'
  import { Router } from "express"
  
  const router = Router()

@@ -10,11 +10,11 @@ import { Router } from "express"
 import cors from 'cors'
 const routerGetIdSub = Router()
  
-import { getIdSub } from "../../../controller/Controller_categorys/zController_subcategory/idSubCategory"
+import { getIdSub } from "../../../controller/Controller_categorys/zController_subcategory/idSubCategory.js"
 
 routerGetIdSub.get('/subcategory/:id', cors(), async (res, req) => {
 
-    let id = require.req.id
+    let id = req.params.id
     let resultIdSub = await getIdSub(id)
 
     return res.statusCode(resultIdSub.status_code).json(resultIdSub)

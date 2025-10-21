@@ -10,9 +10,10 @@ import * as message from '../../config/status/status.js'
 import { postSQLTip } from "../../model/TipDAO/postTip.js"
 
 export const insertDica = async function (dataTip, contentType){
+    
     try {
         
-        if(String(contentType).toLocaleLowerCase() == 'application/josn'){
+        if(String(contentType).toLocaleLowerCase() === 'application/json'){
             if (
                 dataTip.titulo          == "" || dataTip.titulo         == undefined || dataTip.titulo          == null || dataTip.titulo.length > 100      ||
                 dataTip.conteudo        == "" || dataTip.conteudo       == undefined || dataTip.conteudo        == null || dataTip.conteudo.length > 5000   ||
@@ -26,7 +27,7 @@ export const insertDica = async function (dataTip, contentType){
                 if (resultDica) {
                     return{
                         ...message.SUCCES_CREATED_ITEM,
-                        data: dataTip
+                        data: resultDica
                     }
                 }else{
                     return message.ERROR_INTERNAL_SERVER_MODEL

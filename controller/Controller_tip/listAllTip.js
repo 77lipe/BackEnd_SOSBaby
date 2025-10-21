@@ -25,9 +25,9 @@ export const getAllDica = async function (){
                 dadosDica.dicas = resultDica
                 
                 for(let itemDica of resultDica){
-                    let dadosTipo = await getIdCategory(itemDica.id_tipo_dica)
-                    itemDica.tipo_dica = dadosTipo
-                    delete itemDica.id_tipo_dica
+                    let dadosTipo = await getIdCategory(itemDica.id_categoria)
+                    itemDica.tipo_dica = dadosTipo.data
+                    delete itemDica.id_categoria
 
                     arrayDica.push(itemDica)
                 }

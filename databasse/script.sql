@@ -263,15 +263,14 @@ create table tbl_calendario (
 create table tbl_dica (
     id_dica int auto_increment primary key,
     titulo varchar(150) not null,
-    conteudo text(3000) not null,
+    conteudo text(100) not null,
     imagem varchar(255),
-    id_relacionamento int not null,
+    id_categoria int not null,
 
     CONSTRAINT FK_DICA_CATEGORIA
     FOREIGN KEY (id_categoria)
     REFERENCES tbl_categoria(id_categoria)
 );
-
 
 create table tbl_categoria (
     id_categoria int auto_increment primary key,
@@ -284,15 +283,15 @@ create table tbl_subcategoria (
     nome_subcategoria  varchar(50) not null
 );
 
-create table tbl_categoria_subcategoria (
+create table tbl_dica_subcategoria (
 	id_relacionamento int auto_increment primary key,
-    id_categoria int not null,
+    id_dica int not null,
     id_subcategoria int not null,
 
 
     CONSTRAINT FK_CATEGORIA_SUB_CATEGORIA
-	FOREIGN KEY (id_categoria)
-	REFERENCES tbl_categoria(id_categoria),
+	FOREIGN KEY (id_dica)
+	REFERENCES tbl_dica(id_dica),
 
     CONSTRAINT FK_CATEGORIA_SUB_SUB
 	FOREIGN KEY (id_subcategoria)

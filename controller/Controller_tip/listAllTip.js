@@ -8,6 +8,7 @@
 
 import * as message from '../../config/status/status.js'
 import { selectSQLAllTip } from "../../model/TipDAO/getAllTip.js"
+import { getIdCategory } from "../../controller/Controller_categorys/zController_category/getIdCategory.js";
 
 export const getAllDica = async function (){
     try {
@@ -24,7 +25,7 @@ export const getAllDica = async function (){
                 dadosDica.dicas = resultDica
                 
                 for(let itemDica of resultDica){
-                    let dadosTipo = await selectSQLIdTipo(itemDica.id_tipo_dica)
+                    let dadosTipo = await getIdCategory(itemDica.id_tipo_dica)
                     itemDica.tipo_dica = dadosTipo
                     delete itemDica.id_tipo_dica
 

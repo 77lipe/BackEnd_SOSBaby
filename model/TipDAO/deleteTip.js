@@ -12,7 +12,7 @@ const prisma = new PrismaClient()
 export const deleteSQLTip = async function (id) {
     try {
         
-        let sql = `DELETE FROM tbl_dica where id_dicas = ${id}`
+        let sql = `DELETE FROM tbl_dica where id_dica = ${id}`
         let resultTip = await prisma.$executeRawUnsafe(sql)
 
         if (resultTip) {

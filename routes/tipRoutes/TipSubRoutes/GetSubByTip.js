@@ -12,7 +12,7 @@ import cors from 'cors'
 const routerGetSubByTip = Router()
 import { selectSubByDTip } from '../../../controller/Controller_tip/Controller_tip_subcat/selectSubByTip.js'
 
-routerGetSubByTip.get('/tip/subcategoria/:id', cors(), async (req, res) => {
+routerGetSubByTip.get('/tip/sub/:id', cors(), async (req, res) => {
 
     let id = req.params.id
     let resultSubByTip = await selectSubByDTip(id)

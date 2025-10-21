@@ -17,11 +17,15 @@ export const postSQLTipSubCategory = async function(dataTipSubCategory){
         )VALUES(
             '${dataTipSubCategory.id_dica}',
             '${dataTipSubCategory.id_subcategoria}'
-        )`
+        );`
 
         let result = await prisma.$executeRawUnsafe(sql)
-        if(result > 0){
-            return result[0]
+
+        if(result){
+            let sqlSelect = `SELECT * FROM tbl_dica_subcategoria ORDER BY id_relacionamento DESC LIMIT 1;`
+            let id = await prisma.$queryRawUnsafe(sqlSelect)
+
+            return id[0]
         }else{
             return false
         }

@@ -12,10 +12,10 @@ import cors from 'cors'
 const routerGetAllTipSub = Router()
 import { selectAllTipSub } from '../../../controller/Controller_tip/Controller_tip_subcat/selectAllTipSub.js'
 
-routerGetAllTipSub.get('/tip/subcategoria', cors(), async (req, res) => {
+routerGetAllTipSub.get('/tipSub', cors(), async (req, res) => {
+    console.log("Rota foi chamada");
     
     let resultAllTipSub = await selectAllTipSub()
-
     return res.status(resultAllTipSub.status_code).json(resultAllTipSub)
 })
 export default routerGetAllTipSub

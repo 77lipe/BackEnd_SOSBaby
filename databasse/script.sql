@@ -50,42 +50,6 @@ create table tbl_status_messager(
     status_messagem varchar(50)
 );
 
-create table tbl_chat(
-    id_chat int auto_increment primary key not null,
-    nome_chat varchar(100) not null
-);
-
-create table tbl_messager(
-    id_mensagem int auto_increment primary key not null,
-    conteudo text(500) not null,
-    id_chat int,
-    id_user int,
-    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
-
-    constraint FK_MENSAGEM_CHAT
-    foreign key (id_chat)
-    references tbl_chat(id_chat),
-
-    constraint FK_MENSAGEM_USER
-    foreign key (id_user)
-    references tbl_user(id_user)
-);
-
-
-create table tbl_chat_user(
-    id_chat_user int auto_increment primary key not null,
-    id_chat int,
-    id_user int,
-
-    constraint FK_CHAT_USER_CHAT
-    foreign key (id_chat)
-    references tbl_chat(id_chat),
-
-    constraint FK_CHAT_USER_USER
-    foreign key (id_user)
-    references tbl_user(id_user)
-)
-
 
 create table tbl_cep(
 	id_cep int auto_increment primary key not null,
@@ -320,4 +284,40 @@ create table tbl_favorito (
 	ON DELETE CASCADE,
         
     UNIQUE (id_user, id_dica) 
+);
+
+create table tbl_chat(
+    id_chat int auto_increment primary key not null,
+    nome_chat varchar(100) not null
+);
+
+create table tbl_messager(
+    id_mensagem int auto_increment primary key not null,
+    conteudo text(500) not null,
+    id_chat int,
+    id_user int,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    constraint FK_MENSAGEM_CHAT
+    foreign key (id_chat)
+    references tbl_chat(id_chat),
+
+    constraint FK_MENSAGEM_USER
+    foreign key (id_user)
+    references tbl_user(id_user)
+);
+
+
+create table tbl_chat_user(
+    id_chat_user int auto_increment primary key not null,
+    id_chat int,
+    id_user int,
+
+    constraint FK_CHAT_USER_CHAT
+    foreign key (id_chat)
+    references tbl_chat(id_chat),
+
+    constraint FK_CHAT_USER_USER
+    foreign key (id_user)
+    references tbl_user(id_user)
 );

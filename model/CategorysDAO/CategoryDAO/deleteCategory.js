@@ -10,6 +10,7 @@ import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
 export const deleteCategory = async function(id) {
+    
     try {
         let sql = `DELETE from tbl_categoria where id_categoria = ${id}`
         let result = await prisma.$executeRawUnsafe(sql)

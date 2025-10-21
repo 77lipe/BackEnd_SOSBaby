@@ -18,7 +18,7 @@ export const getIdSub = async function (id){
 
             let resultSub = await getIdSQLSubCategory(id)
             if(resultSub != false || typeof(resultSub) == 'object'){
-                if(resultSub > 0){
+                if(resultSub.length > 0){
                     return {
                         ...message.SUCCES_SEARCH_ITEM,
                         data: resultSub

@@ -8,7 +8,7 @@
 
 import * as message from '../../../config/status/status.js'
 import { deleteSubCategory } from "../../../model/CategorysDAO/SubCategoryDAO/deleteSubCategory.js"
-import { getIdSQLCategory } from "../../../model/CategorysDAO/CategoryDAO/getIdCategory.js"
+import { getIdSQLSubCategory } from "../../../model/CategorysDAO/SubCategoryDAO/getIdSubCategory.js"
 
 export const deleteSub = async function (id){
     try {
@@ -17,11 +17,11 @@ export const deleteSub = async function (id){
             return message.ERROR_REQUIRED_FIELDS
         }else{
 
-            let getId = await getIdSQLCategory(id)
+            let getId = await getIdSQLSubCategory(id)
             if(getId != false || typeof(getId) == 'object'){
                 if(getId.length > 0){
                     
-                    let idDelete = await deleteSubCategory(getId)
+                    let idDelete = await deleteSubCategory(getId[0].id_subcategoria)
                     if(idDelete){
                         return message.SUCCES_DELETED_ITEM
                     }

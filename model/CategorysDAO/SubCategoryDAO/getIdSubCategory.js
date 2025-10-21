@@ -12,8 +12,8 @@ const prisma = new PrismaClient()
 export const getIdSQLSubCategory = async function (id) {
     try {
 
-        let sql = `SELECT * FROM tbl_subcategoria WHERE id_subcategoria = ?`
-        let resultSubCategory = await prisma.$queryRawUnsafe(sql, id)
+        let sql = `SELECT * FROM tbl_subcategoria WHERE id_subcategoria = ${id}`
+        let resultSubCategory = await prisma.$queryRawUnsafe(sql)
 
         if (resultSubCategory.length > 0) {
             return resultSubCategory

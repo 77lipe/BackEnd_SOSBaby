@@ -24,6 +24,17 @@ create table tbl_type_user(
     tipo varchar(50)
 );
 
+create table tbl_user(
+    id_user int auto_increment primary key not null,
+    email varchar(100) not null,
+    senha varchar(100) not null,
+    id_tipo int,
+    
+    constraint FK_TIPO_USER
+    foreign key(id_tipo)
+    references tbl_type_user(id_tipo)
+);
+
 create table tbl_especialidade(
       id_especialidade int auto_increment primary key not null,
       especialidade varchar(100)
@@ -39,45 +50,41 @@ create table tbl_status_messager(
     status_messagem varchar(50)
 );
 
-create table tbl_user(
-    id_user int auto_increment primary key not null,
-    email varchar(100) not null,
-    senha varchar(100) not null,
-    id_tipo int,
-    
-    constraint FK_TIPO_USER
-    foreign key(id_tipo)
-    references tbl_type_user(id_tipo)
+create table tbl_chat(
+    id_chat int auto_increment primary key not null,
+    nome_chat varchar(100) not null
 );
 
 create table tbl_messager(
     id_mensagem int auto_increment primary key not null,
     conteudo text(500) not null,
-    id_tipo_mensagem int,
-    id_status int,
-
-    constraint FK_TIPO_MENSAGEM
-    foreign key (id_tipo_mensagem)
-    references tbl_type_messager(id_tipo_mensagem),
-
-    constraint FK_STATUS_MESSAGEM
-    foreign key (id_status)
-    references tbl_status_messager(id_status)
-);
-
-create table tbl_chat(
-    id_chat int auto_increment primary key not null,
-    id_mensagem int,
+    id_chat int,
     id_user int,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
 
-    constraint FK_CHAT_MENSAGEM
-    foreign key (id_mensagem)
-    references tbl_messager(id_mensagem),
+    constraint FK_MENSAGEM_CHAT
+    foreign key (id_chat)
+    references tbl_chat(id_chat),
 
-    constraint FK_CHAT_USER
+    constraint FK_MENSAGEM_USER
     foreign key (id_user)
     references tbl_user(id_user)
 );
+
+
+create table tbl_chat_user(
+    id_chat_user int auto_increment primary key not null,
+    id_chat int,
+    id_user int,
+
+    constraint FK_CHAT_USER_CHAT
+    foreign key (id_chat)
+    references tbl_chat(id_chat),
+
+    constraint FK_CHAT_USER_USER
+    foreign key (id_user)
+    references tbl_user(id_user)
+)
 
 
 create table tbl_cep(

@@ -12,7 +12,7 @@ const prisma = new PrismaClient()
 export const deleteSQLTipSubCategory = async function (id) {
     try {
         
-        let sql = `DELETE FROM tbl_dicas_subcategorias where id_dica_subcategoria = ${id}`
+        let sql = `DELETE FROM tbl_dica_subcategoria where id_relacionamento = ${id}`
         let resultTipSub = await prisma.$executeRawUnsafe(sql)
 
         if (resultTipSub) {

@@ -9,23 +9,17 @@
 import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
-export const postSQLTipSubCategory = async function(dataTipSubCategory){
+export const getAllSQLTipSubCategory = async function(){
     try {
-        let sql = `INSERT INTO tbl_dicas_subcategorias (
-            id_dica,
-            id_subcategoria
-        )VALUES(
-            '${dataTipSubCategory.id_dica}',
-            '${dataTipSubCategory.id_subcategoria}'
-        )`
+        let sql = `SELECT * FROM tbl_dica_subcategoria`
 
-        let result = await prisma.$executeRawUnsafe(sql)
-        if(result){
-            return true
+        let result = await prisma.$queryRawUnsafe(sql)
+        if(result.length > 0){
+            return result
         }else{
             return false
         }
-    }catch (error) {
+    } catch (error) {
         console.log(error)
         return false
     }

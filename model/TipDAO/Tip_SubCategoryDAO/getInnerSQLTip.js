@@ -9,16 +9,17 @@
 import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
-export const putSQLTipSubCategory = async function(idTipSubCategory, dataTipSubCategory){
+export const getALLInnerSQLTip = async function(id){
     try {
-        let sql = `UPDATE tbl_dicas_subcategorias SET
-            id_dica = '${dataTipSubCategory.id_dica}',
-            id_subcategoria = '${dataTipSubCategory.id_subcategoria}'
-        WHERE id_dica_subcategoria = ${idTipSubCategory}`
+        let sql = `SELECT tbl_dica.*
+        FROM tbl_dica
+        INNER JOIN tbl_dica_subcategoria
+            ON tbl_dica.id_dica = tbl_dica_subcategoria.id_dica
+            WHERE tbl_dica_subcategoria.id_subcategoria = ${id}`
 
-        let result = await prisma.$executeRawUnsafe(sql)
-        if(result){
-            return true
+        let result = await prisma.$queryRawUnsafe(sql)
+        if(result.length > 0){
+            return result
         }else{
             return false
         }

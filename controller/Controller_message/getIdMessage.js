@@ -35,7 +35,12 @@ export const getIdMessage = async function (idGet){
                         delete item.id_chat
 
                         let dadosUser = await selectIDUser(item.id_user)
-                        item.user = dadosUser.data
+                        item.user = {
+                            id_usuario: dadosUser.usuario[0].id_user,
+                            usuario: dadosUser.usuario[0].nome_user,
+                            email: dadosUser.usuario[0].email,
+                            tipo_usuario: dadosUser.usuario[0].data_tipo[0].tipo
+                        }
                         delete item.id_user
 
                         arrayMessage.push(item)

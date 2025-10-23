@@ -18,6 +18,7 @@ export const getAllChat = async function(){
             if(resultAll.length > 0){
                 return{
                     ...message.SUCCES_SEARCH_ITEM,
+                    items: resultAll.length,
                     data: resultAll
                 }
             }else{

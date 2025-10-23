@@ -47,6 +47,8 @@ import tipsRoutes from './routes/tipRoutes/index.js'
 import categoryRoutes from './routes/categorysRoutes/categoryRoutes/index.js'
 import subcategorysRoutes from './routes/categorysRoutes/subCategoryRoutes/index.js'
 import tipSubcategoryRoutes from './routes/tipRoutes/TipSubRoutes/index.js'
+import chatRoutes from './routes/chatRoutes/index.js'
+import messageRoutes from './routes/messageRoutes/index.js'
 
 const app = express()
 app.use(cors())
@@ -67,7 +69,8 @@ app.use('/v1/sosbaby', tipsRoutes)
 app.use('/v1/sosbaby', categoryRoutes)
 app.use('/v1/sosbaby', subcategorysRoutes)
 app.use('/v1/sosbaby', tipSubcategoryRoutes)
-
+app.use('/v1/sosbaby', chatRoutes)
+app.use('/v1/sosbaby', messageRoutes)
 
 app.listen('3030', function(){
     console.log('API funcionando e aguardando requisições...')

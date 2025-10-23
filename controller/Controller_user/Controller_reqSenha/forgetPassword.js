@@ -34,8 +34,6 @@ export const forgotPassword = async function (email, contentType) {
                         { expiresIn: '15min' }
                     )
 
-                    const link = `${process.env.FRONTEND_URL}/reset-password?token=${token}`
-
                     console.log("Email:", process.env.SMTP_USER);
                     console.log("Senha:", process.env.SMTP_PASS ? "OK" : "MISSING");
 
@@ -50,21 +48,102 @@ export const forgotPassword = async function (email, contentType) {
                     })
 
                     const mailHtml = `
-<div style="font-family: Arial, sans-serif; line-height:1.6; color:#333;">
-  <h2>🍼 SOSBaby 🍼</h2>
-  <p>Olá! 👋</p>
-  <p>Você solicitou a redefinição da sua senha. 🔒</p>
-  <p>Copie o token abaixo para alterar sua senha (válido por 15 minutos ⏰):</p>
-  <p style="background:#edf2f7; padding:10px; border-radius:8px; text-align:center;">
-    <a href="#" style="color: #1e90ff; font-weight:bold; font-size:16px; text-decoration:none;"
-       onclick="navigator.clipboard.writeText('${token}')">
-       ${token} 
-    </a>
-  </p>
-  <p>Se você não solicitou essa alteração, pode ignorar este e-mail sem problemas. ❌</p>
-  <p>Um abraço,<br>Equipe SOSBaby 💙</p>
-</div>
-`;
+                    <!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Redefinição de Senha - SOSBaby</title>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  body {
+    font-family: 'Poppins', Arial, sans-serif;
+    background-color: #f0f4f8;
+    margin: 0;
+    padding: 0;
+  }
+  .container {
+    max-width: 680px;
+    margin: 40px auto;
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 12px 25px rgba(0,0,0,0.1);
+    overflow: hidden;
+  }
+  .header {
+    background-color: #4a90e2;
+    padding: 25px;
+    text-align: center;
+  }
+  .header img {
+    max-height: 80px;
+  }
+  .content {
+    padding: 40px 30px;
+    color: #333;
+  }
+  h2 {
+    color: #4a90e2;
+    text-align: center;
+    font-weight: 600;
+    margin-bottom: 25px;
+  }
+  p {
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 15px 0;
+  }
+  .token-button {
+    display: block;
+    text-align: center;
+    background-color: #1e73be;
+    color: #ffffff !important;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 16px;
+    padding: 15px;
+    border-radius: 10px;
+    margin: 25px auto;
+    width: fit-content;
+  }
+  .token-button:hover {
+    background-color: #155a8a;
+  }
+  .footer {
+    background: #f1f5f9;
+    text-align: center;
+    padding: 18px;
+    font-size: 13px;
+    color: #555;
+  }
+  .highlight {
+    color: #4a90e2;
+    font-weight: 600;
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <div class="header">
+      <!-- Espaço para logo -->
+      <img src="https://via.placeholder.com/180x70?text=SOSBaby+Logo" alt="SOSBaby Logo">
+    </div>
+    <div class="content">
+      <h2>🍼 Redefinição de Senha 🍼</h2>
+      <p>Olá! 👋</p>
+      <p>Você solicitou a redefinição da sua senha. 🔒</p>
+      <p>Use o token abaixo para alterar sua senha (<span class="highlight">válido por 15 minutos ⏰</span>):</p>
+      <p> ${token} </p>
+      <p>Se você não solicitou essa alteração, pode ignorar este e-mail sem problemas. ❌</p>
+      <p>Um abraço,<br>Equipe SOSBaby 💙</p>
+    </div>
+    <div class="footer">
+      © ${new Date().getFullYear()} SOSBaby. Todos os direitos reservados.
+    </div>
+  </div>
+</body>
+</html>
+                    `
 
                     await sendEmail.sendMail({
                         from: `"SOSBABY" <${process.env.SMTP_USER}>`,

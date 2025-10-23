@@ -23,7 +23,7 @@ export const insertClinica = async function (clinica, contentType) {
                 clinica.rua         == undefined || clinica.rua       == null || clinica.rua      == '' || clinica.rua.length       > 150    ||
                 clinica.bairro      == undefined || clinica.bairro    == null || clinica.bairro   == '' || clinica.bairro.length    > 100    ||
                 clinica.numero      == undefined || clinica.numero    == null || clinica.numero   == '' || clinica.numero.length    > 100    ||
-                clinica.id_user     == undefined || clinica.id_user   == null || clinica.id_user    == '' || clinica.email.length     > 100                   
+                clinica.id_user     == undefined || clinica.id_user   == null || clinica.id_user  == '' || isNaN(dataClinica.id_user)                   
             ){
                 return message.ERROR_REQUIRED_FIELDS                
             }else{

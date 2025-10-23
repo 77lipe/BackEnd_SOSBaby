@@ -13,8 +13,9 @@ export const putSQLTip = async function(dataTip){
     try {
         let sql = `UPDATE tbl_dicas SET
             titulo = '${dataTip.titulo}',
-            descricao = '${dataTip.descricao}',
-            id_tipo_dica = '${dataTip.id_tipo_dica}'
+            conteudo = '${dataTip.conteudo}',
+            imagem = '${dataTip.imagem}',
+            id_tipo_dica = '${dataTip.id_categoria}'
 
         WHERE id_dica = ${dataTip.id_dica}`
 

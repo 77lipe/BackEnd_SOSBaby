@@ -13,12 +13,14 @@ export const postSQLTip = async function(dataTip){
     try {
         let sql = `INSERT INTO tbl_dicas (
             titulo,
-            descricao,
-            id_tipo_dica
+            conteudo,
+            imagem,
+            id_categoria
         )VALUES(
             '${dataTip.titulo}',
-            '${dataTip.descricao}',
-            '${dataTip.id_tipo_dica}'
+            '${dataTip.conteudo}',
+            '${dataTip.imagem}',
+            '${dataTip.id_categoria}'
         )`
 
         let result = await prisma.$executeRawUnsafe(sql)

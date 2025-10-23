@@ -13,7 +13,7 @@ export const ListSQLresps = async function () {
     try {
         
         let sql = `SELECT * FROM tbl_responsavel ORDER BY id DESC`
-        let resultResps = await prisma.queryRawUnsafe(sql)
+        let resultResps = await prisma.$queryRawUnsafe(sql)
 
         if (resultResps) {
             return resultResps

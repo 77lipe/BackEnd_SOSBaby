@@ -13,7 +13,7 @@ export const deleteResp = async function(id) {
     try {
 
         let sql = `DELETE from tbl_responsavel where id = ${id}`
-        let resultUser = await prisma.executeRawUnsafe(sql, id)
+        let resultUser = await prisma.$executeRawUnsafe(sql, id)
 
         if (resultUser) {
             return true

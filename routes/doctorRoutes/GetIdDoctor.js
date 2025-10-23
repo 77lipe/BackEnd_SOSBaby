@@ -12,7 +12,7 @@ const routerIdDoctor = Router()
 
 import {getIdDoctor} from "../../controller/Controller_doctor/getIdDoctor.js";
 
-routerIdDoctor.get('doctor/:id', cors(), async (req, res) => {
+routerIdDoctor.get('/doctor/:id', cors(), async (req, res) => {
 
     let id = req.params.id
     let resultIdDoctor= await getIdDoctor(id)

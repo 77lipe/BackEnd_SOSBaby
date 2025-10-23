@@ -24,16 +24,19 @@ export const getIdDoctor = async function (id) {
             return message.ERROR_REQUIRED_FIELDS
         } else {
         
-            let resultIdDoctor = await getIdSQLDoctor(id)
-            if (resultIdDoctor) {
+            let resultIdDoctor = await getIdSQLDoctor(idGet)
+            if (resultIdDoctor != false && typeof (resultIdDoctor) == 'object') {
                 if (resultIdDoctor.length > 0) {
-                    dadosDoctor.message = message.SUCCES_SEARCH_ITEM
+                    console.log(resultIdDoctor);
+                    
+                    dadosDoctor.message = message.SUCCES_SEARCH_ITEM.message
+                    dadosDoctor.status_code = message.SUCCES_SEARCH_ITEM.status_code
 
                     for (let itemDoctor of resultIdDoctor) {
                         let dadosGender = await idGender(itemDoctor.id_sexo)
                         itemDoctor.sexo = dadosGender
 
-                        let dadosUser = await selectSQLIdUser(itemDoctor.id_usuario)
+                        let dadosUser = await selectSQLIdUser(itemDoctor.id_user)
                         itemDoctor.usuario = dadosUser
 
                         doctorArray.push(itemDoctor)

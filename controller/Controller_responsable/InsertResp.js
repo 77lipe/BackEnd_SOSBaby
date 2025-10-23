@@ -21,7 +21,7 @@ export const insertResp = async function (user, contentType) {
                 user.cep                    == "" || user.cep                   == undefined || user.cep             == null || user.cep.length > 20             ||
                 user.telefone               == "" || user.telefone              == undefined || user.telefone        == null || user.telefone.length > 20        ||
                 user.id_sexo                == "" || user.id_sexo               == undefined || user.id_sexo         == null || isNaN(user.id_sexo)              ||
-                user.arquivo                == "" || user.arquivo               == undefined || user.arquivo         == null || user.arquivo.length  > 3000       ||
+                user.arquivo                == "" || user.arquivo               == undefined || user.arquivo         == null || user.arquivo.length  > 3000      ||
                 user.cartao_medico          == "" || user.cartao_medico         == undefined || user.cartao_medico   == null || user.cartao_medico.length   > 45 ||         
                 user.id_user                == "" || user.id_user               == undefined || user.id_user         == null || isNaN(user.id_user)   
             ){

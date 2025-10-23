@@ -161,12 +161,11 @@ create table tbl_clinica(
     cnpj varchar(20) not null,
     telefone varchar(20) not null,
     email varchar(100) not null,
-    id_cep int,
+    cidade varchar(100) not null,
+    rua varchar(150) not null,
+    bairro varchar(100) not null,
+    numero varchar(10) not null,
     id_user int,
-    
-    constraint FK_CEP_CLINICA
-    foreign key (id_cep)
-    references tbl_cep(id_cep),
     
 	constraint FK_USUARIO_CLINICA
     foreign key (id_user)
@@ -308,16 +307,16 @@ create table tbl_messager(
 );
 
 
-create table tbl_chat_user(
+create table tbl_chat_message(
     id_chat_user int auto_increment primary key not null,
     id_chat int,
-    id_user int,
+    id_mensagem int,
 
     constraint FK_CHAT_USER_CHAT
     foreign key (id_chat)
     references tbl_chat(id_chat),
 
     constraint FK_CHAT_USER_USER
-    foreign key (id_user)
-    references tbl_user(id_user)
+    foreign key (id_mensagem)
+    references tbl_messager(id_mensagem)
 );

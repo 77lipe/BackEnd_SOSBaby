@@ -40,6 +40,8 @@ export const selectAllBebe = async function () {
                 return message.ERROR_NOT_FOUND
             }
             
+        }else{
+            return message.ERROR_INTERNAL_SERVER_MODEL
         }
 
 

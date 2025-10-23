@@ -1,5 +1,5 @@
 /**************************************************
- * Autor: Isabelly Lima
+ * Autor: Felipe Vieira
  * Date: 23/10/25
  * Versão: 1.0
  * Desc: App que irá conter as inserções para
@@ -9,27 +9,23 @@
 import { PrismaClient } from "@prisma/client"
 const prisma = new PrismaClient()
 
-export const insertSQLClinica = async function (clinica) {
+export const postSQLChatMessage = async function (chatMessage) {
     try {
         
-        let sql = `INSERT INTO tbl_clinica (
-        nome,
-        cnpj,
-        telefone,
-        email
+        let sql = `INSERT INTO tbl_chat_message (
+        id_chat,
+        id_mensagem
         )
         VALUES
         (
-        '${clinica.nome}',
-        '${clinica.cnpj}',
-        '${clinica.telefone}',
-        '${clinica.email}'
+        '${chatMessage.id_chat}',
+        '${chatMessage.id_mensagem}'
         )`
 
-        let resultSQLClinica = await prisma.$executeRawUnsafe(sql)
+        let resultSQLChatMessage = await prisma.$executeRawUnsafe(sql)
 
-        if(resultSQLClinica){
-            let getID = `SELECT * FROM tbl_clinica ORDER BY id_clinica DESC LIMIT 1`
+        if(resultSQLChatMessage){
+            let getID = `SELECT * FROM tbl_chat_message ORDER BY id_mensagem DESC LIMIT 1`
             let id = await prisma.$queryRawUnsafe(getID)
 
             return id[0]

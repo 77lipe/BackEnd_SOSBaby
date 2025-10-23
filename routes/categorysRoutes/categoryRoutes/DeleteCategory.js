@@ -12,12 +12,12 @@ const routerDeleteCat = Router()
 
 import { deleteCategorys } from "../../../controller/Controller_categorys/zController_category/deleteCategory.js";
 
-routerDeleteCat.delete('/category/:id', cors(), async (res,req) => {
+routerDeleteCat.delete('/category/:id', cors(), async (req,res) => {
 
     let id = req.params.id
     let resultCat = await deleteCategorys(id)
 
-    return res.statusCode(resultCat.status_code).json(resultCat)
+    return res.status(resultCat.status_code).json(resultCat)
 })
 
 export default routerDeleteCat

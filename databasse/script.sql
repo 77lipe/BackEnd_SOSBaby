@@ -24,6 +24,18 @@ create table tbl_type_user(
     tipo varchar(50)
 );
 
+create table tbl_user(
+    id_user int auto_increment primary key not null,
+    nome_user varchar(100) not null,
+    email varchar(100) not null,
+    senha varchar(100) not null,
+    id_tipo int,
+    
+    constraint FK_TIPO_USER
+    foreign key(id_tipo)
+    references tbl_type_user(id_tipo)
+);
+
 create table tbl_especialidade(
       id_especialidade int auto_increment primary key not null,
       especialidade varchar(100)
@@ -38,57 +50,6 @@ create table tbl_status_messager(
     id_status int auto_increment primary key not null,
     status_messagem varchar(50)
 );
-
-create table tbl_user(
-    id_user int auto_increment primary key not null,
-    email varchar(100) not null,
-    senha varchar(100) not null,
-    id_tipo int,
-    
-    constraint FK_TIPO_USER
-    foreign key(id_tipo)
-    references tbl_type_user(id_tipo)
-);
-
-create table tbl_messager(
-    id_mensagem int auto_increment primary key not null,
-    conteudo text(500) not null,
-    id_tipo_mensagem int,
-    id_status int,
-
-    constraint FK_TIPO_MENSAGEM
-    foreign key (id_tipo_mensagem)
-    references tbl_type_messager(id_tipo_mensagem),
-
-    constraint FK_STATUS_MESSAGEM
-    foreign key (id_status)
-    references tbl_status_messager(id_status)
-);
-
-create table tbl_chat(
-    id_chat int auto_increment primary key not null,
-    id_mensagem int,
-    id_user int,
-
-    constraint FK_CHAT_MENSAGEM
-    foreign key (id_mensagem)
-    references tbl_messager(id_mensagem),
-
-    constraint FK_CHAT_USER
-    foreign key (id_user)
-    references tbl_user(id_user)
-);
-
-
-create table tbl_cep(
-	id_cep int auto_increment primary key not null,
-    cep varchar(20) not null,
-    logradouro varchar(100) not null,
-    cidade varchar(50) not null,
-    uf varchar (2) not null,
-    
-);
-
 
 create table tbl_responsavel (
 	id_responsavel int auto_increment primary key,
@@ -190,12 +151,11 @@ create table tbl_clinica(
     cnpj varchar(20) not null,
     telefone varchar(20) not null,
     email varchar(100) not null,
-    id_cep int,
+    cidade varchar(100) not null,
+    rua varchar(150) not null,
+    bairro varchar(100) not null,
+    numero varchar(10) not null,
     id_user int,
-    
-    constraint FK_CEP_CLINICA
-    foreign key (id_cep)
-    references tbl_cep(id_cep),
     
 	constraint FK_USUARIO_CLINICA
     foreign key (id_user)
@@ -217,6 +177,16 @@ create table tbl_especialidade_clinica (
     references tbl_especialidade(id_especialidade)
 );
 
+
+CREATE TABLE tbl_rotina_item (
+    id_item INT AUTO_INCREMENT PRIMARY KEY,
+    titulo VARCHAR(100) NOT NULL,
+    descricao TEXT,
+    data_rotina DATE NOT NULL,
+    hora TIME NOT NULL
+
+);
+
 create table tbl_rotina(
 	id_rotina int auto_increment primary key not null,
     titulo varchar(100) not null,
@@ -231,16 +201,6 @@ create table tbl_rotina(
     constraint FK_ITEM_ROTINA
     foreign key (id_item_rotina)
     references tbl_rotina_item(id_item)
-
-);
-
-
-CREATE TABLE tbl_rotina_item (
-    id_item INT AUTO_INCREMENT PRIMARY KEY,
-    titulo VARCHAR(100) NOT NULL,
-    descricao TEXT,
-    data_rotina DATE NOT NULL,
-    hora TIME NOT NULL
 
 );
 
@@ -260,18 +220,6 @@ create table tbl_calendario (
     REFERENCES tbl_user(id_user)
 );
 
-create table tbl_dica (
-    id_dica int auto_increment primary key,
-    titulo varchar(150) not null,
-    conteudo text(3000) not null,
-    imagem varchar(255),
-    id_relacionamento int not null,
-
-    CONSTRAINT FK_DICA_CATEGORIA
-    FOREIGN KEY (id_categoria)
-    REFERENCES tbl_categoria(id_categoria)
-);
-
 
 create table tbl_categoria (
     id_categoria int auto_increment primary key,
@@ -284,15 +232,28 @@ create table tbl_subcategoria (
     nome_subcategoria  varchar(50) not null
 );
 
-create table tbl_categoria_subcategoria (
-	id_relacionamento int auto_increment primary key,
+create table tbl_dica (
+    id_dica int auto_increment primary key,
+    titulo varchar(150) not null,
+    conteudo text(100) not null,
+    imagem varchar(255),
     id_categoria int not null,
+
+    CONSTRAINT FK_DICA_CATEGORIA
+    FOREIGN KEY (id_categoria)
+    REFERENCES tbl_categoria(id_categoria)
+);
+
+
+create table tbl_dica_subcategoria (
+	id_relacionamento int auto_increment primary key,
+    id_dica int not null,
     id_subcategoria int not null,
 
 
     CONSTRAINT FK_CATEGORIA_SUB_CATEGORIA
-	FOREIGN KEY (id_categoria)
-	REFERENCES tbl_categoria(id_categoria),
+	FOREIGN KEY (id_dica)
+	REFERENCES tbl_dica(id_dica),
 
     CONSTRAINT FK_CATEGORIA_SUB_SUB
 	FOREIGN KEY (id_subcategoria)
@@ -314,4 +275,40 @@ create table tbl_favorito (
 	ON DELETE CASCADE,
         
     UNIQUE (id_user, id_dica) 
+);
+
+create table tbl_chat(
+    id_chat int auto_increment primary key not null,
+    nome_chat varchar(100) not null
+);
+
+create table tbl_messager(
+    id_mensagem int auto_increment primary key not null,
+    conteudo text(500) not null,
+    id_chat int,
+    id_user int,
+    created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+
+    constraint FK_MENSAGEM_CHAT
+    foreign key (id_chat)
+    references tbl_chat(id_chat),
+
+    constraint FK_MENSAGEM_USER
+    foreign key (id_user)
+    references tbl_user(id_user)
+);
+
+
+create table tbl_chat_message(
+    id_chat_user int auto_increment primary key not null,
+    id_chat int,
+    id_mensagem int,
+
+    constraint FK_CHAT_USER_CHAT
+    foreign key (id_chat)
+    references tbl_chat(id_chat),
+
+    constraint FK_CHAT_USER_USER
+    foreign key (id_mensagem)
+    references tbl_messager(id_mensagem)
 );

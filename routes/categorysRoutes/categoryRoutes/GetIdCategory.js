@@ -12,12 +12,12 @@ const routerGetIdCat = Router()
 
 import { getIdCategory } from "../../../controller/Controller_categorys/zController_category/getIdCategory.js"
 
-routerGetIdCat.get('/category/:id', cors(), async (res,req) => {
+routerGetIdCat.get('/category/:id', cors(), async (req,res) => {
     
-    let id = req.params.id
-    let resultIdCat = await getIdCategory(id)
+    let idGet = req.params.id
+    let resultIdCat = await getIdCategory(idGet)
 
-    return res.statusCode(resultIdCat.status_code).json(resultIdCat)
+    return res.status(resultIdCat.status_code).json(resultIdCat)
 })
 
 export default routerGetIdCat

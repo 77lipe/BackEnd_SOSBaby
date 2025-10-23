@@ -12,7 +12,7 @@ const routerAllTip = Router()
 
 import { getAllDica } from '../../controller/Controller_tip/listAllTip.js'
 
-routerAllTip.get('/tip', cors(), async (req, res) => {
+routerAllTip.get('/tips', cors(), async (req, res) => {
     
     let resultAllTip = await getAllDica()
     return res.status(resultAllTip.status_code).json(resultAllTip)

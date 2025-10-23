@@ -10,9 +10,10 @@ import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
 export const deleteSubCategory = async function(id) {
+    
     try {
-        let sql = `DELETE from tbl_subcategoria where id_subcategoria = ${id}`
-        let result = await prisma.$executeRawUnsafe(sql, id)
+        let sql = `DELETE from tbl_subcategoria WHERE id_subcategoria = ${id}`
+        let result = await prisma.$executeRawUnsafe(sql)
 
         if (result) {
             return true

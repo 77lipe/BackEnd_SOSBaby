@@ -12,10 +12,12 @@ const prisma = new PrismaClient()
 export const insertSQLUser = async function (user) {
     try {
         let sql = `INSERT INTO tbl_user (
+            nome_user,
             email,
             senha,
             id_tipo
         )values(
+            '${user.nome_user}',
             '${user.email}',
             '${user.senha}',
             '${user.id_tipo}'

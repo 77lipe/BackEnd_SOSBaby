@@ -12,7 +12,7 @@ const prisma = new PrismaClient()
 export const postSubCategory = async function (subCategory) {
     try {
         let sql = `INSERT INTO tbl_subcategoria(
-            nome_subcategoria,
+            nome_subcategoria
         ) VALUES (
         ?
         )`

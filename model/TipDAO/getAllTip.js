@@ -12,7 +12,7 @@ const prisma = new PrismaClient()
 export const selectSQLAllTip = async function(){
     try {
         
-        let sql = `SELECT * FROM tbl_dicas ORDER BY DESC`
+        let sql = `SELECT * FROM tbl_dica ORDER BY id_dica ASC`
         let resultAllTips = await prisma.$queryRawUnsafe(sql)
 
         if(resultAllTips){

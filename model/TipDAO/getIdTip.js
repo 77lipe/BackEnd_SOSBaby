@@ -12,7 +12,7 @@ const prisma = new PrismaClient()
 export const selectSQLIdTip = async function(id){
     try {
         
-        let sql = `SELECT * FROM tbl_dica WHERE id_dicas = ${id}`
+        let sql = `SELECT * FROM tbl_dica WHERE id_dica = ${id}`
         let result = await prisma.$queryRawUnsafe(sql)
         if(result){
             return result

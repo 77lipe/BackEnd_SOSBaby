@@ -15,7 +15,7 @@ export const getIdCategory = async function(idCategorys) {
         if (idGet == undefined || idGet == null  || idGet == ""  || isNaN(idGet)) {
             return message.ERROR_REQUIRED_FIELDS
         } else {
-            let result = await getIdCategory(idGet)
+            let result = await getIdSQLCategory(idGet)
             if (result != false || typeof(result == 'object')) {
                 if (result.length > 0) {
                     return{

@@ -12,12 +12,12 @@ const routerGetIdSub = Router()
  
 import { getIdSub } from "../../../controller/Controller_categorys/zController_subcategory/idSubCategory.js"
 
-routerGetIdSub.get('/subcategory/:id', cors(), async (res, req) => {
+routerGetIdSub.get('/subcategory/:id', cors(), async (req, res) => {
 
     let id = req.params.id
     let resultIdSub = await getIdSub(id)
 
-    return res.statusCode(resultIdSub.status_code).json(resultIdSub)
+    return res.status(resultIdSub.status_code).json(resultIdSub)
 })
 
 export default routerGetIdSub

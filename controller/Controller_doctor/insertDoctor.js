@@ -19,7 +19,7 @@ export const insertDoctor = async function (dataDoctor, contentType) {
                 dataDoctor.crm == null      || dataDoctor.crm == undefined      || dataDoctor.crm == ""      || dataDoctor.crm.length > 15      ||
                 dataDoctor.telefone == null || dataDoctor.telefone == undefined || dataDoctor.telefone == "" || dataDoctor.telefone.length > 15 ||
                 dataDoctor.cpf == null      || dataDoctor.cpf == undefined      || dataDoctor.cpf == ""      || dataDoctor.cpf.length > 11      ||
-                dataDoctor.foto == null     || dataDoctor.foto == undefined     || dataDoctor.foto == ""      || dataDoctor.foto.length > 15      ||
+                dataDoctor.foto == null     || dataDoctor.foto == undefined     || dataDoctor.foto == ""      || dataDoctor.foto.length > 15000     ||
                 dataDoctor.id_sexo == null  || dataDoctor.id_sexo == undefined  || dataDoctor.id_sexo == ""  || isNaN(dataDoctor.id_sexo)       ||
                 dataDoctor.id_user == null  || dataDoctor.id_user == undefined  || dataDoctor.id_sexo == ""  || isNaN(dataDoctor.id_user)
             ) {

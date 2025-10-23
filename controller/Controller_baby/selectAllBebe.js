@@ -25,7 +25,7 @@ export const selectAllBebe = async function () {
                 BabyDataJson.items = resultBaby.length
                 BabyDataJson.bebes = resultBaby
 
-                for (item of resultBaby) {
+                for (let item of resultBaby) {
                     let dadoGender = await idGender(item.id_sexo)
                     item.sexo = dadoGender.sexo
 
@@ -40,6 +40,8 @@ export const selectAllBebe = async function () {
                 return message.ERROR_NOT_FOUND
             }
             
+        }else{
+            return message.ERROR_INTERNAL_SERVER_MODEL
         }
 
 

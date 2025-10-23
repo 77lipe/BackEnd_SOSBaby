@@ -6,7 +6,7 @@
  *       validações dos dados recebidos para GET ALL Clinica
  ***********************************************************/
 import * as message from '../../config/status/status.js'
-import { getAllSQLClinica } from '../../model/ClinicaDAO/GetAllClinica.js'
+import { getAllSQLClinica } from '../../model/ClinicaDAO/ListAllClinica.js'
 import { selectSQLIdUser } from '../../model/UserDAO/SelectIDUser.js'
 
 export const getAllClinica = async function () {

@@ -11,7 +11,7 @@ const prisma = new PrismaClient()
 
 export const postSQLTip = async function(dataTip){
     try {
-        let sql = `INSERT INTO tbl_dicas (
+        let sql = `INSERT INTO tbl_dica (
             titulo,
             conteudo,
             imagem,
@@ -25,7 +25,9 @@ export const postSQLTip = async function(dataTip){
 
         let result = await prisma.$executeRawUnsafe(sql)
         if(result){
-            return true
+            let getID = `SELECT * FROM tbl_dica ORDER BY id_dica DESC LIMIT 1`
+            let id = await prisma.$queryRawUnsafe(getID)
+            return id[0]
         }else{
             return false
         }

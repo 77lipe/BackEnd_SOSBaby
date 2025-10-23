@@ -22,8 +22,11 @@ export const postCategory = async function (category) {
             category.nome_categoria
             )
         
-        if (resultCategory !== undefined && resultCategory !== null) {
-            return true
+        if (resultCategory) {
+            let getID = `SELECT * FROM tbl_categoria ORDER BY id_categoria DESC LIMIT 1`
+            let resultCategory = await prisma.$queryRawUnsafe(getID)
+            
+            return resultCategory[0]
         }else{
             return false
         }

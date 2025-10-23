@@ -44,7 +44,9 @@ import itemRoutineRoutes from './routes/routinesRoutes/routineItemRoutes/index.j
 import routineRoutes from './routes/routinesRoutes/routineRespRoutes/index.js'
 import calenderRoutes from './routes/calendarioRoutes/index.js'
 import tipsRoutes from './routes/tipRoutes/index.js'
-
+import categoryRoutes from './routes/categorysRoutes/categoryRoutes/index.js'
+import subcategorysRoutes from './routes/categorysRoutes/subCategoryRoutes/index.js'
+import tipSubcategoryRoutes from './routes/tipRoutes/TipSubRoutes/index.js'
 
 const app = express()
 app.use(cors())
@@ -62,6 +64,9 @@ app.use('/v1/sosbaby', itemRoutineRoutes)
 app.use('/v1/sosbaby', routineRoutes)
 app.use('/v1/sosbaby', calenderRoutes)
 app.use('/v1/sosbaby', tipsRoutes)
+app.use('/v1/sosbaby', categoryRoutes)
+app.use('/v1/sosbaby', subcategorysRoutes)
+app.use('/v1/sosbaby', tipSubcategoryRoutes)
 
 
 app.listen('3030', function(){

@@ -13,6 +13,7 @@ export const insertUser = async function (user,contentType) {
     try {
         if (String(contentType).toLocaleLowerCase() === 'application/json') {
             if(
+                user.nome_user == "" || user.nome_user == undefined || user.nome_user == null || user.nome_user.length > 100 ||
                 user.email   == "" || user.email   == undefined || user.email   == null || user.email.length > 100 ||
                 user.senha   == "" || user.senha   == undefined || user.senha   == null || user.senha.length > 100 ||
                 user.id_tipo == "" || user.id_tipo == undefined || user.id_tipo == null || isNaN(user.id_tipo)

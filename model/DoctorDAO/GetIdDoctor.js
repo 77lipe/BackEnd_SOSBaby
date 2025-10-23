@@ -16,7 +16,7 @@ export const getIdSQLDoctor = async function(id){
         let resultDoctor = await prisma.$queryRawUnsafe(sql)
 
         if(resultDoctor){
-            return true
+            return resultDoctor
         }else{
             return false
         }

@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /*********************************************************
  * Autor: Isabelly Lima
  * Date: 23/10/25
@@ -37,6 +38,7 @@ export const insertClinica = async function (clinica, contentType) {
                     }
                 }else{
                     return message.ERROR_INTERNAL_SERVER
+
                 }
             }
         }else{
@@ -46,5 +48,6 @@ export const insertClinica = async function (clinica, contentType) {
     } catch (error) {
         console.log(error)
         return message.ERROR_INTERNAL_SERVER    
-    }
+        }
+
 }

@@ -15,51 +15,70 @@ import nodemailer from 'nodemailer'
 
 dotenv.config()
 
-export const forgotPassword = async function(email, contentType){
+export const forgotPassword = async function (email, contentType) {
     try {
-        
-        if(String(contentType).toLocaleLowerCase() === 'application/json'){
+
+        if (String(contentType).toLocaleLowerCase() === 'application/json') {
             if (
                 email == "" || email == undefined || email == null || email.length > 100
             ) {
                 return message.ERROR_REQUIRED_FIELDS
-            }else{
+            } else {
 
                 let resultUser = await findUserEmail(email)
-                if(resultUser){
+                if (resultUser) {
                     console.log(resultUser.id_user);
                     const token = jwt.sign(
-                        {id_user: resultUser.id_user},
+                        { id_user: resultUser.id_user },
                         process.env.JWT_SECRET,
-                        {expiresIn: '15min'}
+                        { expiresIn: '15min' }
                     )
-                    
+
                     const link = `${process.env.FRONTEND_URL}/reset-password?token=${token}`
-                    
-                    console.log("Email:", process.env.EMAIL_USER);
-                    console.log("Senha:", process.env.EMAIL_PASS ? "OK" : "MISSING");
+
+                    console.log("Email:", process.env.SMTP_USER);
+                    console.log("Senha:", process.env.SMTP_PASS ? "OK" : "MISSING");
 
                     const sendEmail = nodemailer.createTransport({
-                        service: 'gmail',
+                        host: "smtp.gmail.com",
+                        port: 465,
+                        secure: true, // SSL
                         auth: {
-                            user: process.env.EMAIL_USER,
-                            pass: process.env.EMAIL_PASS
+                            user: process.env.SMTP_USER,
+                            pass: process.env.SMTP_PASS
                         }
                     })
 
+                    const mailHtml = `
+<div style="font-family: Arial, sans-serif; line-height:1.6; color:#333;">
+  <h2>🍼 SOSBaby 🍼</h2>
+  <p>Olá! 👋</p>
+  <p>Você solicitou a redefinição da sua senha. 🔒</p>
+  <p>Copie o token abaixo para alterar sua senha (válido por 15 minutos ⏰):</p>
+  <p style="background:#edf2f7; padding:10px; border-radius:8px; text-align:center;">
+    <a href="#" style="color: #1e90ff; font-weight:bold; font-size:16px; text-decoration:none;"
+       onclick="navigator.clipboard.writeText('${token}')">
+       ${token} 
+    </a>
+  </p>
+  <p>Se você não solicitou essa alteração, pode ignorar este e-mail sem problemas. ❌</p>
+  <p>Um abraço,<br>Equipe SOSBaby 💙</p>
+</div>
+`;
+
                     await sendEmail.sendMail({
-                        from: `"SOSBABY" <${process.env.EMAIL_USER}>`,
+                        from: `"SOSBABY" <${process.env.SMTP_USER}>`,
                         to: email,
                         subject: 'Redefinição de Senha',
-                        text: `Olá, clique no link abaixo para redefinir sua senha:\n\n${link}\n\nEsse link será expirado em 15 minutos.\n\n seu token para alteração é ${token} `
+                        html: mailHtml
                     })
 
                     return message.SUCCES_EMAIL_SENT
-                }else{
+                } else {
                     return message.ERROR_NOT_FOUND
                 }
             }
-        }else{
+        } else {
             return message.ERROR_CONTENT_TYPE
         }
     } catch (error) {

@@ -10,6 +10,7 @@ import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
 export const getIdSQLMessage = async function(id){
+    
     try {
         
         let sql = `SELECT * FROM tbl_messager WHERE id_mensagem = ${id}`

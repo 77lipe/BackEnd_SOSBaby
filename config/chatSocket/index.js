@@ -18,7 +18,7 @@ export function chatSocketInit(server){
         }
     })
 
-    console.log("Socket.IO iniciado");
+    console.log("CHAT => Socket.IO iniciado");
 
     io.on("connection", (socket) => {
         console.log("Novo usuário conectado:", socket.id);
@@ -32,14 +32,14 @@ export function chatSocketInit(server){
             try {
 
                 const result = await postSQLMessage(data)
-                io.to(`chat_${data.id_chat}`).emit("receiveMessage", {
-                    conteudo: data.conteudo,
-                    id_user: data.id_user,
+                io.to(`chat_${result.id_chat}`).emit("receiveMessage", {
+                    conteudo: result.conteudo,
+                    id_user: result.id_user,
                     created_at: new Date()
                 })
-
-                console.log(`mensagem salva e emitida no chat ${data.id_chat}`);
-            } catch (error) {
+                    console.log(`mensagem salva e emitida no chat ${data.id_chat}`);
+            
+                } catch (error) {
                 console.log(error);
                 socket.emit("Erro ao enviar mensagem")
             }

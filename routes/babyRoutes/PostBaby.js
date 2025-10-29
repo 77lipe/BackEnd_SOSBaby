@@ -13,8 +13,9 @@ const routerInsertBaby = Router()
 const bodyJsonParser = bodyParser.json()
 
 import { insertBebe } from "../../controller/Controller_baby/insertBebe.js";
+import { authAccess } from "../../config/middleware/authAcces.js";
 
-routerInsertBaby.post('/baby/cadastro', bodyJsonParser , async(req, res) => {
+routerInsertBaby.post('/baby/cadastro', bodyJsonParser, authAccess("Responsável"), async(req, res) => {
 
     let contentType = req.headers['content-type']
     let dadosBaby = req.body

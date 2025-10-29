@@ -5,6 +5,7 @@
  * Desc: App que irá controlar as DO USUARIO
  ********************************************************/
 
+import ProtectedRoutes from './Protected.js'
 import PostUser from './PostUser.js'
 import PutUser from './PutUser.js'
 import GetIdUser from './GetIdUser.js'
@@ -12,6 +13,7 @@ import DeleteUser from './DeleteUser.js'
 import LoginUser from './LoginUser.js'
 import ForgetUserPass from './resetUserPassRoutes/forgetPass.js'
 import ResetUserPass from  './resetUserPassRoutes/resetPass.js'
+
 import { Router } from "express"
 
 const router = Router()
@@ -23,4 +25,5 @@ router.use(DeleteUser)
 router.use(LoginUser)
 router.use(ForgetUserPass)
 router.use(ResetUserPass)
+router.use(ProtectedRoutes)
 export default router

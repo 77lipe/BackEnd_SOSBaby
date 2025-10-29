@@ -6,13 +6,15 @@
  *       validações dos dados recebidos para LOGIN do Usuário 
  ********************************************************/
 
+import jwt from "jsonwebtoken"
 import * as message from '../../config/status/status.js'
 import { loginSQLUser } from "../../model/UserDAO/LoginUser.js"
+import { idTypeUser } from "../../model/TypeUserDAO/SelectByIdTypeUser.js";
 
 export const loginUser = async function (user, contentType) {
     try {
-        
-
+    
+        let dataJson = {}
       
         if (String(contentType).toLowerCase().includes('application/json')) {
             if (
@@ -24,11 +26,28 @@ export const loginUser = async function (user, contentType) {
 
                 let resultUser = await loginSQLUser(user)
                 if(resultUser != false || typeof(resultUser) == 'object'){
-                        return {
-                            ...message.SUCCES_LOGIN_COMPLETED,
-                            data: resultUser
+
+                    const token = jwt.sign(
+                        {
+                            id_user: resultUser.id_user,
+                            id_tipo: resultUser.id_tipo
                             
-                        }
+                        },
+                        process.env.JWT_SECRET,
+                        {expiresIn: "1h"}
+                    )
+
+                    let dadosType = await idTypeUser(resultUser.id_tipo)
+                    resultUser.tipo_user = dadosType[0].tipo
+                    delete resultUser.id_tipo
+
+                    dataJson.message = message.SUCCES_LOGIN_COMPLETED.message
+                    dataJson.status_code = message.SUCCES_LOGIN_COMPLETED.status_code
+                    dataJson.data = resultUser
+                    dataJson.token = token
+                    console.log(dataJson)
+
+                    return dataJson 
                 }else{
                     return message.ERROR_INTERNAL_SERVER_MODEL
                 }

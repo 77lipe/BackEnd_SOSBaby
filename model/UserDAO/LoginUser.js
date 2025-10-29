@@ -6,7 +6,7 @@
  *       o Banco de Dados
  **************************************************/
 
- import {PrismaClient} from '@prisma/client'
+import {PrismaClient} from '@prisma/client'
 const prisma = new PrismaClient()
 
 export const loginSQLUser = async function (user) {
@@ -23,6 +23,6 @@ export const loginSQLUser = async function (user) {
 
     } catch (error) {
         console.log(error)
-        return false;
+        return false
     }
 }

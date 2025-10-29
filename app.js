@@ -21,7 +21,7 @@
  *            Após essa configuração deverá rodar o seguinte comando:
  *               npx prisma migrate dev
  * 
- *              npm install jsonwebtoken bcryptjs nodemailer dotenv
+ *              npm install jsonwebtoken bcryptjs nodemailer dotenv socket.io
 
  * 
  **************************************************/
@@ -30,6 +30,7 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import http from 'http'
 import nodemailer from 'nodemailer'
 dotenv.config()
 
@@ -37,7 +38,7 @@ import babyRoutes from './routes/babyRoutes/index.js'
 import userRoutes from './routes/userRoutes/index.js'
 import responsableRoutes from './routes/ResponsableRoutes/index.js'
 import sexRoutes from './routes/SexRoutes/index.js'
-import bloodRoutes from './routes/bloodRoutes/index.js'
+import bloodRoutes from './routes/BloodRoutes/index.js'
 import typeUserRoutes from './routes/TypeUserRoutes/index.js'
 import doctorRoutes from './routes/doctorRoutes/index.js'
 import itemRoutineRoutes from './routes/routinesRoutes/routineItemRoutes/index.js'
@@ -51,9 +52,16 @@ import chatRoutes from './routes/chatRoutes/index.js'
 import messageRoutes from './routes/messageRoutes/index.js'
 import ChatMessageRoutes from './routes/chatRoutes/chatMessageRoutes/index.js'
 
+import { chatSocketInit } from "./config/chatSocket/index.js";
+
+
 const app = express()
 app.use(cors())
 app.use(express.json())
+
+// Parte dedicada ao Chat em tempo real:
+const server = http.createServer(app)
+chatSocketInit(server)
 
 
 app.use('/v1/sosbaby', babyRoutes)

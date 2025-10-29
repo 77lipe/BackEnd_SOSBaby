@@ -11,7 +11,11 @@ const prisma = new PrismaClient()
 
 export const insertSQLGender = async function (sexo) {
     try {
-        let sql = `CALL insertSexo(?)`
+        let sql = `Insert into tbl_sexo(
+        sexo
+        )VALUES(
+        ?
+        )`
 
         let resultSex = await prisma.$executeRawUnsafe(
             sql,

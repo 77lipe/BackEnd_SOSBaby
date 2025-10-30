@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /*********************************************************
  * Autor: Isabelly Lima
  * Date: 23/10/25
@@ -24,7 +23,7 @@ export const insertClinica = async function (clinica, contentType) {
                 clinica.rua         == undefined || clinica.rua       == null || clinica.rua      == '' || clinica.rua.length       > 150    ||
                 clinica.bairro      == undefined || clinica.bairro    == null || clinica.bairro   == '' || clinica.bairro.length    > 100    ||
                 clinica.numero      == undefined || clinica.numero    == null || clinica.numero   == '' || clinica.numero.length    > 100    ||
-                clinica.id_user     == undefined || clinica.id_user   == null || clinica.id_user  == '' || isNaN(dataClinica.id_user)                   
+                clinica.id_user     == undefined || clinica.id_user   == null || clinica.id_user  == '' || isNaN(clinica.id_user)                   
             ){
                 return message.ERROR_REQUIRED_FIELDS                
             }else{

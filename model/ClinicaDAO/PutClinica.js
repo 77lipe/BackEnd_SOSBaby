@@ -16,7 +16,11 @@ export const updateClinica = async function(clinica){
             nome      = '${clinica.nome}',
             cnpj      = '${clinica.cnpj}',
             telefone  = '${clinica.telefone}',
-            email     = '${clinica.email}'
+            email     = '${clinica.email}',
+            cidade    = '${clinica.cidade}',
+            rua       = '${clinica.rua}',
+            bairro    = '${clinica.bairro}',
+            numero    = '${clinica.numero}',
                
             where id = '${clinica.id}'
         `

@@ -9,22 +9,26 @@
 import * as message from '../../config/status/status.js'
 import {updateSQLClinica} from '../../model/ClinicaDAO/PutClinica.js' 
 
-export const updateClinica = async function (dataClinica, contentType) {
+export const updateClinica = async function (clinica, contentType) {
     try {
         
         if (String(contentType).toLocaleLowerCase() === 'application/json') {
             if (
-                dataClinica.id          == null   || dataClinica.id         == undefined   || dataClinica.id        == ""  || isNaN(dataClinica.id)                   ||
-                dataClinica.nome        == null   || dataClinica.nome       == undefined   || dataClinica.nome      == ""  || dataClinica.nome.length       > 100     ||
-                dataClinica.cnpj        == null   || dataClinica.cnpj       == undefined   || dataClinica.cnpj      == ""  || dataClinica.cnpj.length       > 20      ||
-                dataClinica.telefone    == null   || dataClinica.telefone   == undefined   || dataClinica.telefone  == ""  || dataClinica.telefone.length   > 15      ||
-                dataClinica.email       == null   || dataClinica.email      == undefined   || dataClinica.email     == ""  || dataClinica.email.length      > 100     ||
-                dataClinica.id_user     == null   || dataClinica.id_user    == undefined   || dataClinica.id_cep    == ""  || isNaN(dataClinica.id_user)
+                clinica.id          == undefined || clinica.id        == null || clinica.id       == "" || isNaN(clinica.id)                 ||
+                clinica.nome        == undefined || clinica.nome      == null || clinica.nome     == '' || clinica.nome.length      > 100    ||
+                clinica.cnpj        == undefined || clinica.cnpj      == null || clinica.cnpj     == '' || clinica.cnpj.length      > 20     ||
+                clinica.telefone    == undefined || clinica.telefone  == null || clinica.telefone == '' || clinica.telefone.length  > 20     ||
+                clinica.email       == undefined || clinica.email     == null || clinica.email    == '' || clinica.email.length     > 100    ||
+                clinica.cidade      == undefined || clinica.cidade    == null || clinica.cidade   == '' || clinica.cidade.length    > 100    ||
+                clinica.rua         == undefined || clinica.rua       == null || clinica.rua      == '' || clinica.rua.length       > 150    ||
+                clinica.bairro      == undefined || clinica.bairro    == null || clinica.bairro   == '' || clinica.bairro.length    > 100    ||
+                clinica.numero      == undefined || clinica.numero    == null || clinica.numero   == '' || clinica.numero.length    > 100    ||
+                clinica.id_user     == undefined || clinica.id_user   == null || clinica.id_user  == '' || isNaN(clinica.id_user)   
             ) {
 
                 return message.ERROR_REQUIRED_FIELDS
             }else{
-                let resultClinica = await updateSQLClinica(dataClinica)
+                let resultClinica = await updateSQLClinica(clinica)
 
                 if(resultClinica){
                     return {

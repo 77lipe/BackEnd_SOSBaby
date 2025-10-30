@@ -16,14 +16,22 @@ export const insertSQLClinica = async function (clinica) {
         nome,
         cnpj,
         telefone,
-        email
+        email,
+        cidade,
+        rua,
+        bairro,
+        numero
         )
         VALUES
         (
         '${clinica.nome}',
         '${clinica.cnpj}',
         '${clinica.telefone}',
-        '${clinica.email}'
+        '${clinica.email}',
+        '${clinica.cidade}',
+        '${clinica.rua}',
+        '${clinica.bairro}',
+        '${clinica.numero}'
         )`
 
         let resultSQLClinica = await prisma.$executeRawUnsafe(sql)

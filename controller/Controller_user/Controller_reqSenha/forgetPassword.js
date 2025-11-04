@@ -28,8 +28,13 @@ export const forgotPassword = async function (email, contentType) {
                 let resultUser = await findUserEmail(email)
                 if (resultUser) {
                     console.log(resultUser.id_user);
+
+                    const shortCode = Math.floor(100000 + Math.random() * 900000).toString()
                     const token = jwt.sign(
-                        { id_user: resultUser.id_user },
+                        { 
+                          id_user: resultUser.id_user,
+                          code: shortCode 
+                        },
                         process.env.JWT_SECRET,
                         { expiresIn: '15min' }
                     )
@@ -40,7 +45,7 @@ export const forgotPassword = async function (email, contentType) {
                     const sendEmail = nodemailer.createTransport({
                         host: "smtp.gmail.com",
                         port: 465,
-                        secure: true, // SSL
+                        secure: true,
                         auth: {
                             user: process.env.SMTP_USER,
                             pass: process.env.SMTP_PASS
@@ -133,7 +138,7 @@ export const forgotPassword = async function (email, contentType) {
       <p>Olá! 👋</p>
       <p>Você solicitou a redefinição da sua senha. 🔒</p>
       <p>Use o token abaixo para alterar sua senha (<span class="highlight">válido por 15 minutos ⏰</span>):</p>
-      <p> ${token} </p>
+      <p> ${shortCode} </p>
       <p>Se você não solicitou essa alteração, pode ignorar este e-mail sem problemas. ❌</p>
       <p>Um abraço,<br>Equipe SOSBaby 💙</p>
     </div>
@@ -152,7 +157,11 @@ export const forgotPassword = async function (email, contentType) {
                         html: mailHtml
                     })
 
-                    return message.SUCCES_EMAIL_SENT
+                    return {
+                      ...message.SUCCES_EMAIL_SENT,
+                      code: shortCode,
+                      token: token
+                    }
                 } else {
                     return message.ERROR_NOT_FOUND
                 }

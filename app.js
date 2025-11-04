@@ -51,6 +51,7 @@ import tipSubcategoryRoutes from './routes/tipRoutes/TipSubRoutes/index.js'
 import chatRoutes from './routes/chatRoutes/index.js'
 import messageRoutes from './routes/messageRoutes/index.js'
 import ChatMessageRoutes from './routes/chatRoutes/chatMessageRoutes/index.js'
+import chatIARoutes from './routes/IAchatRoutes/IAchatPost.js'
 
 import { chatSocketInit } from "./config/chatSocket/index.js";
 
@@ -81,6 +82,7 @@ app.use('/v1/sosbaby', tipSubcategoryRoutes)
 app.use('/v1/sosbaby', chatRoutes)
 app.use('/v1/sosbaby', messageRoutes)
 app.use('/v1/sosbaby', ChatMessageRoutes)
+app.use('/v1/sosbaby', chatIARoutes)
 
 app.listen('3030', function(){
     console.log('API funcionando e aguardando requisições...')

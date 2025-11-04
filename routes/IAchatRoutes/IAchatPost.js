@@ -12,14 +12,21 @@
  
  const bodyJsonParser = bodyParser.json()
 
- import {  } from "module";
+ import { InitChat } from "../../config/geminiIA/start-Gemini.js";
+import { authAccess } from "../../config/middleware/authAcces.js";
 
- routerChatIA.post("/ia/generate", async (req, res) => {
+ routerChatIA.post("/ia/generate", bodyJsonParser, authAccess("Responsável"), async (req, res) => {
     try {
          
-        const userText = req.body.text
-        const resultReqUser = await  
+        const contentType = req.headers['content-type']
+        const question = req.body.question
+
+        const resultReqUser = await InitChat({question}, contentType)
+        return res.status(resultReqUser.status_code).json(resultReqUser)
+
     } catch (error) {
-         
+        console.log(error);
     }
  })
+
+ export default routerChatIA

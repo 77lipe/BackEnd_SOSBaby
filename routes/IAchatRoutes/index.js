@@ -6,10 +6,12 @@
  ********************************************************/
 
  import PostIA from './IAchatPost.js'
+ import ChatMultiIA from './ChatMultiIA.js'
  import { Router } from "express"
  
  const router = Router()
  
  router.use(PostIA)
+ router.use(ChatMultiIA)
 
  export default router

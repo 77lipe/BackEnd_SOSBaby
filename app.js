@@ -51,7 +51,7 @@ import tipSubcategoryRoutes from './routes/tipRoutes/TipSubRoutes/index.js'
 import chatRoutes from './routes/chatRoutes/index.js'
 import messageRoutes from './routes/messageRoutes/index.js'
 import ChatMessageRoutes from './routes/chatRoutes/chatMessageRoutes/index.js'
-import chatIARoutes from './routes/IAchatRoutes/IAchatPost.js'
+import chatIARoutes from './routes/IAchatRoutes/index.js'
 
 import { chatSocketInit } from "./config/chatSocket/index.js";
 

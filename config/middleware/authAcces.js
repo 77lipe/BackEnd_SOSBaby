@@ -1,7 +1,8 @@
 /***********************
  * 
- * 
- * 
+ * Autor: Felipe Vieira dos Santos
+ * data: 04/11/2025
+ * Desc: Arquivo que realiza o controle de acesso de cada Usuário
  * 
 ************************/
 

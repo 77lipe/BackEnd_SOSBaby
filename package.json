@@ -1,6 +1,7 @@
 {
   "type": "module",
   "dependencies": {
+    "@google/generative-ai": "^0.24.1",
     "@prisma/client": "^6.17.1",
     "bcryptjs": "^3.0.3",
     "body-parser": "^2.2.0",

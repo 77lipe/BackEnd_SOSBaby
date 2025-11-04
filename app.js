@@ -21,7 +21,7 @@
  *            Após essa configuração deverá rodar o seguinte comando:
  *               npx prisma migrate dev
  * 
- *              npm install jsonwebtoken bcryptjs nodemailer dotenv socket.io
+ *              npm install jsonwebtoken bcryptjs nodemailer dotenv socket.io @google/generative-ai
 
  * 
  **************************************************/

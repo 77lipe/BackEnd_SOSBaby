@@ -11,8 +11,10 @@ import cors from 'cors'
 const routerIdBaby = Router()
 
 import { selectIdBebe } from "../../controller/Controller_baby/SelectIdBebe.js";
+import { authAccess } from "../../config/middleware/authAcces.js";
 
-routerIdBaby.get('/baby/:id', cors(), async (req, res) => {
+
+routerIdBaby.get('/baby/:id', cors(), authAccess("Responsável" && "ADMIN") ,async (req, res) => {
 
     let id = req.params.id
     let resultIdBaby = await selectIdBebe(id)

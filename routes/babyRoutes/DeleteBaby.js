@@ -11,8 +11,9 @@ import cors from 'cors'
 const routerDeleteBaby = Router()
 
 import { deleteBebe } from "../../controller/Controller_baby/deleteBebe.js";
+import { authAccess } from "../../config/middleware/authAcces.js";
 
-routerDeleteBaby.delete('/baby/:id', cors(), async(req, res) => {
+routerDeleteBaby.delete('/baby/:id', cors(),authAccess("ADMIN"), async(req, res) => {
 
     let id = req.params.id
     let resultDeleteBaby = await deleteBebe(id)

@@ -6,8 +6,9 @@
  *       o Banco de Dados
  **************************************************/
 
- import {PrismaClient} from '@prisma/client'
-const prisma = new PrismaClient()
+ import pkg from "@prisma/client"
+ const { PrismaClient } = pkg
+ const prisma = new PrismaClient()
 
 export const deleteSQLCalendario = async function (id) {
     try {
@@ -20,8 +21,6 @@ export const deleteSQLCalendario = async function (id) {
         }else{
             return false
         }
-
-
 
     } catch (error) {
         console.log(error)

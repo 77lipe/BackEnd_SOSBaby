@@ -5,8 +5,9 @@
  * Desc: App que irá chamar a clínica por ID
  **************************************************/
 
-import {PrismaClient} from '@prisma/client'
-const prisma = new PrismaClient()
+ import pkg from "@prisma/client"
+ const { PrismaClient } = pkg
+ const prisma = new PrismaClient()
 
 export const idClinica = async function (id) {
     try {

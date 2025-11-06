@@ -6,8 +6,10 @@
  *       o Banco de Dados
  **************************************************/
 
- import { PrismaClient } from "@prisma/client"
+ import pkg from "@prisma/client"
+ const { PrismaClient } = pkg
  const prisma = new PrismaClient()
+ 
 
  export const updateUserPassword = async function(data){
      console.log(data);

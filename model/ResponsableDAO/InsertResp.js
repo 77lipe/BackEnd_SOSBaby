@@ -6,13 +6,16 @@
  *       o Banco de Dados
  **************************************************/
 
- import {PrismaClient} from '@prisma/client'
-const prisma = new PrismaClient()
+ import pkg from "@prisma/client"
+ const { PrismaClient } = pkg
+ const prisma = new PrismaClient()
 
 //import {insertUser} from "../../controller/Controller_users/InsertUser"
 
 export const insertSQLResp = async function (user) {
     try {
+
+        let verifyCPF = `select * from tbl_responsavel where cpf = '${user.cpf} and telefone = '${user.telefone}' order by id_responsavel desc'`
         
         let sql = `insert into tbl_responsavel(
         nome,

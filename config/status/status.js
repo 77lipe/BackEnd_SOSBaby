@@ -18,6 +18,7 @@ export const ERROR_INCORRECT_LOGIN = {status: false, status_code: 404, message:"
 export const ERROR_INVALID_TOKEN = {status: false, status_code: 404, message:"Token INVÁLIDO!!"}
 export const ERROR_INVALID_QUESTION = {status: false, status_code: 404, message:"Erro ao enviar sua pergunta!!"}
 export const ERROR_ACCES_DENIED = {status: false, status_code: 404, message:"Acesso negado a esse tipo de usuário!!"}
+export const ERROR_REGISTER_EMAIL = {status: false, status_code: 404, message:"Este EMAIL já está registrado em nosso sistema!!"}
 
 
 

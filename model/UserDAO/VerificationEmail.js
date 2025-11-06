@@ -6,15 +6,24 @@
  *       o Banco de Dados
  **************************************************/
 
-import {PrismaClient} from '@prisma/client'
-const prisma = new PrismaClient()
+ import pkg from "@prisma/client"
+ const { PrismaClient } = pkg
+ const prisma = new PrismaClient()
+ 
 
 export const VerifyEmail = async function (DataEmail) {
     try {
         
-        let sql = `Select`
+        let sql = `SELECT * FROM tbl_user WHERE email = '${DataEmail}' order by id_user desc`
+        let resultEmail = await prisma.$queryRawUnsafe(sql)
+        
+        if(resultEmail.length > 0){
+            return resultEmail
+        }else{
+            return false
+        }
 
     } catch (error) {
-        
+        return false
     }
 }

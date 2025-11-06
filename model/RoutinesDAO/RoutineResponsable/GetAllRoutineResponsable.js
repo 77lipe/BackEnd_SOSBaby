@@ -5,8 +5,10 @@
  * Desc: App que irá realizar a comunicação com o banco
  *       dados para GET ALL DE ROTINA
  ********************************************************/
-import {PrismaClient} from '@prisma/client'
-const prisma = new PrismaClient()
+ import pkg from "@prisma/client"
+ const { PrismaClient } = pkg
+ const prisma = new PrismaClient()
+ 
 
 export const getAllSQLRoutineResponsable = async function (){
     try {

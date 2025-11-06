@@ -7,8 +7,10 @@
  **************************************************/
 
 
-import {PrismaClient} from '@prisma/client'
-const prisma = new PrismaClient()
+ import pkg from "@prisma/client"
+ const { PrismaClient } = pkg
+ const prisma = new PrismaClient()
+ 
 
 export const idTypeUser = async function (id) {
     try {

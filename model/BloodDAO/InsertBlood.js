@@ -5,7 +5,8 @@
  * Desc: App que irá conter as inserções para
  *       o Banco de Dados
  **************************************************/
- import {PrismaClient} from '@prisma/client'
+ import pkg from "@prisma/client"
+ const { PrismaClient } = pkg
  const prisma = new PrismaClient()
 
  export const InsertSQLBlood = async function (blood) {

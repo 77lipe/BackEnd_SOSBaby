@@ -5,10 +5,10 @@
  * Desc: App que irá conter as inserções para
  *       o Banco de Dados
  **************************************************/
-
-import {PrismaClient} from '@prisma/client'
-const prisma = new PrismaClient()
-
+ import pkg from "@prisma/client"
+ const { PrismaClient } = pkg
+ const prisma = new PrismaClient()
+ 
 export const postSQLChat = async function(dataChat){
     try {
         

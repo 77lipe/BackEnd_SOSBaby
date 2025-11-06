@@ -16,15 +16,15 @@ export const UpdateResp = async function(id, user, contentType) {
 
         if(String(contentType).toLocaleLowerCase() == 'application/json'){
             if(
-                user.nome            == "" || user.nome            == undefined || user.nome            == null || user.nome.lenght  > 100   ||
-                user.data_nascimento == "" || user.data_nascimento == undefined || user.data_nascimento == null || user.data_nascimento > 15 ||
-                user.cpf             == "" || user.cpf             == undefined || user.cpf             == null || user.cpf > 15             ||
-                user.cep             == "" || user.cep             == undefined || user.cep             == null || user.cep > 10             ||
-                user.telefone        == "" || user.telefone        == undefined || user.telefone        == null || user.telefone > 20        ||
-                user.id_user         == "" || user.id_user         == undefined || user.id_user         == null || isNaN(user.id_user)       ||
-                user.arquivo         == "" || user.arquivo         == undefined || user.arquivo         == null || user.arquivo  > 100       ||
-                user.cartao          == "" || user.cartao          == undefined || user.cartao          == null || user.cartao   > 45        || 
-                user.id_sexo         == "" || user.id_sexo         == undefined || user.id_sexo         == null || isNaN(user.id_sexo)   
+                user.nome                   == "" || user.nome                  == undefined || user.nome            == null || user.nome.length  > 100          || user.nome.match(/^[A-Za-zÀ-ÿ\s]+$/)                 ||
+                user.data_nascimento        == "" || user.data_nascimento       == undefined || user.data_nascimento == null || user.data_nascimento.length > 15 ||
+                user.cpf                    == "" || user.cpf                   == undefined || user.cpf             == null || user.cpf.length > 15             || user.cpf.match(/^\d{3}\.?\d{3}\.?\d{3}-?\d{2}$/)    ||
+                user.cep                    == "" || user.cep                   == undefined || user.cep             == null || user.cep.length > 20             ||
+                user.telefone               == "" || user.telefone              == undefined || user.telefone        == null || user.telefone.length > 20        || user.telefone.match(/^\(\d{2}\)\s?\d{4,5}-?\d{4}$/) ||
+                user.id_sexo                == "" || user.id_sexo               == undefined || user.id_sexo         == null || isNaN(user.id_sexo)              ||
+                user.arquivo                == "" || user.arquivo               == undefined || user.arquivo         == null || user.arquivo.length  > 3000      ||
+                user.cartao_medico          == "" || user.cartao_medico         == undefined || user.cartao_medico   == null || user.cartao_medico.length   > 45 ||         
+                user.id_user                == "" || user.id_user               == undefined || user.id_user         == null || isNaN(user.id_user)   
             ){
                 return message.ERROR_REQUIRED_FIELDS
             }else{

@@ -21,8 +21,8 @@ export const resetPassword = async function ( data, contentType){
         if(String(contentType).toLocaleLowerCase() == 'application/json'){
             if(
                 data.code    == null ||  data.code    == undefined ||  data.code    == ''  ||
-                data.token   == null || data.token    == undefined ||  data.token   == ''  ||
-                data.newPass == null ||  data.newPass == undefined ||  data.newPass == ''
+                data.token   == null ||  data.token    == undefined ||  data.token   == '' ||
+                data.newPass == null ||  data.newPass == undefined ||  data.newPass == ''  || data.newPass.match(/['"]/)
             ){
                 return message.ERROR_REQUIRED_FIELDS
             }else{

@@ -6,9 +6,9 @@
  *       o Banco de Dados
  **************************************************/
 
-import pkg from "@prisma/client"
-const { PrismaClient } = pkg
-const prisma = new PrismaClient()
+ import pkg from "@prisma/client"
+ const { PrismaClient } = pkg
+ const prisma = new PrismaClient()
  
 export const insertSQLBaby = async function (baby) {
     try {

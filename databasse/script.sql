@@ -107,7 +107,6 @@ create table tbl_responsavel_bebe (
     constraint FK_RESPONSAVEL
     foreign key (id_responsavel)
     references tbl_responsavel(id_responsavel)
-
 );
 
 create table tbl_medico(
@@ -127,8 +126,7 @@ create table tbl_medico(
     
 	constraint FK_USUARIO_MEDICO
     foreign key (id_user)
-    references tbl_user(id_user)
-    
+    references tbl_user(id_user) 
 );
 
 create table tbl_especialidade_medico(
@@ -162,7 +160,6 @@ create table tbl_clinica(
     references tbl_user(id_user)
 );
 
-
 create table tbl_especialidade_clinica (
 	id int auto_increment primary key not null,
     id_clinica int,
@@ -177,14 +174,12 @@ create table tbl_especialidade_clinica (
     references tbl_especialidade(id_especialidade)
 );
 
-
 CREATE TABLE tbl_rotina_item (
     id_item INT AUTO_INCREMENT PRIMARY KEY,
     titulo VARCHAR(100) NOT NULL,
     descricao TEXT,
     data_rotina DATE NOT NULL,
     hora TIME NOT NULL
-
 );
 
 create table tbl_rotina(
@@ -201,9 +196,7 @@ create table tbl_rotina(
     constraint FK_ITEM_ROTINA
     foreign key (id_item_rotina)
     references tbl_rotina_item(id_item)
-
 );
-
 
 create table tbl_calendario (
     id_calendario int auto_increment primary key,
@@ -226,7 +219,6 @@ create table tbl_categoria (
     nome_categoria varchar(50) not null
 );
 
-
 create table tbl_subcategoria (
     id_subcategoria int auto_increment primary key,
     nome_subcategoria  varchar(50) not null
@@ -244,7 +236,6 @@ create table tbl_dica (
     REFERENCES tbl_categoria(id_categoria)
 );
 
-
 create table tbl_dica_subcategoria (
 	id_relacionamento int auto_increment primary key,
     id_dica int not null,
@@ -259,7 +250,6 @@ create table tbl_dica_subcategoria (
 	FOREIGN KEY (id_subcategoria)
 	REFERENCES tbl_subcategoria(id_subcategoria)
 );
-
 
 create table tbl_favorito (
     id_favorito int auto_increment primary key,
@@ -297,7 +287,6 @@ create table tbl_messager(
     foreign key (id_user)
     references tbl_user(id_user)
 );
-
 
 create table tbl_chat_message(
     id_chat_user int auto_increment primary key not null,

@@ -13,13 +13,9 @@
 export const updateSQLRelatorio = async function (relatorio) {
     try {
         let sql = `UPDATE tbl_relatorio SET 
-        id_user = '${relatorio.id_user}',
-        titulo = '${relatorio.titulo}',
-        descricao  = '${relatorio.descricao}',
-        data_evento  = '${relatorio.data_evento}',
-        hora_calendario  = '${relatorio.hora_calendario}',
-        cor    = '${relatorio.cor}',
-        alarme_ativo  = '${relatorio.alarme_ativo}'
+        relatorio_bebe = '${relatorio.relatorio_bebe}',
+        exames = '${relatorio.exames}',
+        atestados  = '${relatorio.atestados}'
 
         where id_relatorio = ${relatorio.id_calendario}`
 

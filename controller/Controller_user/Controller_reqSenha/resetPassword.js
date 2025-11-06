@@ -20,27 +20,30 @@ export const resetPassword = async function ( data, contentType){
      
         if(String(contentType).toLocaleLowerCase() == 'application/json'){
             if(
-                data.token   == null ||  data.token   == undefined ||  data.token   == '' ||
+                data.code    == null ||  data.code    == undefined ||  data.code    == ''  ||
+                data.token   == null || data.token    == undefined ||  data.token   == ''  ||
                 data.newPass == null ||  data.newPass == undefined ||  data.newPass == ''
             ){
                 return message.ERROR_REQUIRED_FIELDS
             }else{
                 try {
-
-                    const decoded = jwt.verify(data.token, process.env.JWT_SECRET)
-                    console.log('Decoded token:', decoded)
-                    const userId = decoded.id_user
-    
-                    const result = await updateUserPassword({userId, newPass: data.newPass})
                     
-                    if(result){
-                        return{
-                            ...message.SUCCES_PASSWORD_RESET,
-                            nova_senha: data.newPass
-                        }
-                    }else{
+                    const decode = jwt.decode(data.token)
+                    const resultCode = data.code
+                    if(resultCode){
+
+                        const userId = decode.id_user
+                        const result = await updateUserPassword({userId, newPass: data.newPass})
+                        if(result){
+                            return{
+                                ...message.SUCCES_PASSWORD_RESET,
+                                nova_senha: data.newPass
+                            }
+                        }else{
                         return message.ERROR_INTERNAL_SERVER_MODEL
                     }
+                    }
+                    
                 } catch (error) {
                     console.log(error)
                     return message.ERROR_INVALID_TOKEN

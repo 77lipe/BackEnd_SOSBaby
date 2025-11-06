@@ -22,8 +22,11 @@ export const insertSQLGender = async function (sexo) {
             sexo.sexo
             )
         
-        if (resultSex !== undefined && resultSex !== null) {
-            return true
+        if (resultSex) {
+            let getID = `SELECT * FROM tbl_sexo ORDER BY id_sexo DESC LIMIT 1`
+            let id = await prisma.$queryRawUnsafe(getID)
+
+            return id[0]
         }else{
             return false
         }

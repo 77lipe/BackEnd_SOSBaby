@@ -21,7 +21,7 @@
  *            Após essa configuração deverá rodar o seguinte comando:
  *               npx prisma migrate dev
  * 
- *              npm install jsonwebtoken bcryptjs nodemailer dotenv socket.io
+ *              npm install jsonwebtoken bcryptjs nodemailer dotenv socket.io @google/generative-ai
 
  * 
  **************************************************/
@@ -52,6 +52,7 @@ import chatRoutes from './routes/chatRoutes/index.js'
 import messageRoutes from './routes/messageRoutes/index.js'
 import ChatMessageRoutes from './routes/chatRoutes/chatMessageRoutes/index.js'
 import clinicaRoutes from './routes/clinicaRoutes/index.js'
+import chatIARoutes from './routes/IAchatRoutes/index.js'
 
 import { chatSocketInit } from "./config/chatSocket/index.js";
 
@@ -83,6 +84,8 @@ app.use('/v1/sosbaby', chatRoutes)
 app.use('/v1/sosbaby', messageRoutes)
 app.use('/v1/sosbaby', ChatMessageRoutes)
 app.use('/v1/sosbaby', clinicaRoutes)
+app.use('/v1/sosbaby', chatIARoutes)
+
 
 app.listen('3030', function(){
     console.log('API funcionando e aguardando requisições...')

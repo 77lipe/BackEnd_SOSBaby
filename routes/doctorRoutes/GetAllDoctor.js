@@ -11,8 +11,9 @@ import cors from 'cors'
 const routerAllDoctor = Router()
 
 import {getAllDoctor} from "../../controller/Controller_doctor/getAllDoctor.js"
+import { authAccess } from "../../config/middleware/authAcces.js";
 
-routerAllDoctor.get('/doctor', cors(), async(req, res) => {
+routerAllDoctor.get('/doctor', cors(), authAccess("ADMIN" || "Clínica" || "Responsável"), async(req, res) => {
 
    let resultAllDoctor = await getAllDoctor()
    return res.status(resultAllDoctor.status_code).json(resultAllDoctor)

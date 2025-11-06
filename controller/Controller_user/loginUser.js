@@ -26,16 +26,18 @@ export const loginUser = async function (user, contentType) {
 
                 let resultUser = await loginSQLUser(user)
                 if(resultUser != false || typeof(resultUser) == 'object'){
+                    //console.log(resultUser);
 
                     const token = jwt.sign(
                         {
                             id_user: resultUser.id_user,
-                            id_tipo: resultUser.id_tipo
-                            
+                            id_tipo: resultUser.id_tipo    
                         },
                         process.env.JWT_SECRET,
-                        {expiresIn: "1h"}
+                        {expiresIn: "7d"}
                     )
+                    //console.log("Payload decodificado:", jwt.decode(token))
+
 
                     let dadosType = await idTypeUser(resultUser.id_tipo)
                     resultUser.tipo_user = dadosType[0].tipo
@@ -45,7 +47,7 @@ export const loginUser = async function (user, contentType) {
                     dataJson.status_code = message.SUCCES_LOGIN_COMPLETED.status_code
                     dataJson.data = resultUser
                     dataJson.token = token
-                    console.log(dataJson)
+                    //console.log(dataJson)
 
                     return dataJson 
                 }else{

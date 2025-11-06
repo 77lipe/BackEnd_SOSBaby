@@ -11,8 +11,9 @@ import cors from 'cors'
 const routerIdDoctor = Router()
 
 import {getIdDoctor} from "../../controller/Controller_doctor/getIdDoctor.js";
+import { authAccess } from "../../config/middleware/authAcces.js";
 
-routerIdDoctor.get('/doctor/:id', cors(), async (req, res) => {
+routerIdDoctor.get('/doctor/:id', cors(), authAccess("ADMIN" || "Clínica" || "Responsável"), async (req, res) => {
 
     let id = req.params.id
     let resultIdDoctor= await getIdDoctor(id)

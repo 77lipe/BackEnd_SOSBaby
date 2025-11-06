@@ -10,10 +10,11 @@ import {Router} from "express";
 import cors from 'cors'
 
 import {deleteItemRoutine} from "../../../controller/Controllers_routines/controller_itemRoutine/deleteItemRoutine.js";
+import { authAccess } from "../../../config/middleware/authAcces.js";
 
 const routerDeleteRoutineItem = Router()
 
-routerDeleteRoutineItem.delete('/routineItem/:id', cors(), async(req, res) => {
+routerDeleteRoutineItem.delete('/routineItem/:id', cors(), authAccess("Responsável" || "ADMIN") ,async(req, res) => {
 
     let id = req.params.id
     let resultDeleteRoutineItem = await deleteItemRoutine(id)

@@ -10,12 +10,13 @@ import {Router} from "express"
 import cors from 'cors'
 const routerDeleteClinica = Router()
 
-import {deleteClinica} from "../../controller/Controller_Clinica/deleteClinica.js";
+import {DeleteClinica} from "../../controller/Controller_Clinica/deleteClinica.js";
+import { authAccess } from "../../config/middleware/authAcces.js";
 
-routerDeleteClinica.delete('/clinica/:id', cors(), async(req, res) => {
+routerDeleteClinica.delete('/clinica/:id', cors(), authAccess("ADMIN") ,async(req, res) => {
 
     let id = req.params.id
-    let resultDeleteClinica = await deleteClinica(id)
+    let resultDeleteClinica = await DeleteClinica(id)
 
     return res.status(resultDeleteClinica.status_code).json(resultDeleteClinica)
 })

@@ -11,10 +11,12 @@ import {Router} from "express";
 import cors from 'cors'
 
 import {DeleteBlood} from "../../controller/Controller_blood/deleteSangue.js";
+import { authAccess } from "../../config/middleware/authAcces.js";
+
 
 const routerDeleteBlood = Router()
 
-routerDeleteBlood.delete('/blood/:id', cors(), async(req, res) => {
+routerDeleteBlood.delete('/blood/:id', cors(), authAccess("ADMIN") ,async(req, res) => {
 
     let id = req.params.id
     let resultDeleteBlood = await DeleteBlood(id)

@@ -10,10 +10,11 @@ import {Router} from "express";
 import cors from 'cors'
 
 import {deleteDoctor} from "../../controller/Controller_doctor/deleteDoctor.js";
+import { authAccess } from "../../config/middleware/authAcces.js";
 
 const routerDeleteDoctor = Router()
 
-routerDeleteDoctor.delete('/doctor/:id', cors(), async(req, res) => {
+routerDeleteDoctor.delete('/doctor/:id', cors(), authAccess("ADMIN") ,async(req, res) => {
 
     let id = req.params.id
     let resultDeleteDoctor = await deleteDoctor(id)

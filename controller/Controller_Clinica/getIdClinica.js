@@ -7,7 +7,7 @@
  ***********************************************************/
 
 import * as message from '../../config/status/status.js'
-import { getIdSQLClinica } from '../../model/ClinicaDAO/SelectIDClinica.js'
+import { idClinica } from '../../model/ClinicaDAO/SelectIDClinica.js'
 import {selectSQLIdUser} from '../../model/UserDAO/SelectIDUser.js'
 
 export const GetIdClinica = async function (id) {
@@ -23,7 +23,7 @@ export const GetIdClinica = async function (id) {
             return message.ERROR_REQUIRED_FIELDS
         } else {
         
-            let resultClinica = await getIdSQLClinica(id)
+            let resultClinica = await idClinica(id)
             if (resultClinica) {
                 if (resultClinica.length > 0) {
                     dadosClinica.message = message.SUCCES_SEARCH_ITEM

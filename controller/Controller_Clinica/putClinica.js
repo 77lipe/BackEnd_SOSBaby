@@ -7,9 +7,9 @@
  ***********************************************************/
 
 import * as message from '../../config/status/status.js'
-import {updateSQLClinica} from '../../model/ClinicaDAO/PutClinica.js' 
+import {updateClinica} from '../../model/ClinicaDAO/PutClinica.js' 
 
-export const updateClinica = async function (clinica, contentType) {
+export const UpdateClinica = async function (clinica, contentType) {
     try {
         
         if (String(contentType).toLocaleLowerCase() === 'application/json') {
@@ -28,7 +28,7 @@ export const updateClinica = async function (clinica, contentType) {
 
                 return message.ERROR_REQUIRED_FIELDS
             }else{
-                let resultClinica = await updateSQLClinica(clinica)
+                let resultClinica = await updateClinica(clinica)
 
                 if(resultClinica){
                     return {

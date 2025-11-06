@@ -11,8 +11,9 @@ import cors from 'cors'
 const routerIdRoutineResp = Router()
 
 import {getIdRoutineResponsable} from "../../../controller/Controllers_routines/controller_rotineRespon/getIdRoutineRespon.js";
+import { authAccess } from "../../../config/middleware/authAcces.js";
 
-routerIdRoutineResp.get('routineResp/:id', cors(), async (req, res) => {
+routerIdRoutineResp.get('routineResp/:id', cors(), authAccess("Responsável" || "ADMIN"),async (req, res) => {
 
     let id = req.params.id
     let resultIdRoutineResp = await getIdRoutineResponsable(id)

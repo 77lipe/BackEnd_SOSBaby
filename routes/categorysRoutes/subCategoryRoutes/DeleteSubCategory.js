@@ -11,8 +11,10 @@
  const routerDeleteSub = Router()
 
  import { deleteSub } from "../../../controller/Controller_categorys/zController_subcategory/deleteSubCategory.js"
+ import { authAccess } from "../../../config/middleware/authAcces.js";
 
- routerDeleteSub.delete('/subcategory/:id', cors(), async (req,res) => {
+
+ routerDeleteSub.delete('/subcategory/:id', cors(), authAccess("ADMIN") ,async (req,res) => {
 
     let id = req.params.id
     let resultDeleteSub = await deleteSub(id)

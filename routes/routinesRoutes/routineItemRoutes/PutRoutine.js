@@ -11,11 +11,12 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 
 import {updateItemRoutine} from '../../../controller/Controllers_routines/controller_itemRoutine/updateItemRoutine.js'
+import { authAccess } from "../../../config/middleware/authAcces.js";
 
 const routerUpdateRoutineItem = Router()
 const bodyJsonParser = bodyParser.json()
 
-routerUpdateRoutineItem.put('/routineItem/:id', cors(), bodyJsonParser, async (req, res) => {
+routerUpdateRoutineItem.put('/routineItem/:id', cors(), bodyJsonParser, authAccess("ADMIN" || "Responsável"),async (req, res) => {
 
     let id = req.params.id
     let contentType = req.body['content-type']

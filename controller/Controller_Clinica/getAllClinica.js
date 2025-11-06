@@ -6,7 +6,7 @@
  *       validações dos dados recebidos para GET ALL Clinica
  ***********************************************************/
 import * as message from '../../config/status/status.js'
-import { getAllSQLClinica } from '../../model/ClinicaDAO/ListAllClinica.js'
+import { ListSQLClinica } from '../../model/ClinicaDAO/ListAllClinica.js'
 import { selectSQLIdUser } from '../../model/UserDAO/SelectIDUser.js'
 
 export const getAllClinica = async function () {
@@ -15,7 +15,7 @@ export const getAllClinica = async function () {
         let clinicaArray = []
         let clinicaJSON = {}
 
-        let resultClinica = await getAllSQLClinica()
+        let resultClinica = await ListSQLClinica()
         if (resultClinica != false || typeof(resultClinica) == 'object') {
             if (resultClinica.length > 0) {
                 clinicaJSON.message = message.SUCCES_SEARCH_ITEM

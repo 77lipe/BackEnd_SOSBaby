@@ -12,8 +12,10 @@ const routerPutCategory = Router()
  
 const bodyJsonParser = bodyParser.json()
 import { updateCategory } from "../../../controller/Controller_categorys/zController_category/updateCategory.js"
+import { authAccess } from "../../../config/middleware/authAcces.js";
 
-routerPutCategory.put('/category/:id', bodyJsonParser, async (req,res) => {
+
+routerPutCategory.put('/category/:id', bodyJsonParser, authAccess("ADMIN") ,async (req,res) => {
 
     let id = req.params.id
     let contentType = req.headers['content-type']

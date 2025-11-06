@@ -12,10 +12,11 @@ import express,{ Router } from 'express'
 const routerInsertResponsable = Router()
 
 import {insertResp} from "../../controller/Controller_responsable/InsertResp.js"
+import { authAccess } from "../../config/middleware/authAcces.js";
 
 const bodyJsonParser = bodyParser.json()
 
-routerInsertResponsable.post('/resp/cadastro', bodyJsonParser, async (req,res) =>{
+routerInsertResponsable.post('/resp/cadastro', bodyJsonParser, authAccess("Responsável" || "ADMIN") ,async (req,res) =>{
     
     let contentType = req.headers['content-type']
     let dataResponsable = req.body

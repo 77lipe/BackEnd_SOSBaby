@@ -11,10 +11,11 @@ import { Router } from 'express'
 const routerInsertRoutineRespon = Router()
 
 import {insertRoutineRespon} from "../../../controller/Controllers_routines/controller_rotineRespon/insertRoutineRespon.js"
+import { authAccess } from "../../../config/middleware/authAcces.js";
 
 const bodyJsonParser = bodyParser.json()
 
-routerInsertRoutineRespon.post('/routineResp/cadastro', bodyJsonParser, async (req,res) =>{
+routerInsertRoutineRespon.post('/routineResp/cadastro', bodyJsonParser, authAccess("Responsável" || "ADMIN"),async (req,res) =>{
     
     let contentType = req.headers['content-type']
     let dataRespon = req.body

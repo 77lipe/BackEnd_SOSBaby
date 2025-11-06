@@ -13,7 +13,7 @@
 
  export const SelectAllGenderSQL = async function(){
     try {
-        let sql = 'CALL vw_all_sexo'
+        let sql = 'SELECT * FROM tbl_sexo order by id_sexo desc'
 
         let result = await prisma.$queryRawUnsafe(sql)
 

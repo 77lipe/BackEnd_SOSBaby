@@ -11,8 +11,9 @@ import cors from 'cors'
 const routerDeleteCat = Router()
 
 import { deleteCategorys } from "../../../controller/Controller_categorys/zController_category/deleteCategory.js";
+import { authAccess } from "../../../config/middleware/authAcces.js";
 
-routerDeleteCat.delete('/category/:id', cors(), async (req,res) => {
+routerDeleteCat.delete('/category/:id', cors(), authAccess("ADMIN") ,async (req,res) => {
 
     let id = req.params.id
     let resultCat = await deleteCategorys(id)

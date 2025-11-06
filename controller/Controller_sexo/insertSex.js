@@ -15,7 +15,6 @@ import { insertSQLGender } from "../../model/SexDAO/insertGender.js";
          if(String(contentType).toLowerCase() === "application/json"){
              if(
                  sex.sexo          == "" || sex.sexo           == undefined || sex.sexo           == null || sex.sexo.length > 12   
-              
              ){
                  return message.ERROR_REQUIRED_FIELDS
              }else{
@@ -24,7 +23,7 @@ import { insertSQLGender } from "../../model/SexDAO/insertGender.js";
                 if(resultUser){
                     return{
                         ...message.SUCCES_CREATED_ITEM,
-                        data: sex
+                        data: resultUser
                     }
                 }else{
                     return message.ERROR_INTERNAL_SERVER_MODEL

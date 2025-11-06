@@ -13,11 +13,12 @@ const routerInsertBlood = Router()
 
 
 import {insertSangue} from "../../controller/Controller_blood/insertSangue.js"
+import { authAccess } from "../../config/middleware/authAcces.js";
 
 const bodyJsonParser = bodyParser.json()
 
 
-routerInsertBlood.post('/blood/cadastro', bodyJsonParser, async (req,res) =>{
+routerInsertBlood.post('/blood/cadastro', bodyJsonParser, authAccess("ADMIN") ,async (req,res) =>{
     
     let contentType = req.headers['content-type']
     let dataBlood = req.body

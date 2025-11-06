@@ -11,11 +11,12 @@ import bodyParser from 'body-parser'
 import cors from 'cors'
 
 import {UpdateResp} from '../../controller/Controller_responsable/UpdateResp.js'
+import { authAccess } from "../../config/middleware/authAcces.js";
 
 const routerUpdateResponsable = Router()
 const bodyJsonParser = bodyParser.json()
 
-routerUpdateResponsable.put('/resp/:id', cors(), bodyJsonParser, async (req, res) => {
+routerUpdateResponsable.put('/resp/:id', cors(), bodyJsonParser, authAccess("Responsável" || "ADMIN") ,async (req, res) => {
 
     let id = req.params.id
     let contentType = req.body['content-type']

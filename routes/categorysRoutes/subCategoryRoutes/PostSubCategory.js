@@ -12,8 +12,10 @@ const routerInsertSub = Router()
 
 const bodyJsonParser = bodyParser.json()
 import { insertCategory} from "../../../controller/Controller_categorys/zController_subcategory/insertSubCategory.js"
+import { authAccess } from "../../../config/middleware/authAcces.js";
 
-routerInsertSub.post('/subcategory/cadastro', bodyJsonParser, async (req, res) =>{
+
+routerInsertSub.post('/subcategory/cadastro', bodyJsonParser, authAccess("ADMIN") ,async (req, res) =>{
 
     let contentType = req.headers['content-type']
     let dadosBody = req.body

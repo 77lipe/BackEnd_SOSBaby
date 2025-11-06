@@ -10,6 +10,7 @@
  const prisma = new PrismaClient()
 
  export const updateUserPassword = async function(data){
+     console.log(data);
     try {
        
         let sql = `UPDATE tbl_user SET senha = ? WHERE id_user = ?`

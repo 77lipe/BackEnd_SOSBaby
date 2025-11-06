@@ -7,8 +7,8 @@
  ***********************************************************/
 
 import * as message from '../../config/status/status.js'
-import { deleteSQLClinica } from '../../model/ClinicaDAO/DeleteClinica.js'
-import { selectByIdClinica } from '../../model/ClinicaDAO/GetIdClinica.js'
+import { deleteClinica } from '../../model/ClinicaDAO/DeleteClinica.js'
+import { idClinica } from '../../model/ClinicaDAO/SelectIDClinica.js'
 
 export const DeleteClinica = async function (id) {
     try {
@@ -17,11 +17,11 @@ export const DeleteClinica = async function (id) {
             return message.ERROR_REQUIRED_FIELDS
         } else {
 
-            let resultClinica = await selectByIdClinica(id)
+            let resultClinica = await idClinica(id)
             if (resultClinica != false || typeof (resultClinica) == 'object') {
                 if (resultClinica.length > 0) {
                     
-                    let idRecebido = await deleteSQLClinica(id)
+                    let idRecebido = await deleteClinica(id)
                     if (idRecebido) {
                         return message.SUCCES_DELETED_ITEM
                     }else{

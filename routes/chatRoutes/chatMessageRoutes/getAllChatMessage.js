@@ -12,7 +12,7 @@ const routerAllChatMessage = Router()
 
 import { getAllChatMessage } from "../../../controller/Controller_chat/Controller_ChatMessage/GetAllChatMessage.js"
 
-routerAllChatMessage.get('/chat/messages', cors(), async(req, res) => {
+routerAllChatMessage.get('/chats/messages', cors(), async(req, res) => {
     let resultAllChatMessage = await getAllChatMessage()
     return res.status(resultAllChatMessage.status_code).json(resultAllChatMessage)
 })

@@ -9,8 +9,8 @@
 
 import * as message from '../../../config/status/status.js'
 import { getIdSQLChatMessage } from '../../../model/ChatDAO/ChatMessageDAO/getIdSQLChatMessage.js'
-import { getIdSQLChat } from "../../../model/ChatDAO/getIdSQLChat.js"
-import { getIdSQLMessage } from "../../../model/MessageDAO/getIdSQLMessage.js"
+import { getIdChat } from "../../Controller_chat/GetIdChat.js"
+import { getIdMessage } from "../../Controller_message/getIdMessage.js"
 
 export const getIdChatMessage = async function (id) {
     try {
@@ -25,20 +25,24 @@ export const getIdChatMessage = async function (id) {
             let resultChatMessage = await getIdSQLChatMessage(id)
             if (resultChatMessage != false) {
                 if (resultChatMessage.length > 0) {
-                    console.log(resultChatMessage);
-
                     ChatMessageDataJson.status_code = message.SUCCES_SEARCH_ITEM.status_code
                     ChatMessageDataJson.message = message.SUCCES_SEARCH_ITEM.message
                     ChatMessageDataJson.chat_message = resultChatMessage
 
-                    for(let item of resultChatMessage){
-                        let dadoChat = await getIdSQLChat(resultChatMessage.id_chat)
-                        resultChatMessage.chat = dadoChat
-                        delete resultChatMessage.id_chat
+                    
 
-                        let dadoMessage = await getIdSQLMessage(resultChatMessage.id_mensagem)
-                        resultChatMessage.message = dadoMessage
-                        delete resultChatMessage.id_mensagem
+                    for(let item of resultChatMessage){
+                        let dadoChat = await getIdChat(resultChatMessage[0].id_chat)
+                        item.chat = dadoChat.data[0].nome_chat
+                        delete item.id_chat
+
+                        let dadoMessage = await getIdMessage(resultChatMessage[0].id_mensagem)
+                        item.mensagem_enviada = {
+                            mensagem: dadoMessage.data[0].conteudo,
+                            hora_envio: dadoMessage.data[0].created_at,
+                            usuario: dadoMessage.data[0].user.usuario
+                        }
+                        delete item.id_mensagem
 
                         ArrayDataChatMessage.push(item)
                     }

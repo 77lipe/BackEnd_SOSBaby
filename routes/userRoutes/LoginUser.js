@@ -18,7 +18,7 @@ routerLoginUser.post('/user/login', bodyJsonParser, async (req, res) => {
     let contentType = req.headers['content-type']
     let dataLogin = req.body
 
-    let resultLoginUser = await loginUser(dataLogin, contentType)
+    let resultLoginUser = await loginUser(dataLogin, contentType)    
 
     return res.status(resultLoginUser.status_code).json(resultLoginUser)
 })

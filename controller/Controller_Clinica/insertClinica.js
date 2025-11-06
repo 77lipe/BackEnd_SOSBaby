@@ -15,15 +15,15 @@ export const insertClinica = async function (clinica, contentType) {
         
         if (String(contentType).toLocaleLowerCase() == 'application/json') {
             if (
-                clinica.nome        == undefined || clinica.nome      == null || clinica.nome     == '' || clinica.nome.length      > 100    ||
-                clinica.cnpj        == undefined || clinica.cnpj      == null || clinica.cnpj     == '' || clinica.cnpj.length      > 20     ||
-                clinica.telefone    == undefined || clinica.telefone  == null || clinica.telefone == '' || clinica.telefone.length  > 20     ||
-                clinica.email       == undefined || clinica.email     == null || clinica.email    == '' || clinica.email.length     > 100    ||
-                clinica.cidade      == undefined || clinica.cidade    == null || clinica.cidade   == '' || clinica.cidade.length    > 100    ||
-                clinica.rua         == undefined || clinica.rua       == null || clinica.rua      == '' || clinica.rua.length       > 150    ||
-                clinica.bairro      == undefined || clinica.bairro    == null || clinica.bairro   == '' || clinica.bairro.length    > 100    ||
-                clinica.numero      == undefined || clinica.numero    == null || clinica.numero   == '' || clinica.numero.length    > 100    ||
-                clinica.id_user     == undefined || clinica.id_user   == null || clinica.id_user  == '' || isNaN(clinica.id_user)                   
+                !clinica.nome || clinica.nome.length > 100 || clinica.nome.match(/['"]/) ||
+                !clinica.cnpj || clinica.cnpj.length > 20  || !clinica.cnpj.match(/^\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2}$/) || clinica.cnpj.match(/['"]/) ||
+                !clinica.telefone || clinica.telefone.length > 20 || !clinica.telefone.match(/^\(?\d{2}\)?\s?\d{4,5}-?\d{4}$/) || clinica.telefone.match(/['"]/) ||
+                !clinica.email || clinica.email.length > 100 || !clinica.email.match(/^[^\s@'"]+@[^\s@'"]+\.[^\s@'"]+$/) ||
+                !clinica.cidade || clinica.cidade.length > 100 || clinica.cidade.match(/['"]/) ||
+                !clinica.rua || clinica.rua.length > 150 || clinica.rua.match(/['"]/) ||
+                !clinica.bairro || clinica.bairro.length > 100 || clinica.bairro.match(/['"]/) ||
+                !clinica.numero || clinica.numero.length > 100 || clinica.numero.match(/['"]/) ||
+                !clinica.id_user || isNaN(clinica.id_user)
             ){
                 return message.ERROR_REQUIRED_FIELDS                
             }else{

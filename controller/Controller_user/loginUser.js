@@ -18,8 +18,8 @@ export const loginUser = async function (user, contentType) {
       
         if (String(contentType).toLowerCase().includes('application/json')) {
             if (
-                user.email   == "" || user.email   == undefined || user.email   == null || user.email.length > 100 || user.email.match(/^[^\s@'"]+@[^\s@'"]+\.[^\s@'"]+$/) ||
-                user.senha   == "" || user.senha   == undefined || user.senha   == null || user.senha.length > 100 || user.senha.math(/['"]/)
+                user.email   == "" || user.email   == undefined || user.email   == null || user.email.length > 100 || !user.email.match(/^[^\s@'"]+@[^\s@'"]+\.[^\s@'"]+$/) ||
+                user.senha   == "" || user.senha   == undefined || user.senha   == null || user.senha.length > 100 || user.senha.match(/['"]/)
             ){
                 return message.ERROR_REQUIRED_FIELDS
             }else{

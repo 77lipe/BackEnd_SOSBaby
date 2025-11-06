@@ -53,6 +53,7 @@ import messageRoutes from './routes/messageRoutes/index.js'
 import ChatMessageRoutes from './routes/chatRoutes/chatMessageRoutes/index.js'
 import clinicaRoutes from './routes/clinicaRoutes/index.js'
 import chatIARoutes from './routes/IAchatRoutes/index.js'
+import relatorioRoutes from './routes/relatorioRoutes/index.js'
 
 import { chatSocketInit } from "./config/chatSocket/index.js";
 
@@ -85,7 +86,7 @@ app.use('/v1/sosbaby', messageRoutes)
 app.use('/v1/sosbaby', ChatMessageRoutes)
 app.use('/v1/sosbaby', clinicaRoutes)
 app.use('/v1/sosbaby', chatIARoutes)
-
+app.use('./v1/sosbaby', relatorioRoutes)
 
 app.listen('3030', function(){
     console.log('API funcionando e aguardando requisições...')

@@ -14,8 +14,6 @@
 
 export const insertSQLResp = async function (user) {
     try {
-
-        let verifyCPF = `select * from tbl_responsavel where cpf = '${user.cpf} and telefone = '${user.telefone}' order by id_responsavel desc'`
         
         let sql = `insert into tbl_responsavel(
         nome,

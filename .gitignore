@@ -1,4 +1,4 @@
-env
+.env
 /generated/prisma
 
 /generated/prisma

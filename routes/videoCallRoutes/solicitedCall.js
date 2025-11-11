@@ -10,17 +10,18 @@ import { Router } from "express"
 import bodyParser from "body-parser"
 
 import { authAccess } from "../../config/middleware/authAcces.js"
-import { generateCallToken } from "../../config/twilioVideoChamada/videoCall.js";
+import { generativeTokenController } from "../../config/twilioVideoChamada/controllerCall.js"
 
 const routerVideoCall = Router()
 const bodyJsonParser = bodyParser.json()
 
-routerVideoCall.post("/twilio/call/token", bodyJsonParser, authAccess("Responsável" || "ADMIN" || "Médico"), async(req, res) => {
+routerVideoCall.post("/call/token", bodyJsonParser, authAccess("Responsável" || "ADMIN" || "Médico"), async(req, res) => {
 
-   const contentType = req.headers["content-type"]
+    const contentType = req.headers["content-type"]
     const dados = req.body
+    //console.log("Rotas req.user:", req.user);
 
-   const resultCall = await generateCallToken(req.user, dados, contentType)
+    const resultCall = await generativeTokenController(req.user, dados, contentType)
 
     return res.status(resultCall.status_code).json(resultCall)
 })

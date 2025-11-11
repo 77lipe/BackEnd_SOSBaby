@@ -46,6 +46,11 @@ export const authAccess = (rolesPermitidos) => {
               id_user: resultUser.usuario[0].id_user,
               nome_user: resultUser.usuario[0].nome_user
             });
+
+            req.user = {
+              id_user: resultUser.usuario[0].id_user,
+              nome_user: resultUser.usuario[0].nome_user
+            }
           
             next()
           }else{

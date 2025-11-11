@@ -13,7 +13,7 @@
 export const ListSQLusers = async function () {
     try {
         
-        let sql = `SELECT * FROM tbl_user ORDER BY id DESC`
+        let sql = `SELECT * FROM tbl_user ORDER BY id_user DESC`
         let resultUser = await prisma.queryRawUnsafe(sql)
 
         if (resultUser) {

@@ -18,6 +18,7 @@ export async function generativeTokenController(user, dados, contentType){
                     nome_Usuario: user.nome_user,
                     id_Usuario: user.id_user
                 }
+                //console.log("CONTROLLER identity:", identity)
 
                 const token = generateCallToken(identity, dados.room)
                 if (token){

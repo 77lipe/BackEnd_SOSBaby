@@ -8,7 +8,7 @@
 
 import * as message from '../../config/status/status.js'
 import {updateSQLRelatorio} from '../../model/RelatorioDAO/PutRelatorio.js' 
-import {selectSQLIdRelatorio} from "../../model/RelatorioDAO/PutRelatorio.js";
+import {selectSQLIdRelatorio} from "../../model/RelatorioDAO/GetIDRelatorio.js";
 
 export const updateRelatorio = async function (id, relatorio, contentType) {
     try {

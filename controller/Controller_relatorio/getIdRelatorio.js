@@ -7,7 +7,7 @@
  ***********************************************************/
 
 import * as message from '../../config/status/status.js'
-import {selectSQLIdRelatorio} from '../../model/RelatorioDAO/GetIDRelatorio'
+import {selectSQLIdRelatorio} from '../../model/RelatorioDAO/GetIDRelatorio.js'
 import {selectSQLIdUser} from '../../model/UserDAO/SelectIDUser.js'
 
 export const GetIDRelatorio = async function (id) {

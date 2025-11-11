@@ -10,14 +10,14 @@ import {Router} from "express";
 import cors from 'cors'
 const routerIdRelatorio = Router()
 
-import { selectIdRelatorio } from "../../controller/Controller_relatorio/getIdRelatorio.js";
+import { GetIDRelatorio } from "../../controller/Controller_relatorio/getIdRelatorio.js";
 import { authAccess } from "../../config/middleware/authAcces.js";
 
 
 routerIdRelatorio.get('/relatorio/:id', cors(), authAccess("Médico" || "ADMIN" || "Responsável") ,async (req, res) => {
 
     let id = req.params.id
-    let resultIdRelatorio = await selectIdRelatorio(id)
+    let resultIdRelatorio = await GetIDRelatorio(id)
 
     return res.status(resultIdRelatorio.status_code).json(resultIdRelatorio)
 })

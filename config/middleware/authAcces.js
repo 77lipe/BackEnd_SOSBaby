@@ -40,7 +40,7 @@ export const authAccess = (rolesPermitidos) => {
           if(resultTipo){
           
           const tipoString = resultTipo.type[0].tipo
-          if(rolesPermitidos.map(r => r.trim().toLowerCase()).includes(tipoString)){
+          if(rolesPermitidos.map(r => r.trim().toLowerCase()).includes(tipoString.toLowerCase())){
             console.log('Acesso permitido para:', tipoString)
             console.log('Info do usuário:',{
               id_user: resultUser.usuario[0].id_user,

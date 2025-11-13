@@ -6,11 +6,13 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
+    "prod": "NODE_ENV=production node app.js",
+    "prod:dev": "NODE_ENV=production nodemon app.js",
     "postinstall": "npx prisma generate"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
-    "@prisma/client": "^6.17.1",
+    "@prisma/client": "^6.19.0",
     "bcryptjs": "^3.0.3",
     "body-parser": "^2.2.0",
     "cors": "^2.8.5",

@@ -15,7 +15,6 @@ export const insertItemRoutine = async function (itemRoutine, contentType){
         if (String(contentType).toLocaleLowerCase() === 'application/json') {
             if (
                 itemRoutine.titulo         == undefined     || itemRoutine.titulo           == null || itemRoutine.titulo           == '' || itemRoutine.titulo.length         > 45     ||
-                itemRoutine.descricao      == undefined     || itemRoutine.descricao        == null || itemRoutine.descricao        == '' || itemRoutine.descricao.length    > 100      ||
                 itemRoutine.hora           == undefined     || itemRoutine.hora             == null || itemRoutine.hora             == '' || itemRoutine.hora.length          > 5       ||
                 itemRoutine.data_rotina    == undefined     || itemRoutine.data_rotina      == null || itemRoutine.data_rotina  > 20 || itemRoutine.data_rotina == ''
             ){

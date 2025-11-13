@@ -31,13 +31,13 @@ import dotenv from 'dotenv'
 
 // Carrega as variáveis de ambiente
 // NODE_ENV=production usa .env.production (nuvem)
-// Padrão usa .env (local)
+// Padrão usa .env.development (local)
 if (process.env.NODE_ENV === 'production') {
   console.log('📍 Carregando .env.production (Banco na NUVEM - Azure)')
   dotenv.config({ path: '.env.production' })
 } else {
-  console.log('📍 Carregando .env (Banco LOCAL)')
-  dotenv.config({ path: '.env' })
+  console.log('📍 Carregando .env.development (Banco LOCAL)')
+  dotenv.config({ path: '.env.development' })
 }
 
 import express from 'express'
@@ -146,7 +146,7 @@ server.listen(port, () => {
   console.log(`🚀 Servidor rodando na porta ${port}`);
   const env = process.env.NODE_ENV || 'development'
   console.log(`🌍 Ambiente: ${env}`);
-  const using = env === 'production' ? 'NUVEM (env: .env.production)' : 'LOCAL (env: .env)'
+  const using = env === 'production' ? 'NUVEM (env: .env.production)' : 'LOCAL (env: .env.development)'
   console.log(`📌 Mapeamento de banco: ${using}`);
   console.log(`📊 Conexão com banco: ${dbConnected ? '✅ Conectado' : '❌ Desconectado'}`);
   console.log('='.repeat(50) + '\n');
@@ -154,7 +154,7 @@ server.listen(port, () => {
   if (env === 'production') {
     console.log('API rodando (modo: NUVEM) - comandos de DEV irão usar o banco na nuvem.');
   } else {
-    console.log('API rodando (modo: LOCAL) - comandos `node app.js` usam banco local.');
+    console.log('API rodando (modo: LOCAL) - comandos `npm start` usam banco local.');
   }
 });
 

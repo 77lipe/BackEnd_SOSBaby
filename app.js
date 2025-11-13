@@ -28,9 +28,15 @@
  **************************************************/
 
 import dotenv from 'dotenv'
-dotenv.config({
-  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env'
-})
+
+// Carrega as variáveis de ambiente
+// NODE_ENV=production usa .env.production (nuvem)
+// Padrão usa .env (local)
+if (process.env.NODE_ENV === 'production') {
+  dotenv.config({ path: '.env.production' })
+} else {
+  dotenv.config({ path: '.env' })
+}
 
 import express from 'express'
 import cors from 'cors'

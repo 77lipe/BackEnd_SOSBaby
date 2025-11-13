@@ -51,6 +51,11 @@ create table tbl_status_messager(
     status_messagem varchar(50)
 );
 
+CREATE TABLE tbl_convenio (
+    id_convenio INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
 create table tbl_responsavel (
 	id_responsavel int auto_increment primary key,
     nome  varchar(100) not null,
@@ -301,3 +306,30 @@ create table tbl_chat_message(
     foreign key (id_mensagem)
     references tbl_messager(id_mensagem)
 );
+
+///////médico
+ALTER TABLE tbl_medico
+ADD COLUMN id_clinica INT NULL,
+ADD CONSTRAINT FK_CLINICA_MEDICO
+    FOREIGN KEY (id_clinica)
+    REFERENCES tbl_clinica(id_clinica)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE;
+
+//////RESPONSÁVEL
+ALTER TABLE tbl_responsavel
+ADD COLUMN id_convenio INT NULL,
+ADD CONSTRAINT FK_CONVENIO_RESPONSAVEL
+    FOREIGN KEY (id_convenio)
+    REFERENCES tbl_convenio(id_convenio)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE;
+
+//////BEBÊ
+ALTER TABLE tbl_bebe
+ADD COLUMN id_convenio INT NULL,
+ADD CONSTRAINT FK_CONVENIO_BEBE
+    FOREIGN KEY (id_convenio)
+    REFERENCES tbl_convenio(id_convenio)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE;

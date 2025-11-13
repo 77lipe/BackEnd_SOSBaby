@@ -33,8 +33,10 @@ import dotenv from 'dotenv'
 // NODE_ENV=production usa .env.production (nuvem)
 // Padrão usa .env (local)
 if (process.env.NODE_ENV === 'production') {
+  console.log('📍 Carregando .env.production (Banco na NUVEM - Azure)')
   dotenv.config({ path: '.env.production' })
 } else {
+  console.log('📍 Carregando .env (Banco LOCAL)')
   dotenv.config({ path: '.env' })
 }
 

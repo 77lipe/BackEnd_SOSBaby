@@ -89,9 +89,5 @@ app.use('/v1/sosbaby', relatorioRoutes)
 app.use('/v1/sosbaby', TokenCallSolicited)
 
 // Porta para Azure ou padrão 3030
-const PORT = process.env.PORT || 3030;
-
-// Inicializa servidor
-server.listen(PORT, () => {
-  console.log(`✅ API funcionando e aguardando requisições na porta ${PORT}...`);
-});
+const port = process.env.PORT || 3030;
+app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));

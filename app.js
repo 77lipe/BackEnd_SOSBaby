@@ -37,7 +37,6 @@ dotenv.config({
 
 import express from 'express'
 import cors from 'cors'
-import dotenv from 'dotenv'
 import http from 'http'
 import nodemailer from 'nodemailer'
 dotenv.config()

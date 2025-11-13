@@ -69,20 +69,31 @@ import TokenCallSolicited from './routes/videoCallRoutes/index.js'
 import { chatSocketInit } from "./config/chatSocket/index.js";
 
 // Inicializa Prisma
-const prisma = new PrismaClient();
+const prisma = new PrismaClient({
+  log: ['query', 'info', 'warn', 'error'],
+});
 
 // Função para testar a conexão com o banco
 async function testDBConnection() {
   try {
+    console.log('🔍 Testando conexão com o banco de dados...');
+    console.log(`📍 DATABASE_URL: ${process.env.DATABASE_URL}`);
+    console.log(`🌍 NODE_ENV: ${process.env.NODE_ENV || 'development'}`);
+    
     await prisma.$queryRaw`SELECT 1+1 AS result`;
     console.log('✅ Conexão com o banco OK!');
+    console.log('📦 Prisma Client gerado com sucesso');
+    
+    return true;
   } catch (err) {
-    console.error('❌ Erro na conexão com o banco:', err);
+    console.error('❌ Erro na conexão com o banco:', err.message);
+    console.error('⚠️  Verifique as credenciais no arquivo .env');
+    return false;
   }
 }
 
 // Executa o teste de conexão
-testDBConnection();
+const dbConnected = await testDBConnection();
 
 // Inicializa o app e middleware
 const app = express()
@@ -92,6 +103,16 @@ app.use(express.json())
 // Inicializa servidor HTTP para sockets
 const server = http.createServer(app)
 chatSocketInit(server)
+
+// Rota de health check
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    message: 'Servidor rodando',
+    environment: process.env.NODE_ENV || 'development',
+    database: dbConnected ? 'conectado' : 'desconectado'
+  });
+});
 
 // Rotas
 app.use('/v1/sosbaby', babyRoutes)
@@ -118,5 +139,11 @@ app.use('/v1/sosbaby', TokenCallSolicited)
 
 // Porta para Azure ou padrão 3030
 const port = process.env.PORT || 3030;
-server.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
+server.listen(port, () => {
+  console.log('\n' + '='.repeat(50));
+  console.log(`🚀 Servidor rodando na porta ${port}`);
+  console.log(`🌍 Ambiente: ${process.env.NODE_ENV || 'development'}`);
+  console.log(`📊 Banco de dados: ${dbConnected ? '✅ Conectado' : '❌ Desconectado'}`);
+  console.log('='.repeat(50) + '\n');
+});
 

@@ -1,11 +1,8 @@
 #!/bin/bash
 cd /home/site/wwwroot
-
 echo "📦 Instalando dependências..."
-npm ci --omit=dev || npm install
-
-echo "🧠 Gerando Prisma Client (build Linux)..."
-node node_modules/prisma/build/index.js generate
-
+npm install
+echo "⚙️ Gerando Prisma..."
+npx prisma generate
 echo "🚀 Iniciando aplicação..."
-node app.js
+npm start

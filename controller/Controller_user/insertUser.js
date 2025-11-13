@@ -8,7 +8,7 @@
 
 import * as message from '../../config/status/status.js'
 import { insertSQLUser } from "../../model/UserDAO/InsertUser.js";
-import { VerifyEmail } from "../../model/UserDAO/VerificationEmail.js";
+import { VerifyEmail } from "../../model/UserDAO/filterDAO/VerificationEmail.js";
 
 export const insertUser = async function (user,contentType) {
     try {

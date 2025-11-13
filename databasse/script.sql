@@ -333,3 +333,80 @@ ADD CONSTRAINT FK_CONVENIO_BEBE
     REFERENCES tbl_convenio(id_convenio)
     ON DELETE SET NULL
     ON UPDATE CASCADE;
+
+
+
+
+
+
+
+VIEW
+//FILTRO DE NOMES USUÁRIO
+CREATE OR REPLACE VIEW vw_user_info AS
+SELECT 
+    u.id_user,
+    u.nome_user,
+    u.email,
+    t.tipo AS tipo_usuario
+FROM tbl_user u
+INNER JOIN tbl_type_user t
+    ON u.id_tipo = t.id_tipo
+WHERE t.tipo <> 'ADMIN'; 
+
+//FILTRO DE NOMES DO MÉDICO
+CREATE OR REPLACE VIEW vw_medico_info AS
+SELECT 
+    m.id_medico,
+    m.nome AS nome_medico,
+    m.email,
+    m.telefone,
+    m.crm,
+    s.sexo AS sexo_medico,
+    u.nome_user AS usuario_vinculado,
+    c.nome AS nome_clinica
+FROM tbl_medico m
+LEFT JOIN tbl_sexo s ON m.id_sexo = s.id_sexo
+LEFT JOIN tbl_user u ON m.id_user = u.id_user
+LEFT JOIN tbl_clinica c ON m.id_clinica = c.id_clinica
+GROUP BY m.id_medico, m.nome, m.email, m.telefone, m.crm, s.sexo, u.nome_user, c.nome
+ORDER BY m.id_medico DESC;
+
+
+//FILTRO DE NOMES RESPONSÁVEIS
+CREATE OR REPLACE VIEW vw_responsavel_info AS
+SELECT 
+    r.id_responsavel,
+    r.nome AS nome_responsavel,
+    r.data_nascimento,
+    s.sexo AS sexo_responsavel,
+    u.nome_user AS usuario_vinculado,
+    c.nome AS convenio,
+    COUNT(DISTINCT rb.id_bebe) AS total_bebes
+FROM tbl_responsavel r
+LEFT JOIN tbl_sexo s ON r.id_sexo = s.id_sexo
+LEFT JOIN tbl_user u ON r.id_user = u.id_user
+LEFT JOIN tbl_responsavel_bebe rb ON r.id_responsavel = rb.id_responsavel
+LEFT JOIN tbl_convenio c ON r.id_convenio = c.id_convenio
+GROUP BY r.id_responsavel, r.nome, r.data_nascimento, s.sexo, u.nome_user, c.nome
+ORDER BY r.id_responsavel DESC;
+
+//FILTRO DE NOMES BEBÊ
+CREATE OR REPLACE VIEW vw_bebe_info AS
+SELECT 
+    b.id_bebe,
+    b.nome AS nome_bebe,
+    b.data_nascimento,
+    b.peso,
+    b.altura,
+    s.sexo AS sexo_bebe,
+    g.tipo_sanguineo,
+    cv.nome AS convenio,
+    GROUP_CONCAT(DISTINCT r.nome SEPARATOR ', ') AS responsaveis
+FROM tbl_bebe b
+LEFT JOIN tbl_sexo s ON b.id_sexo = s.id_sexo
+LEFT JOIN tbl_sangue g ON b.id_sangue = g.id_sangue
+LEFT JOIN tbl_convenio cv ON b.id_convenio = cv.id_convenio
+LEFT JOIN tbl_responsavel_bebe rb ON b.id_bebe = rb.id_bebe
+LEFT JOIN tbl_responsavel r ON rb.id_responsavel = r.id_responsavel
+GROUP BY b.id_bebe, b.nome, b.data_nascimento, b.peso, b.altura, s.sexo, g.tipo_sanguineo, cv.nome
+ORDER BY b.id_bebe DESC;

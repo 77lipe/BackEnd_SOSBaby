@@ -29,16 +29,10 @@
 
 import dotenv from 'dotenv'
 
-// Carrega as variáveis de ambiente
-// NODE_ENV=production usa .env.production (nuvem)
-// Padrão usa .env.development (local)
-if (process.env.NODE_ENV === 'production') {
-  console.log('📍 Carregando .env.production (Banco na NUVEM - Azure)')
-  dotenv.config({ path: '.env.production' })
-} else {
-  console.log('📍 Carregando .env.development (Banco LOCAL)')
-  dotenv.config({ path: '.env.development' })
-}
+// Carrega apenas o arquivo .env principal (modo simples)
+dotenv.config({ path: '.env' })
+console.log('📍 Carregando .env (Arquivo único)')
+
 
 import express from 'express'
 import cors from 'cors'
@@ -64,11 +58,11 @@ import tipSubcategoryRoutes from './routes/tipRoutes/TipSubRoutes/index.js'
 import chatRoutes from './routes/chatRoutes/index.js'
 import messageRoutes from './routes/messageRoutes/index.js'
 import ChatMessageRoutes from './routes/chatRoutes/chatMessageRoutes/index.js'
+import { chatSocketInit } from './config/chatSocket/index.js'
 import clinicaRoutes from './routes/clinicaRoutes/index.js'
 import chatIARoutes from './routes/IAchatRoutes/index.js'
 import relatorioRoutes from './routes/relatorioRoutes/index.js'
 import TokenCallSolicited from './routes/videoCallRoutes/index.js'
-import { chatSocketInit } from "./config/chatSocket/index.js";
 
 // Inicializa Prisma
 const prisma = new PrismaClient({
@@ -144,17 +138,8 @@ const port = process.env.PORT || 3030;
 server.listen(port, () => {
   console.log('\n' + '='.repeat(50));
   console.log(`🚀 Servidor rodando na porta ${port}`);
-  const env = process.env.NODE_ENV || 'development'
-  console.log(`🌍 Ambiente: ${env}`);
-  const using = env === 'production' ? 'NUVEM (env: .env.production)' : 'LOCAL (env: .env.development)'
-  console.log(`📌 Mapeamento de banco: ${using}`);
   console.log(`📊 Conexão com banco: ${dbConnected ? '✅ Conectado' : '❌ Desconectado'}`);
+  console.log(`📄 Carregando .env (Arquivo único)`);
   console.log('='.repeat(50) + '\n');
-  // Mensagem simples para uso com `node app.js`
-  if (env === 'production') {
-    console.log('API rodando (modo: NUVEM) - comandos de DEV irão usar o banco na nuvem.');
-  } else {
-    console.log('API rodando (modo: LOCAL) - comandos `npm start` usam banco local.');
-  }
 });
 

@@ -1,19 +1,285 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
-// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
-
 generator client {
   provider = "prisma-client-js"
 }
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
-  // Configurar SSL para conexões Azure MySQL
-  // Descomente a linha abaixo se tiver problemas de conexão SSL
-  // relationMode = "prisma"
+  url      = "sosbaby:Bcd127tcc@sosbaby.mysql.database.azure.com:3306/sosbaby"
 }
 
+model tbl_bebe {
+  id_bebe              Int                    @id @default(autoincrement())
+  nome                 String                 @db.VarChar(100)
+  data_nascimento      DateTime               @db.Date
+  peso                 Decimal                @db.Decimal(2, 0)
+  altura               Int
+  certidao_nascimento  String                 @db.VarChar(50)
+  cpf                  String?                @db.VarChar(15)
+  cartao_medico        String                 @db.VarChar(45)
+  imagem_certidao      String                 @db.Text
+  id_sexo              Int?
+  id_sangue            Int?
+  tbl_sangue           tbl_sangue?            @relation(fields: [id_sangue], references: [id_sangue], onDelete: NoAction, onUpdate: NoAction, map: "FK_SANGUE_RESPONSAVEL")
+  tbl_sexo             tbl_sexo?              @relation(fields: [id_sexo], references: [id_sexo], onDelete: NoAction, onUpdate: NoAction, map: "FK_SEXO_BEBE")
+  tbl_responsavel_bebe tbl_responsavel_bebe[]
 
+  @@index([id_sangue], map: "FK_SANGUE_RESPONSAVEL")
+  @@index([id_sexo], map: "FK_SEXO_BEBE")
+}
+
+model tbl_calendario {
+  id_calendario   Int      @id @default(autoincrement())
+  id_user         Int
+  titulo          String   @db.VarChar(100)
+  descricao       String?  @db.Text
+  data_calendario DateTime @db.Date
+  hora_calendario DateTime @db.Time(0)
+  cor             String   @db.Char(10)
+  alarme_ativo    Boolean? @default(false)
+  tbl_user        tbl_user @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "FK_CALENDARIO_USER")
+
+  @@index([id_user], map: "FK_CALENDARIO_USER")
+}
+
+model tbl_categoria {
+  id_categoria   Int        @id @default(autoincrement())
+  nome_categoria String     @db.VarChar(50)
+  tbl_dica       tbl_dica[]
+}
+
+model tbl_chat {
+  id_chat          Int                @id @default(autoincrement())
+  nome_chat        String             @db.VarChar(100)
+  tbl_chat_message tbl_chat_message[]
+  tbl_messager     tbl_messager[]
+}
+
+model tbl_chat_message {
+  id_chat_user Int           @id @default(autoincrement())
+  id_chat      Int?
+  id_mensagem  Int?
+  tbl_chat     tbl_chat?     @relation(fields: [id_chat], references: [id_chat], onDelete: NoAction, onUpdate: NoAction, map: "FK_CHAT_USER_CHAT")
+  tbl_messager tbl_messager? @relation(fields: [id_mensagem], references: [id_mensagem], onDelete: NoAction, onUpdate: NoAction, map: "FK_CHAT_USER_USER")
+
+  @@index([id_chat], map: "FK_CHAT_USER_CHAT")
+  @@index([id_mensagem], map: "FK_CHAT_USER_USER")
+}
+
+model tbl_clinica {
+  id_clinica                Int                         @id @default(autoincrement())
+  nome                      String                      @db.VarChar(100)
+  cnpj                      String                      @db.VarChar(20)
+  telefone                  String                      @db.VarChar(20)
+  email                     String                      @db.VarChar(100)
+  cidade                    String                      @db.VarChar(100)
+  rua                       String                      @db.VarChar(150)
+  bairro                    String                      @db.VarChar(100)
+  numero                    String                      @db.VarChar(10)
+  id_user                   Int?
+  tbl_user                  tbl_user?                   @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "FK_USUARIO_CLINICA")
+  tbl_especialidade_clinica tbl_especialidade_clinica[]
+
+  @@index([id_user], map: "FK_USUARIO_CLINICA")
+}
+
+model tbl_dica {
+  id_dica               Int                     @id @default(autoincrement())
+  titulo                String                  @db.VarChar(150)
+  conteudo              String                  @db.Text
+  imagem                String?                 @db.VarChar(255)
+  id_categoria          Int
+  tbl_categoria         tbl_categoria           @relation(fields: [id_categoria], references: [id_categoria], onDelete: NoAction, onUpdate: NoAction, map: "FK_DICA_CATEGORIA")
+  tbl_dica_subcategoria tbl_dica_subcategoria[]
+  tbl_favorito          tbl_favorito[]
+
+  @@index([id_categoria], map: "FK_DICA_CATEGORIA")
+}
+
+model tbl_dica_subcategoria {
+  id_relacionamento Int              @id @default(autoincrement())
+  id_dica           Int
+  id_subcategoria   Int
+  tbl_dica          tbl_dica         @relation(fields: [id_dica], references: [id_dica], onDelete: NoAction, onUpdate: NoAction, map: "FK_CATEGORIA_SUB_CATEGORIA")
+  tbl_subcategoria  tbl_subcategoria @relation(fields: [id_subcategoria], references: [id_subcategoria], onDelete: NoAction, onUpdate: NoAction, map: "FK_CATEGORIA_SUB_SUB")
+
+  @@index([id_dica], map: "FK_CATEGORIA_SUB_CATEGORIA")
+  @@index([id_subcategoria], map: "FK_CATEGORIA_SUB_SUB")
+}
+
+model tbl_especialidade {
+  id_especialidade          Int                         @id @default(autoincrement())
+  especialidade             String?                     @db.VarChar(100)
+  tbl_especialidade_clinica tbl_especialidade_clinica[]
+  tbl_especialidade_medico  tbl_especialidade_medico[]
+}
+
+model tbl_especialidade_clinica {
+  id                Int                @id @default(autoincrement())
+  id_clinica        Int?
+  id_especialidade  Int?
+  tbl_clinica       tbl_clinica?       @relation(fields: [id_clinica], references: [id_clinica], onDelete: NoAction, onUpdate: NoAction, map: "FK_CLINICA")
+  tbl_especialidade tbl_especialidade? @relation(fields: [id_especialidade], references: [id_especialidade], onDelete: NoAction, onUpdate: NoAction, map: "FK_ESPECIALIDADE_CLINICA")
+
+  @@index([id_clinica], map: "FK_CLINICA")
+  @@index([id_especialidade], map: "FK_ESPECIALIDADE_CLINICA")
+}
+
+model tbl_especialidade_medico {
+  id                Int                @id @default(autoincrement())
+  id_medico         Int?
+  id_especialidade  Int?
+  tbl_especialidade tbl_especialidade? @relation(fields: [id_especialidade], references: [id_especialidade], onDelete: NoAction, onUpdate: NoAction, map: "FK_ESPECIALIDADE_MEDICO")
+  tbl_medico        tbl_medico?        @relation(fields: [id_medico], references: [id_medico], onDelete: NoAction, onUpdate: NoAction, map: "FK_MEDICO")
+
+  @@index([id_especialidade], map: "FK_ESPECIALIDADE_MEDICO")
+  @@index([id_medico], map: "FK_MEDICO")
+}
+
+model tbl_favorito {
+  id_favorito Int      @id @default(autoincrement())
+  id_user     Int
+  id_dica     Int
+  tbl_dica    tbl_dica @relation(fields: [id_dica], references: [id_dica], onDelete: Cascade, onUpdate: NoAction, map: "FK_FAVORITO_DICA")
+  tbl_user    tbl_user @relation(fields: [id_user], references: [id_user], onDelete: Cascade, onUpdate: NoAction, map: "FK_FAVORITO_USER")
+
+  @@unique([id_user, id_dica], map: "id_user")
+  @@index([id_dica], map: "FK_FAVORITO_DICA")
+}
+
+model tbl_medico {
+  id_medico                Int                        @id @default(autoincrement())
+  nome                     String                     @db.VarChar(60)
+  email                    String                     @db.VarChar(100)
+  telefone                 String                     @db.VarChar(20)
+  crm                      String                     @db.VarChar(20)
+  cpf                      String                     @db.VarChar(20)
+  foto                     String                     @db.Text
+  id_sexo                  Int?
+  id_user                  Int?
+  tbl_especialidade_medico tbl_especialidade_medico[]
+  tbl_sexo                 tbl_sexo?                  @relation(fields: [id_sexo], references: [id_sexo], onDelete: NoAction, onUpdate: NoAction, map: "FK_SEXO_MEDICO")
+  tbl_user                 tbl_user?                  @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "FK_USUARIO_MEDICO")
+
+  @@index([id_sexo], map: "FK_SEXO_MEDICO")
+  @@index([id_user], map: "FK_USUARIO_MEDICO")
+}
+
+model tbl_messager {
+  id_mensagem      Int                @id @default(autoincrement())
+  conteudo         String             @db.Text
+  id_chat          Int?
+  id_user          Int?
+  created_at       DateTime?          @default(now()) @db.DateTime(0)
+  tbl_chat_message tbl_chat_message[]
+  tbl_chat         tbl_chat?          @relation(fields: [id_chat], references: [id_chat], onDelete: NoAction, onUpdate: NoAction, map: "FK_MENSAGEM_CHAT")
+  tbl_user         tbl_user?          @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "FK_MENSAGEM_USER")
+
+  @@index([id_chat], map: "FK_MENSAGEM_CHAT")
+  @@index([id_user], map: "FK_MENSAGEM_USER")
+}
+
+model tbl_responsavel {
+  id_responsavel       Int                    @id @default(autoincrement())
+  nome                 String                 @db.VarChar(100)
+  data_nascimento      DateTime               @db.Date
+  cpf                  String                 @db.VarChar(15)
+  telefone             String                 @db.VarChar(45)
+  arquivo              String                 @db.Text
+  cartao_medico        String                 @db.VarChar(45)
+  cep                  String                 @db.VarChar(20)
+  id_sexo              Int?
+  id_user              Int?
+  tbl_sexo             tbl_sexo?              @relation(fields: [id_sexo], references: [id_sexo], onDelete: NoAction, onUpdate: NoAction, map: "FK_RESPONSAVEL_SEX")
+  tbl_user             tbl_user?              @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "FK_USUARIO_RESPONSAVEL")
+  tbl_responsavel_bebe tbl_responsavel_bebe[]
+
+  @@index([id_sexo], map: "FK_RESPONSAVEL_SEX")
+  @@index([id_user], map: "FK_USUARIO_RESPONSAVEL")
+}
+
+model tbl_responsavel_bebe {
+  id_bebe_responsavel Int              @id @default(autoincrement())
+  id_bebe             Int?
+  id_responsavel      Int?
+  tbl_bebe            tbl_bebe?        @relation(fields: [id_bebe], references: [id_bebe], onDelete: NoAction, onUpdate: NoAction, map: "FK_BEBE")
+  tbl_responsavel     tbl_responsavel? @relation(fields: [id_responsavel], references: [id_responsavel], onDelete: NoAction, onUpdate: NoAction, map: "FK_RESPONSAVEL")
+
+  @@index([id_bebe], map: "FK_BEBE")
+  @@index([id_responsavel], map: "FK_RESPONSAVEL")
+}
+
+model tbl_rotina {
+  id_rotina       Int              @id @default(autoincrement())
+  titulo          String           @db.VarChar(100)
+  cor             String           @db.Char(10)
+  id_user         Int?
+  id_item_rotina  Int?
+  tbl_rotina_item tbl_rotina_item? @relation(fields: [id_item_rotina], references: [id_item], onDelete: NoAction, onUpdate: NoAction, map: "FK_ITEM_ROTINA")
+  tbl_user        tbl_user?        @relation(fields: [id_user], references: [id_user], onDelete: NoAction, onUpdate: NoAction, map: "FK_ROTINA_USUARIO")
+
+  @@index([id_item_rotina], map: "FK_ITEM_ROTINA")
+  @@index([id_user], map: "FK_ROTINA_USUARIO")
+}
+
+model tbl_rotina_item {
+  id_item     Int          @id @default(autoincrement())
+  titulo      String       @db.VarChar(100)
+  descricao   String?      @db.Text
+  data_rotina DateTime     @db.Date
+  hora        DateTime     @db.Time(0)
+  tbl_rotina  tbl_rotina[]
+}
+
+model tbl_sangue {
+  id_sangue      Int        @id @default(autoincrement())
+  tipo_sanguineo String     @db.VarChar(4)
+  tbl_bebe       tbl_bebe[]
+}
+
+model tbl_sexo {
+  id_sexo         Int               @id @default(autoincrement())
+  sexo            String            @db.VarChar(12)
+  tbl_bebe        tbl_bebe[]
+  tbl_medico      tbl_medico[]
+  tbl_responsavel tbl_responsavel[]
+}
+
+model tbl_status_messager {
+  id_status       Int     @id @default(autoincrement())
+  status_messagem String? @db.VarChar(50)
+}
+
+model tbl_subcategoria {
+  id_subcategoria       Int                     @id @default(autoincrement())
+  nome_subcategoria     String                  @db.VarChar(50)
+  tbl_dica_subcategoria tbl_dica_subcategoria[]
+}
+
+model tbl_type_messager {
+  id_tipo_mensagem Int     @id @default(autoincrement())
+  tipo_mensagem    String? @db.VarChar(50)
+}
+
+model tbl_type_user {
+  id_tipo  Int        @id @default(autoincrement())
+  tipo     String?    @db.VarChar(50)
+  tbl_user tbl_user[]
+}
+
+model tbl_user {
+  id_user         Int               @id @default(autoincrement())
+  nome_user       String            @db.VarChar(100)
+  email           String            @db.VarChar(100)
+  senha           String            @db.VarChar(100)
+  id_tipo         Int?
+  tbl_calendario  tbl_calendario[]
+  tbl_clinica     tbl_clinica[]
+  tbl_favorito    tbl_favorito[]
+  tbl_medico      tbl_medico[]
+  tbl_messager    tbl_messager[]
+  tbl_responsavel tbl_responsavel[]
+  tbl_rotina      tbl_rotina[]
+  tbl_type_user   tbl_type_user?    @relation(fields: [id_tipo], references: [id_tipo], onDelete: NoAction, onUpdate: NoAction, map: "FK_TIPO_USER")
+
+  @@index([id_tipo], map: "FK_TIPO_USER")
+}

@@ -144,8 +144,17 @@ const port = process.env.PORT || 3030;
 server.listen(port, () => {
   console.log('\n' + '='.repeat(50));
   console.log(`🚀 Servidor rodando na porta ${port}`);
-  console.log(`🌍 Ambiente: ${process.env.NODE_ENV || 'development'}`);
-  console.log(`📊 Banco de dados: ${dbConnected ? '✅ Conectado' : '❌ Desconectado'}`);
+  const env = process.env.NODE_ENV || 'development'
+  console.log(`🌍 Ambiente: ${env}`);
+  const using = env === 'production' ? 'NUVEM (env: .env.production)' : 'LOCAL (env: .env)'
+  console.log(`📌 Mapeamento de banco: ${using}`);
+  console.log(`📊 Conexão com banco: ${dbConnected ? '✅ Conectado' : '❌ Desconectado'}`);
   console.log('='.repeat(50) + '\n');
+  // Mensagem simples para uso com `node app.js`
+  if (env === 'production') {
+    console.log('API rodando (modo: NUVEM) - comandos de DEV irão usar o banco na nuvem.');
+  } else {
+    console.log('API rodando (modo: LOCAL) - comandos `node app.js` usam banco local.');
+  }
 });
 

@@ -4,9 +4,9 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "build": "npx prisma generate",
-    "postinstall": "npm run build"
+  "start": "node app.js",
+  "build": "npx prisma generate",
+  "postinstall": "npm run build"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

@@ -26,6 +26,14 @@
  * 
  **************************************************/
 
+import dotenv from 'dotenv'
+
+// Carrega o .env correto conforme o ambiente
+dotenv.config({
+  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env'
+})
+
+
 
 import express from 'express'
 import cors from 'cors'
@@ -90,6 +98,8 @@ app.use('/v1/sosbaby', chatIARoutes)
 app.use('/v1/sosbaby', relatorioRoutes)
 app.use('/v1/sosbaby', TokenCallSolicited)
 
-app.listen('3030', function(){
-    console.log('API funcionando e aguardando requisições...')
-})
+const PORT = process.env.PORT || 3030;
+
+app.listen(PORT, () => {
+  console.log(`✅ API funcionando e aguardando requisições na porta ${PORT}...`);
+});

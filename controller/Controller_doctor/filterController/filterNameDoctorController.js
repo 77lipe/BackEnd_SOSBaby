@@ -8,3 +8,12 @@
 
 import * as message from '../../../config/status/status.js   '
 import { filterNameSQLDoctor } from '../../../model/DoctorDAO/filterDAO/filterNameDoctor.js'
+
+export const filterNameDoctorController = async function (dataName){
+    try {
+        
+        
+    } catch (error) {
+        
+    }
+} 

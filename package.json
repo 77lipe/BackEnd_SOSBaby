@@ -4,9 +4,9 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
-  "start": "node app.js",
-  "dev": "nodemon app.js",
-  "postinstall": "npx prisma generate"
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "postinstall": "npx prisma generate"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",
@@ -26,6 +26,7 @@
     "node": ">=18"
   },
   "devDependencies": {
+    "nodemon": "^3.1.11",
     "prisma": "^6.19.0"
   }
 }

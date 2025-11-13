@@ -2,7 +2,29 @@
  * Autor: Felipe Vieira
  * Date: 16/09/25
  * Versão: 1.0
- * Desc: App completo para backend SOSBaby, pronto para Azure
+ * Desc: App que irá conter as rotas e end-points
+ * 
+ * Instalações necessárias:
+ *     Para criar a API precisamos instalar:
+ *          * express           npm install express --save
+ *          * cors              npm install cors --save
+ *          * body-parser       npm install body-parser --save
+ *
+ *      Para criar a integração com o Banco de Dados precisamos instalar:
+ *          * prisma            npm install prisma --save           (para fazer conexão com o BD)
+ *          * prisma/client     npm install @prisma/client --save   (para rodar os scripts SQL)
+ *        
+ * 
+ *            Após a instalação do prisma e do prisma client, devemos:
+ *              npx prisma init
+ *            Você deverá configurar o arquivo .env e schema.prisma com as credenciais do BD
+ *            Após essa configuração deverá rodar o seguinte comando:
+ *               npx prisma migrate dev
+ * 
+ *              npm install jsonwebtoken bcryptjs nodemailer dotenv socket.io @google/generative-ai twilio 
+ * 
+ *              npm install --save-dev nodemon
+ * 
  **************************************************/
 
 import dotenv from 'dotenv'
@@ -90,4 +112,5 @@ app.use('/v1/sosbaby', TokenCallSolicited)
 
 // Porta para Azure ou padrão 3030
 const port = process.env.PORT || 3030;
-app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
+server.listen(port, () => console.log(`Servidor rodando na porta ${port}`));
+

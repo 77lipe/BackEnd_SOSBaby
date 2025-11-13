@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
   "start": "node app.js",
-  "build": "npx prisma generate",
-  "postinstall": "npm run build"
+  "dev": "nodemon app.js",
+  "build": "npx prisma generate"
   },
   "dependencies": {
     "@google/generative-ai": "^0.24.1",

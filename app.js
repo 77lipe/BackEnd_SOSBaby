@@ -34,6 +34,16 @@ dotenv.config({
 })
 
 
+async function testDBConnection() {
+    try {
+      await prisma.$queryRaw`SELECT 1+1 AS result`;
+      console.log('✅ Conexão com o banco OK!');
+    } catch (err) {
+      console.error('❌ Erro na conexão com o banco:', err);
+    }
+  }
+  
+  testDBConnection();
 
 import express from 'express'
 import cors from 'cors'

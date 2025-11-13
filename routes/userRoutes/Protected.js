@@ -18,13 +18,13 @@ routerProtected.get("/user/responsable", authmiddle, authAccess("Responsável"),
     })
 })
 
-routerProtected.get("/user/medico", authmiddle, authAccess("Médico", "Clínica"), (req, res) => {
+routerProtected.get("/user/medico", authmiddle, authAccess(["Médico", "Clínica"]), (req, res) => {
     res.json({
         message: "Acesso permitido: Bem-Vindo User-Médico/Clínica"
     })
 })
 
-routerProtected.get("/user/admin", authmiddle, authAccess("ADM"), (req, res) => {
+routerProtected.get("/user/admin", authmiddle, authAccess("ADMIN"), (req, res) => {
     res.json({
         message: "Acesso permitido: Bem-Vindo ADMIN"
     })

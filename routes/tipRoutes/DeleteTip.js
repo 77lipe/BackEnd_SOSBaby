@@ -11,8 +11,9 @@ import cors from 'cors'
 const routerDeleteTip = Router()
 
 import { deleteDica } from '../../controller/Controller_tip/deleteTip.js'
+import {authAccess} from '../../config/middleware/authAcces.js'
 
-routerDeleteTip.delete('/tip/:id', cors(), async (req, res) => {
+routerDeleteTip.delete('/tip/:id', cors(), authAccess("ADMIN") ,async (req, res) => {
     
     let id = req.params.id
     let resultDeleteTip = await deleteDica(id)

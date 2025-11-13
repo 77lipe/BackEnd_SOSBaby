@@ -13,7 +13,7 @@ const routerAllRoutineRespon = Router()
 import {getAllRoutinesResponsable} from "../../../controller/Controllers_routines/controller_rotineRespon/getAllRoutineRespon.js";
 import { authAccess } from "../../../config/middleware/authAcces.js";
 
-routerAllRoutineRespon.get('/routineResp', cors(), authAccess("Responsável" || "ADMIN"),async(req, res) => {
+routerAllRoutineRespon.get('/routineResp', cors(), authAccess(["Responsável", "ADMIN"]),async(req, res) => {
 
    let resultAllRoutineRespon = await getAllRoutinesResponsable()
    return res.status(resultAllRoutineRespon.status_code).json(resultAllRoutineRespon)

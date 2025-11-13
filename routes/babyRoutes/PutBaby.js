@@ -13,7 +13,7 @@ const routerUpdateBaby = Router()
 import { updateBebe } from "../../controller/Controller_baby/updateBebe.js";
 import { authAccess } from "../../config/middleware/authAcces.js";
 
-routerUpdateBaby.put('/baby/:id', bodyParser, authAccess("Responsável" || "ADMIN") ,async (req, res) => {
+routerUpdateBaby.put('/baby/:id', bodyParser, authAccess(["Responsável", "ADMIN"]) ,async (req, res) => {
 
     let id = req.params.id
     let contentType = req.headers['content-type']

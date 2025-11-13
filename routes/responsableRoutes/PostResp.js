@@ -16,7 +16,7 @@ import { authAccess } from "../../config/middleware/authAcces.js";
 
 const bodyJsonParser = bodyParser.json()
 
-routerInsertResponsable.post('/resp/cadastro', bodyJsonParser, authAccess("Responsável" || "ADMIN") ,async (req,res) =>{
+routerInsertResponsable.post('/resp/cadastro', bodyJsonParser, authAccess(["Responsável", "ADMIN"]) ,async (req,res) =>{
     
     let contentType = req.headers['content-type']
     let dataResponsable = req.body

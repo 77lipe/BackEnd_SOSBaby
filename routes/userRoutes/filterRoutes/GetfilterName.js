@@ -12,8 +12,9 @@ import bodyParser from 'body-parser'
 const bodyJsonParser = bodyParser.json()
 const routerFilterName = Router()
 import { FilterNameController } from '../../../controller/Controller_user/ControllerFilter/FilterNameControlller.js'
+import { authAccess} from '../../../config/middleware/authAcces.js'
 
-routerFilterName.post('/filter/names', bodyJsonParser, async (req, res) => {
+routerFilterName.post('/filter/names', bodyJsonParser, authAccess(["Médico", "Clínica", "ADMIN"]),async (req, res) => {
 
     const contentType = req.headers['content-type']
     const dataName = req.body

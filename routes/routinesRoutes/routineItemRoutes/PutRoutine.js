@@ -16,7 +16,7 @@ import { authAccess } from "../../../config/middleware/authAcces.js";
 const routerUpdateRoutineItem = Router()
 const bodyJsonParser = bodyParser.json()
 
-routerUpdateRoutineItem.put('/routineItem/:id', cors(), bodyJsonParser, authAccess("ADMIN" || "Responsável"),async (req, res) => {
+routerUpdateRoutineItem.put('/routineItem/:id', cors(), bodyJsonParser, authAccess(["ADMIN", "Responsável"]),async (req, res) => {
 
     let id = req.params.id
     let contentType = req.body['content-type']

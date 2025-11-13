@@ -11,10 +11,11 @@ import { Router } from 'express'
 const routerInsertTypeUser = Router()
 
 import {insertTypeUser} from "../../controller/Controller_type_user/InsertTypeUser.js"
+import { authAccess } from '../../config/middleware/authAcces.js'
 
 const bodyJsonParser = bodyParser.json()
 
-routerInsertTypeUser.post('/type/cadastro', bodyJsonParser, async (req,res) =>{
+routerInsertTypeUser.post('/type/cadastro', bodyJsonParser, authAccess("ADMIN"), async (req,res) =>{
     
     let contentType = req.headers['content-type']
     let dataTypeUser = req.body

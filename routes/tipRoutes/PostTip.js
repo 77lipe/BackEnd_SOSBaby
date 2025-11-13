@@ -13,8 +13,9 @@ const routerInsertTip = Router()
 const bodyJsonParser = bodyParser.json()
 
 import { insertDica } from "../../controller/Controller_tip/insertTip.js";
+import {authAccess} from '../../config/middleware/authAcces.js'
 
-routerInsertTip.post('/tip/cadastro', bodyJsonParser, async (req,res) =>{
+routerInsertTip.post('/tip/cadastro', bodyJsonParser, authAccess("ADMIN"), async (req,res) =>{
     
     let contentType = req.headers['content-type']
     let dataTip = req.body

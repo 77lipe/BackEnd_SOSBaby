@@ -13,8 +13,9 @@ const routerUpdateTip = Router()
 const bodyJsonParser = bodyParser.json()
 
 import { updateDicas } from "../../controller/Controller_tip/updateTip.js"
+import {authAccess} from '../../config/middleware/authAcces.js'
 
-routerUpdateTip.put('/tip/:id', bodyJsonParser, async (req,res) =>{
+routerUpdateTip.put('/tip/:id', bodyJsonParser, authAccess("ADMIN"), async (req,res) =>{
     
     let id = req.params.id
     let contentType = req.headers['content-type']

@@ -14,7 +14,7 @@ const bodyJsonParser = bodyParser.json()
 import {insertDoctor} from "../../controller/Controller_doctor/insertDoctor.js"
 import { authAccess } from "../../config/middleware/authAcces.js";
 
-routerInsertDoctor.post('/doctor/cadastro', bodyJsonParser, authAccess("Médico" || "ADMIN") ,async (req,res) =>{
+routerInsertDoctor.post('/doctor/cadastro', bodyJsonParser, authAccess(["Médico", "ADMIN"]) ,async (req,res) =>{
     
     let contentType = req.headers['content-type']
     let dataDoc = req.body

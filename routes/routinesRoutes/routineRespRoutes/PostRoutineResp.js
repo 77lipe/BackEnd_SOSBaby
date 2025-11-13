@@ -15,7 +15,7 @@ import { authAccess } from "../../../config/middleware/authAcces.js";
 
 const bodyJsonParser = bodyParser.json()
 
-routerInsertRoutineRespon.post('/routineResp/cadastro', bodyJsonParser, authAccess("Responsável" || "ADMIN"),async (req,res) =>{
+routerInsertRoutineRespon.post('/routineResp/cadastro', bodyJsonParser, authAccess(["Responsável", "ADMIN"]),async (req,res) =>{
     
     let contentType = req.headers['content-type']
     let dataRespon = req.body

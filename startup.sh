@@ -1,9 +1,5 @@
 #!/bin/bash
-echo "📦 Instalando dependências..."
+cd /home/site/wwwroot
 npm install
-
-echo "⚙️ Gerando Prisma Client..."
 npx prisma generate
-
-echo "🚀 Iniciando servidor..."
-npm run start
+npm start

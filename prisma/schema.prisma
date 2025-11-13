@@ -11,5 +11,9 @@ generator client {
 datasource db {
   provider = "mysql"
   url      = env("DATABASE_URL")
+  // Configurar SSL para conexões Azure MySQL
+  // Descomente a linha abaixo se tiver problemas de conexão SSL
+  // relationMode = "prisma"
 }
+
 

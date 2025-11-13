@@ -39,7 +39,6 @@ import express from 'express'
 import cors from 'cors'
 import http from 'http'
 import nodemailer from 'nodemailer'
-dotenv.config()
 
 import babyRoutes from './routes/babyRoutes/index.js'
 import userRoutes from './routes/userRoutes/index.js'

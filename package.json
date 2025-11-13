@@ -4,10 +4,10 @@
   "type": "module",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "cross-env NODE_ENV=production nodemon app.js",
-    "prod": "cross-env NODE_ENV=production node app.js",
-    "prod:dev": "cross-env NODE_ENV=production nodemon app.js",
+    "start": "node start.js",
+    "dev": "cross-env NODE_ENV=production nodemon start.js",
+    "prod": "cross-env NODE_ENV=production node start.js",
+    "prod:dev": "cross-env NODE_ENV=production nodemon start.js",
     "test:env": "node scripts/testEnv.js",
     "test:env:prod": "NODE_ENV=production node scripts/testEnv.js",
     "postinstall": "npx prisma generate"

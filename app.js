@@ -2,38 +2,21 @@
  * Autor: Felipe Vieira
  * Date: 16/09/25
  * Versão: 1.0
- * Desc: App que irá conter as rotas e end-points
- * 
- * Instalações necessárias:
- *     Para criar a API precisamos instalar:
- *          * express           npm install express --save
- *          * cors              npm install cors --save
- *          * body-parser       npm install body-parser --save
- *
- *      Para criar a integração com o Banco de Dados precisamos instalar:
- *          * prisma            npm install prisma --save           (para fazer conexão com o BD)
- *          * prisma/client     npm install @prisma/client --save   (para rodar os scripts SQL)
- *        
- * 
- *            Após a instalação do prisma e do prisma client, devemos:
- *              npx prisma init
- *            Você deverá configurar o arquivo .env e schema.prisma com as credenciais do BD
- *            Após essa configuração deverá rodar o seguinte comando:
- *               npx prisma migrate dev
- * 
- *              npm install jsonwebtoken bcryptjs nodemailer dotenv socket.io @google/generative-ai twilio
-
- * 
+ * Desc: App completo para backend SOSBaby, pronto para Azure
  **************************************************/
 
+import dotenv from 'dotenv'
+dotenv.config({
+  path: process.env.NODE_ENV === 'production' ? '.env.production' : '.env'
+})
 
 import express from 'express'
 import cors from 'cors'
-import dotenv from 'dotenv'
 import http from 'http'
+import { PrismaClient } from '@prisma/client'
 import nodemailer from 'nodemailer'
-dotenv.config()
 
+// Importação das rotas
 import babyRoutes from './routes/babyRoutes/index.js'
 import userRoutes from './routes/userRoutes/index.js'
 import responsableRoutes from './routes/ResponsableRoutes/index.js'
@@ -55,19 +38,34 @@ import clinicaRoutes from './routes/clinicaRoutes/index.js'
 import chatIARoutes from './routes/IAchatRoutes/index.js'
 import relatorioRoutes from './routes/relatorioRoutes/index.js'
 import TokenCallSolicited from './routes/videoCallRoutes/index.js'
-
 import { chatSocketInit } from "./config/chatSocket/index.js";
 
+// Inicializa Prisma
+const prisma = new PrismaClient();
 
+// Função para testar a conexão com o banco
+async function testDBConnection() {
+  try {
+    await prisma.$queryRaw`SELECT 1+1 AS result`;
+    console.log('✅ Conexão com o banco OK!');
+  } catch (err) {
+    console.error('❌ Erro na conexão com o banco:', err);
+  }
+}
+
+// Executa o teste de conexão
+testDBConnection();
+
+// Inicializa o app e middleware
 const app = express()
 app.use(cors())
 app.use(express.json())
 
-// Parte dedicada ao Chat em tempo real:
+// Inicializa servidor HTTP para sockets
 const server = http.createServer(app)
 chatSocketInit(server)
 
-
+// Rotas
 app.use('/v1/sosbaby', babyRoutes)
 app.use('/v1/sosbaby', userRoutes)
 app.use('/v1/sosbaby', responsableRoutes)
@@ -90,6 +88,6 @@ app.use('/v1/sosbaby', chatIARoutes)
 app.use('/v1/sosbaby', relatorioRoutes)
 app.use('/v1/sosbaby', TokenCallSolicited)
 
-app.listen('3030', function(){
-    console.log('API funcionando e aguardando requisições...')
-})
+// Porta para Azure ou padrão 3030
+const port = process.env.PORT || 3030;
+app.listen(port, () => console.log(`Servidor rodando na porta ${port}`));

@@ -126,6 +126,29 @@ model tbl_favorito {
   @@index([id_dica], map: "FK_FAVORITO_DICA")
 }
 
+model tbl_bebe {
+  id_bebe             Int                     @id @default(autoincrement())
+  nome                String                  @db.VarChar(100)
+  data_nascimento     DateTime                @db.Date
+  peso                Decimal                 @db.Decimal(2, 0)
+  altura              Int
+  certidao_nascimento String                  @db.VarChar(50)
+  cpf                 String?                 @db.VarChar(15)
+  cartao_medico       String                  @db.VarChar(45)
+  imagem_certidao     String                  @db.Text
+  id_sexo             Int?
+  id_sangue           Int?
+
+  // Relações
+  tbl_sexo            tbl_sexo?               @relation(fields: [id_sexo], references: [id_sexo], onDelete: NoAction, onUpdate: NoAction, map: "FK_SEXO_BEBE")
+  tbl_sangue          tbl_sangue?             @relation(fields: [id_sangue], references: [id_sangue], onDelete: NoAction, onUpdate: NoAction, map: "FK_SANGUE_RESPONSAVEL")
+  tbl_responsavel_bebe tbl_responsavel_bebe[]
+
+  @@index([id_sexo], map: "FK_SEXO_BEBE")
+  @@index([id_sangue], map: "FK_SANGUE_RESPONSAVEL")
+}
+
+
 model tbl_medico {
   id_medico                Int                        @id @default(autoincrement())
   nome                     String                     @db.VarChar(60)

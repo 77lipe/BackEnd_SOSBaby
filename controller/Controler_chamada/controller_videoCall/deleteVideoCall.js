@@ -1,5 +1,5 @@
-import * as message from '../../config/status/status.js'
-import { deleteSQLChamada } from '../../model/ChamadaDAO/DeleteSQLChamada.js'
+import * as message from '../../../config/status/status.js'
+import { deleteSQLChamada } from '../../../model/ChamadaDAO/videoCall/deleteSQLChamada.js'
 
 export const deleteChamada = async function (id) {
     try {

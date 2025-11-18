@@ -6,6 +6,7 @@
   "scripts": {
     "start": "node app.js",
     "dev": "nodemon app.js",
+    "build": "npx prisma generate",
     "postinstall": "npx prisma generate"
   },
   "dependencies": {

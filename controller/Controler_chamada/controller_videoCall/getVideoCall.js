@@ -1,5 +1,5 @@
-import * as message from '../../config/status/status.js'
-import { selectChamadaById } from '../../model/ChamadaDAO/selectChamadaById.js'
+import * as message from '../../../config/status/status.js'
+import { selectChamadaById } from '../../../model/ChamadaDAO/videoCall/getSQLChamada.js'
 
 export const getChamada = async function (id) {
     try {

@@ -1,5 +1,5 @@
-import * as message from '../../config/status/status.js'
-import { insertSQLChamadaParticipante } from '../../model/ChamadaDAO/InsertSQLChamadaParticipante.js'
+import * as message from '../../../config/status/status.js'
+import { insertSQLChamadaParticipante } from '../../../model/ChamadaDAO/Participant/insertSQLParticipant.js'
 
 export const insertChamadaParticipante = async function (body, contentType) {
     try {

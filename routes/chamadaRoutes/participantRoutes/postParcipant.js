@@ -5,7 +5,7 @@ const routerInsertParticipanteChamada = Router()
 const bodyJsonParser = bodyParser.json()
 
 import { insertChamadaParticipante } from "../../../controller/Controler_chamada/controller_participante/insertParticipante.js"
-import { authAccess } from "../../config/middleware/authAcces.js"
+import { authAccess } from "../../../config/middleware/authAcces.js"
 
 routerInsertParticipanteChamada.post('/participante_chamada/cadastro', bodyJsonParser, authAccess(["Responsável", "Médico", "Clínica", "ADMIN"]), async (req, res) => {
 

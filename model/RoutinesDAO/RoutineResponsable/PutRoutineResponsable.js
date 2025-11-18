@@ -15,7 +15,6 @@ export const putSQLRoutineResponsable = async function (dataRoutine){
         
         let sql = `UPDATE tbl_rotina SET
         titulo = ?,
-        data_rotina = ?,
         cor = ?,
         id_user = ?
         WHERE id_rotina = ?`
@@ -23,7 +22,6 @@ export const putSQLRoutineResponsable = async function (dataRoutine){
         const resultSQL = await prisma.$executeRawUnsafe(
             sql,
             dataRoutine.titulo,
-            dataRoutine.data_rotina,
             dataRoutine.cor,
             dataRoutine.id_user,
             dataRoutine.id_rotina

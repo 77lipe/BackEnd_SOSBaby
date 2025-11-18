@@ -15,7 +15,7 @@
 
 export const SelectAllTypeUsersSQL = async function(){
     try {
-        let sql = 'select * from tbl_type_user order by id_tipo desc'
+        let sql = 'select * from tbl_type_user order by id_tipo ASC'
 
         let result = await prisma.$queryRawUnsafe(sql)
 

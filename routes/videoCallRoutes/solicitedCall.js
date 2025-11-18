@@ -15,7 +15,7 @@ import { generativeTokenController } from "../../config/twilioVideoChamada/contr
 const routerVideoCall = Router()
 const bodyJsonParser = bodyParser.json()
 
-routerVideoCall.post("/call/token", bodyJsonParser, authAccess(["Responsável", "ADMIN", "Médico"]), async(req, res) => {
+routerVideoCall.post("/call/token", bodyJsonParser, authAccess(["Responsável", "ADMIN", "Médico", "Clínica"]), async(req, res) => {
 
     const contentType = req.headers["content-type"]
     const dados = req.body

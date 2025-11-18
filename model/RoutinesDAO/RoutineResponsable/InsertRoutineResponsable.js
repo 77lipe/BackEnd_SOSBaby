@@ -17,9 +17,7 @@ export const inserSQLRoutineResponsable = async function (dataRoutine){
         titulo,
         cor,
         id_user,
-        id_item_rotina
         )VALUES(
-        ?,
         ?,
         ?,
         ?
@@ -27,10 +25,7 @@ export const inserSQLRoutineResponsable = async function (dataRoutine){
         const resultSQL = await prisma.$executeRawUnsafe(sql,
         dataRoutine.titulo,
         dataRoutine.cor,
-        dataRoutine.id_user,
-        dataRoutine.id_item_rotina
-
-        )
+        dataRoutine.id_user)
 
         if (resultSQL) {
             let getID = `SELECT * FROM tbl_rotina ORDER BY id_rotina DESC LIMIT 1`

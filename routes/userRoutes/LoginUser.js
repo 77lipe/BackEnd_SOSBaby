@@ -9,7 +9,7 @@
 import { Router } from "express"
 import bodyParser from "body-parser"
 
-import { loginUser } from "../../controller/Controller_user/LoginUser.js"
+import { loginUser } from "../../controller/Controller_user/loginUser.js"
 
 const routerLoginUser = Router()
 const bodyJsonParser = bodyParser.json()

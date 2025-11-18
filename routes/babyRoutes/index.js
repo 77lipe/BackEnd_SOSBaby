@@ -10,6 +10,7 @@ import PutBaby from './PutBaby.js'
 import GetAllBaby from './GetAllBaby.js'
 import GetIdBaby from './GetIdBaby.js'
 import DeleteBaby from './DeleteBaby.js'
+import FilterBaby from './filterBaby.js'
 import { Router } from "express"
 
 const router = Router()
@@ -19,5 +20,6 @@ router.use(GetIdBaby)
 router.use(GetAllBaby)
 router.use(PutBaby)
 router.use(DeleteBaby)
+router.use(FilterBaby)
 
 export default router

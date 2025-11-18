@@ -14,7 +14,7 @@ const bodyJsonParser = bodyParser.json()
 
 import {filterNameDoctorController} from '../../../controller/Controller_doctor/filterController/filterNameDoctorController.js'
 
-routerNameDoctor.post("/filter/names/doctors", bodyJsonParser, async (req, res) => {
+routerNameDoctor.post("/filter/nameDoctors", bodyJsonParser, async (req, res) => {
 
     const contentType = req.headers['content-type']
     const dataBody = req.body

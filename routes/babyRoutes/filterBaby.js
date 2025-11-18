@@ -14,7 +14,7 @@ const routerFilterName = Router()
 import { FilterNameBabyController } from '../../controller/Controller_baby/FilterGetBabyName.js'
 import { authAccess} from '../../config/middleware/authAcces.js'
 
-routerFilterName.post('/filter/names', bodyJsonParser, authAccess(["Médico", "Clínica", "ADMIN"]),async (req, res) => {
+routerFilterName.post('/filter/nameBaby', bodyJsonParser, authAccess(["Médico", "Clínica", "ADMIN"]),async (req, res) => {
 
     const contentType = req.headers['content-type']
     const dataName = req.body

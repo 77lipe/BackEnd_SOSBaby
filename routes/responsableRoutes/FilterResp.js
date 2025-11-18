@@ -14,7 +14,7 @@ const routerFilterName = Router()
 import { FilterNameRespController } from '../../controller/Controller_responsable/FilterGetRespName.js'
 import { authAccess} from '../../config/middleware/authAcces.js'
 
-routerFilterName.post('/filter/names', bodyJsonParser, authAccess(["Médico", "Clínica", "ADMIN"]),async (req, res) => {
+routerFilterName.post('/filter/nameResp', bodyJsonParser, authAccess(["Médico", "Clínica", "ADMIN"]),async (req, res) => {
 
     const contentType = req.headers['content-type']
     const dataName = req.body

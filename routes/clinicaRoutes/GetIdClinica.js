@@ -13,7 +13,7 @@ const routerIdClinica = Router()
 import {GetIdClinica} from "../../controller/Controller_Clinica/getIdClinica.js";
 import { authAccess } from "../../config/middleware/authAcces.js";
 
-routerIdClinica.get('/clinica/:id', cors(), authAccess("ADMIN" || "Médico" || "Responsável") ,async (req, res) => {
+routerIdClinica.get('/clinica/:id', cors(), authAccess(["ADMIN", "Médico", "Responsável"]) ,async (req, res) => {
 
     let id = req.params.id
     let resultIdClinica = await GetIdClinica(id)

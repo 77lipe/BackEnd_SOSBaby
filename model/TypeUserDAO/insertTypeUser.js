@@ -20,7 +20,10 @@ export const insertTypeUserSQL = async function(tipo) {
 
         let result = await prisma.$executeRawUnsafe(sql)
         if (result) {
-            return true
+            let getID = `SELECT * FROM tbl_type_user ORDER BY id_tipo DESC LIMIT 1`
+            let id = await prisma.$queryRawUnsafe(getID)
+
+            return id[0]
         }else{
             return false
         }

@@ -13,6 +13,7 @@ import DeleteUser from './DeleteUser.js'
 import LoginUser from './LoginUser.js'
 import ForgetUserPass from './resetUserPassRoutes/forgetPass.js'
 import ResetUserPass from  './resetUserPassRoutes/resetPass.js'
+import FilterNames from './filterRoutes/GetfilterName.js'
 
 import { Router } from "express"
 
@@ -26,4 +27,6 @@ router.use(LoginUser)
 router.use(ForgetUserPass)
 router.use(ResetUserPass)
 router.use(ProtectedRoutes)
+router.use(FilterNames)
+
 export default router

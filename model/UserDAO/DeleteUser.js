@@ -14,7 +14,7 @@
 export const deleteSQLUser = async function (id) {
     try {
         
-        let sql = `DELETE * FROM tbl_user where id_user = ${id}`
+        let sql = `DELETE FROM tbl_user where id_user = ${id}`
         let resultUser = await prisma.$executeRawUnsafe(sql)
 
         if (resultUser) {

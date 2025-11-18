@@ -1,6 +1,36 @@
-node_modules
-/generated/prisma
+# Ignorar variáveis de ambiente
+.env
+.env.production
+.env.development
+.env.local
 
-/generated/prisma
+# Ignorar dependências
+node_modules/
 
-/generated/prisma
+# Ignorar arquivos gerados pelo Prisma
+.prisma/
+generated/
+prisma/generated/
+prisma/migrations/dev.db
+prisma/dev.db
+prisma/test.db
+
+# Ignorar logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Ignorar build outputs
+dist/
+build/
+out/
+
+# Ignorar arquivos do sistema
+.DS_Store
+Thumbs.db
+
+# Ignorar cache e temporários
+.cache/
+*.tmp
+*.swp

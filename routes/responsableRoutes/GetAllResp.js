@@ -11,9 +11,8 @@ import cors from 'cors'
 const routerAllResponsable = Router()
 
 import {ListAllResp} from "../../controller/Controller_responsable/ListAllResp.js";
-import { authAccess } from "../../config/middleware/authAcces.js";
 
-routerAllResponsable.get('/responsables', cors(), authAccess("ADMIN" || "Clínica") ,async(req, res) => {
+routerAllResponsable.get('/responsables', cors(), async(req, res) => {
 
    let resultAllResponsable = await ListAllResp()
    return res.status(resultAllResponsable.status_code).json(resultAllResponsable)

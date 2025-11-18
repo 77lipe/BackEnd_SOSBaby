@@ -15,7 +15,7 @@ export const insertBebe = async function (bebe, contentType) {
         
         if (String(contentType).toLocaleLowerCase() == 'application/json') {
             if (
-                bebe.nome                   == undefined || bebe.nome               == null || bebe.nome                == '' || bebe.nome.length               > 45    || bebe.nome.match(/^[A-Za-zÀ-ÿ\s]+$/) ||
+                bebe.nome                   == undefined || bebe.nome               == null || bebe.nome                == '' || bebe.nome.length               > 45    || !bebe.nome.match(/^[A-Za-zÀ-ÿ\s]+$/) ||
                 bebe.data_nascimento        == undefined || bebe.data_nascimento    == null || bebe.data_nascimento     == '' || bebe.data_nascimento.length    > 10    ||
                 bebe.id_sexo                == undefined || bebe.id_sexo            == null || bebe.id_sexo             == '' || isNaN(bebe.id_sexo)                    ||
                 bebe.peso                   == undefined || bebe.peso               == null || bebe.peso                == '' || bebe.peso.length               > 5     ||
@@ -33,7 +33,7 @@ export const insertBebe = async function (bebe, contentType) {
                 if(resultInsertBaby){
                     return {
                         ...message.SUCCES_CREATED_ITEM,
-                        data: bebe
+                        data: resultInsertBaby
                     }
                 }else{
                     return message.ERROR_INTERNAL_SERVER

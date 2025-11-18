@@ -13,7 +13,7 @@ const routerAllClinica = Router()
 import {getAllClinica} from "../../controller/Controller_Clinica/getAllClinica.js";
 import { authAccess } from "../../config/middleware/authAcces.js";
 
-routerAllClinica.get('/clinica', cors(), authAccess("ADMIN" || "Responsável" || "Médico"),async(req, res) => {
+routerAllClinica.get('/clinica', cors(), authAccess(["ADMIN", "Responsável", "Médico"]),async(req, res) => {
 
     let resultAllClinica = await getAllClinica()
     return res.status(resultAllClinica.status_code).json(resultAllClinica)

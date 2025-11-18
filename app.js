@@ -21,19 +21,26 @@
  *            Após essa configuração deverá rodar o seguinte comando:
  *               npx prisma migrate dev
  * 
- *              npm install jsonwebtoken bcryptjs nodemailer dotenv socket.io @google/generative-ai
-
+ *              npm install jsonwebtoken bcryptjs nodemailer dotenv socket.io @google/generative-ai twilio 
+ * 
+ *              npm install --save-dev nodemon
  * 
  **************************************************/
+
+import dotenv from 'dotenv'
+
+// Carrega apenas o arquivo .env principal (modo simples)
+dotenv.config({ path: '.env' })
+console.log('📍 Carregando .env (Arquivo único)')
 
 
 import express from 'express'
 import cors from 'cors'
-import dotenv from 'dotenv'
 import http from 'http'
+import { PrismaClient } from '@prisma/client'
 import nodemailer from 'nodemailer'
-dotenv.config()
 
+// Importação das rotas
 import babyRoutes from './routes/babyRoutes/index.js'
 import userRoutes from './routes/userRoutes/index.js'
 import responsableRoutes from './routes/ResponsableRoutes/index.js'
@@ -51,22 +58,61 @@ import tipSubcategoryRoutes from './routes/tipRoutes/TipSubRoutes/index.js'
 import chatRoutes from './routes/chatRoutes/index.js'
 import messageRoutes from './routes/messageRoutes/index.js'
 import ChatMessageRoutes from './routes/chatRoutes/chatMessageRoutes/index.js'
+import { chatSocketInit } from './config/chatSocket/index.js'
 import clinicaRoutes from './routes/clinicaRoutes/index.js'
 import chatIARoutes from './routes/IAchatRoutes/index.js'
 import relatorioRoutes from './routes/relatorioRoutes/index.js'
+import TokenCallSolicited from './routes/videoCallRoutes/index.js'
+import ChamadaVideo from './routes/chamadaRoutes/index.js'
 
-import { chatSocketInit } from "./config/chatSocket/index.js";
 
+// Inicializa Prisma
+const prisma = new PrismaClient({
+  log: ['query', 'info', 'warn', 'error'],
+});
 
+// Função para testar a conexão com o banco
+async function testDBConnection() {
+  try {
+    console.log('🔍 Testando conexão com o banco de dados...');
+    console.log(`📍 DATABASE_URL: ${process.env.DATABASE_URL}`);
+    console.log(`🌍 NODE_ENV: ${process.env.NODE_ENV || 'development'}`);
+    
+    await prisma.$queryRaw`SELECT 1+1 AS result`;
+    console.log('✅ Conexão com o banco OK!');
+    console.log('📦 Prisma Client gerado com sucesso');
+    
+    return true;
+  } catch (err) {
+    console.error('❌ Erro na conexão com o banco:', err.message);
+    console.error('⚠️  Verifique as credenciais no arquivo .env');
+    return false;
+  }
+}
+
+// Executa o teste de conexão
+const dbConnected = await testDBConnection();
+
+// Inicializa o app e middleware
 const app = express()
 app.use(cors())
 app.use(express.json())
 
-// Parte dedicada ao Chat em tempo real:
+// Inicializa servidor HTTP para sockets
 const server = http.createServer(app)
 chatSocketInit(server)
 
+// Rota de health check
+app.get('/health', (req, res) => {
+  res.json({
+    status: 'ok',
+    message: 'Servidor rodando',
+    environment: process.env.NODE_ENV || 'development',
+    database: dbConnected ? 'conectado' : 'desconectado'
+  });
+});
 
+// Rotas
 app.use('/v1/sosbaby', babyRoutes)
 app.use('/v1/sosbaby', userRoutes)
 app.use('/v1/sosbaby', responsableRoutes)
@@ -86,8 +132,17 @@ app.use('/v1/sosbaby', messageRoutes)
 app.use('/v1/sosbaby', ChatMessageRoutes)
 app.use('/v1/sosbaby', clinicaRoutes)
 app.use('/v1/sosbaby', chatIARoutes)
-app.use('./v1/sosbaby', relatorioRoutes)
+app.use('/v1/sosbaby', relatorioRoutes)
+app.use('/v1/sosbaby', TokenCallSolicited)
+app.use('/v1/sosbaby', ChamadaVideo)
 
-app.listen('3030', function(){
-    console.log('API funcionando e aguardando requisições...')
-})
+// Porta para Azure ou padrão 3030
+const port = process.env.PORT || 3030;
+server.listen(port, () => {
+  console.log('\n' + '='.repeat(50));
+  console.log(`🚀 Servidor rodando na porta ${port}`);
+  console.log(`📊 Conexão com banco: ${dbConnected ? '✅ Conectado' : '❌ Desconectado'}`);
+  console.log(`📄 Carregando .env (Arquivo único)`);
+  console.log('='.repeat(50) + '\n');
+});
+

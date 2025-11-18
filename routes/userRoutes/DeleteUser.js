@@ -10,10 +10,11 @@ import {Router} from "express";
 import cors from 'cors'
 
 import { deleteUser } from "../../controller/Controller_user/deleteUser.js";
+import { authAccess } from "../../config/middleware/authAcces.js";
 
 const routerDeleteUser = Router()
 
-routerDeleteUser.delete('/user/:id', cors(), async(req, res) => {
+routerDeleteUser.delete('/user/:id', cors(), authAccess("ADMIN"), async(req, res) => {
 
     let id = req.params.id
     let resultDeleteUser = await deleteUser(id)

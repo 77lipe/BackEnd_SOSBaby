@@ -16,7 +16,7 @@ import { authAccess } from "../../../config/middleware/authAcces.js";
 
 const bodyJsonParser = bodyParser.json()
 
-routerInsertRoutineItem.post('/routineItem/cadastro', bodyJsonParser, authAccess("ADMIN" || "Responsável"),async (req,res) =>{
+routerInsertRoutineItem.post('/routineItem/cadastro', bodyJsonParser, authAccess(["ADMIN", "Responsável"]),async (req,res) =>{
     
     let contentType = req.headers['content-type']
     let dataItem = req.body

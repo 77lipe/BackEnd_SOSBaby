@@ -6,7 +6,7 @@ import { authAccess } from "../../config/middleware/authAcces.js"
 const routerChatIA = Router()
 routerChatIA.use(bodyParser.json())
 
-routerChatIA.post("/ia/generate/chat", authAccess("Responsável" || "ADMIN"), async (req, res) => {
+routerChatIA.post("/ia/generate/chat", authAccess(["Responsável", "ADMIN"]), async (req, res) => {
     try {
         const contentType = req.headers["content-type"]
         const userId = req.user?.id_user

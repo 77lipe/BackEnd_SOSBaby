@@ -13,7 +13,7 @@ const routerAllBabys = Router()
 import { selectAllBebe } from "../../controller/Controller_baby/selectAllBebe.js";
 import { authAccess } from "../../config/middleware/authAcces.js";
 
-routerAllBabys.get('/babys', cors(),authAccess("Responsável" || "ADMIN"), async(req, res) => {
+routerAllBabys.get('/babys', cors(),authAccess(["Responsável", "ADMIN"]), async(req, res) => {
 
     let resultAllBaby = await selectAllBebe()
     return res.status(resultAllBaby.status_code).json(resultAllBaby)

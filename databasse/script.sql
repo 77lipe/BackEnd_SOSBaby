@@ -51,6 +51,11 @@ create table tbl_status_messager(
     status_messagem varchar(50)
 );
 
+CREATE TABLE tbl_convenio (
+    id_convenio INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
 create table tbl_responsavel (
 	id_responsavel int auto_increment primary key,
     nome  varchar(100) not null,
@@ -182,20 +187,32 @@ CREATE TABLE tbl_rotina_item (
     hora TIME NOT NULL
 );
 
-create table tbl_rotina(
+CREATE TABLE tbl_rotina(
 	id_rotina int auto_increment primary key not null,
     titulo varchar(100) not null,
     cor char(10) not null,
     id_user int,
-    id_item_rotina int,
     
 	constraint FK_ROTINA_USUARIO
     foreign key (id_user)
-    references tbl_user(id_user),
-    
-    constraint FK_ITEM_ROTINA
-    foreign key (id_item_rotina)
-    references tbl_rotina_item(id_item)
+    references tbl_user(id_user)
+);
+
+-- NOVA TABELA DE RELACIONAMENTO N:N
+CREATE TABLE tbl_rotina_item_relacionamento (
+    id_relacionamento INT AUTO_INCREMENT PRIMARY KEY,
+    id_rotina INT NOT NULL,
+    id_item INT NOT NULL,
+
+    CONSTRAINT FK_REL_ROTINA
+        FOREIGN KEY (id_rotina)
+        REFERENCES tbl_rotina(id_rotina)
+        ON DELETE CASCADE,
+
+    CONSTRAINT FK_REL_ITEM
+        FOREIGN KEY (id_item)
+        REFERENCES tbl_rotina_item(id_item)
+        ON DELETE CASCADE
 );
 
 create table tbl_calendario (
@@ -301,3 +318,107 @@ create table tbl_chat_message(
     foreign key (id_mensagem)
     references tbl_messager(id_mensagem)
 );
+
+///////médico
+ALTER TABLE tbl_medico
+ADD COLUMN id_clinica INT NULL,
+ADD CONSTRAINT FK_CLINICA_MEDICO
+    FOREIGN KEY (id_clinica)
+    REFERENCES tbl_clinica(id_clinica)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE;
+
+//////RESPONSÁVEL
+ALTER TABLE tbl_responsavel
+ADD COLUMN id_convenio INT NULL,
+ADD CONSTRAINT FK_CONVENIO_RESPONSAVEL
+    FOREIGN KEY (id_convenio)
+    REFERENCES tbl_convenio(id_convenio)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE;
+
+//////BEBÊ
+ALTER TABLE tbl_bebe
+ADD COLUMN id_convenio INT NULL,
+ADD CONSTRAINT FK_CONVENIO_BEBE
+    FOREIGN KEY (id_convenio)
+    REFERENCES tbl_convenio(id_convenio)
+    ON DELETE SET NULL
+    ON UPDATE CASCADE;
+
+
+
+
+
+
+
+VIEW
+//FILTRO DE NOMES USUÁRIO
+CREATE OR REPLACE VIEW vw_user_info AS
+SELECT 
+    u.id_user,
+    u.nome_user,
+    u.email,
+    t.tipo AS tipo_usuario
+FROM tbl_user u
+INNER JOIN tbl_type_user t
+    ON u.id_tipo = t.id_tipo
+WHERE t.tipo <> 'ADMIN'; 
+
+//FILTRO DE NOMES DO MÉDICO
+CREATE OR REPLACE VIEW vw_medico_info AS
+SELECT 
+    m.id_medico,
+    m.nome AS nome_medico,
+    m.email,
+    m.telefone,
+    m.crm,
+    s.sexo AS sexo_medico,
+    u.nome_user AS usuario_vinculado,
+    c.nome AS nome_clinica
+FROM tbl_medico m
+LEFT JOIN tbl_sexo s ON m.id_sexo = s.id_sexo
+LEFT JOIN tbl_user u ON m.id_user = u.id_user
+LEFT JOIN tbl_clinica c ON m.id_clinica = c.id_clinica
+GROUP BY m.id_medico, m.nome, m.email, m.telefone, m.crm, s.sexo, u.nome_user, c.nome
+ORDER BY m.id_medico DESC;
+
+
+//FILTRO DE NOMES RESPONSÁVEIS
+CREATE OR REPLACE VIEW vw_responsavel_info AS
+SELECT 
+    r.id_responsavel,
+    r.nome AS nome_responsavel,
+    r.data_nascimento,
+    s.sexo AS sexo_responsavel,
+    u.nome_user AS usuario_vinculado,
+    c.nome AS convenio,
+    COUNT(DISTINCT rb.id_bebe) AS total_bebes
+FROM tbl_responsavel r
+LEFT JOIN tbl_sexo s ON r.id_sexo = s.id_sexo
+LEFT JOIN tbl_user u ON r.id_user = u.id_user
+LEFT JOIN tbl_responsavel_bebe rb ON r.id_responsavel = rb.id_responsavel
+LEFT JOIN tbl_convenio c ON r.id_convenio = c.id_convenio
+GROUP BY r.id_responsavel, r.nome, r.data_nascimento, s.sexo, u.nome_user, c.nome
+ORDER BY r.id_responsavel DESC;
+
+//FILTRO DE NOMES BEBÊ
+CREATE OR REPLACE VIEW vw_bebe_info AS
+SELECT 
+    b.id_bebe,
+    b.nome AS nome_bebe,
+    b.data_nascimento,
+    b.peso,
+    b.altura,
+    s.sexo AS sexo_bebe,
+    g.tipo_sanguineo,
+    cv.nome AS convenio,
+    GROUP_CONCAT(DISTINCT r.nome SEPARATOR ', ') AS responsaveis
+FROM tbl_bebe b
+LEFT JOIN tbl_sexo s ON b.id_sexo = s.id_sexo
+LEFT JOIN tbl_sangue g ON b.id_sangue = g.id_sangue
+LEFT JOIN tbl_convenio cv ON b.id_convenio = cv.id_convenio
+LEFT JOIN tbl_responsavel_bebe rb ON b.id_bebe = rb.id_bebe
+LEFT JOIN tbl_responsavel r ON rb.id_responsavel = r.id_responsavel
+GROUP BY b.id_bebe, b.nome, b.data_nascimento, b.peso, b.altura, s.sexo, g.tipo_sanguineo, cv.nome
+ORDER BY b.id_bebe DESC;

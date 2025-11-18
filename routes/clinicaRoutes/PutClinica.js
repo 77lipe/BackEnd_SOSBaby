@@ -13,7 +13,7 @@ const routerUpdateClinica = Router()
 import {UpdateClinica} from "../../controller/Controller_Clinica/putClinica.js";
 import { authAccess } from "../../config/middleware/authAcces.js";
 
-routerUpdateClinica.put('/clinica/:id', bodyParser, authAccess("Clínica" || "ADMIN") ,async (req, res) => {
+routerUpdateClinica.put('/clinica/:id', bodyParser, authAccess(["Clínica", "ADMIN"]) ,async (req, res) => {
 
     let id = req.params.id
     let contentType = req.headers['content-type']

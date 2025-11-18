@@ -11,7 +11,7 @@ import bodyParser from "body-parser"
 const routerInsertChat = Router()
 const bodyJsonParser = bodyParser.json()
 
-import { insertChat } from "../../controller/Controller_chat/insertChat.js";
+import { insertChat } from "../../controller/Controller_chat/InsertChat";
 
 routerInsertChat.post('/chat/cadastro', bodyJsonParser , async(req, res) => {
     let contentType = req.headers['content-type']

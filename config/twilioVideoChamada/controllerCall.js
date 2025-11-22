@@ -14,10 +14,7 @@ export async function generativeTokenController(user, dados, contentType){
                 return message.ERROR_REQUIRED_FIELDS
             }else{
 
-                const identity = {
-                    nome_Usuario: user.nome_user,
-                    id_Usuario: user.id_user
-                }
+                const identity = `${user.id_user}|${user.nome_user}`
                 //console.log("CONTROLLER identity:", identity)
 
                 const token = generateCallToken(identity, dados.room)
@@ -30,7 +27,11 @@ export async function generativeTokenController(user, dados, contentType){
                             nome: user.nome_user,
                             tipo: user.id_tipo
                         },
-                        token: token
+                        token: {
+                                     token: token.token,
+                                    identity: token.identity,
+                                    room: token.room
+}
                     }
                 }else{
                     return console.log("ERROR: erro ao gerar TOKEN de chamada!!");

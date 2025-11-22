@@ -1,40 +1,38 @@
-import dotenv from "dotenv"
-import twilio from "twilio"
+import dotenv from "dotenv";
+import twilio from "twilio";
 
-dotenv.config()
+dotenv.config();
 
 const {
   TWILIO_ACCOUNT_SID,
   TWILIO_API_KEY_SID,
   TWILIO_API_KEY_SECRET
-} = process.env
+} = process.env;
 
-const { jwt } = twilio
-const { AccessToken } = jwt
-const { VideoGrant } = AccessToken
+const { jwt } = twilio;
+const { AccessToken } = jwt;
+const { VideoGrant } = AccessToken;
 
-export function generateCallToken(user, room){
-  //console.log(user);
-  if(!TWILIO_ACCOUNT_SID || !TWILIO_API_KEY_SID || !TWILIO_API_KEY_SECRET){
-    return console.error(error);
-  }else{
+export function generateCallToken(identity, room) {
 
-    const identity = `${user.id_Usuario}|${user.nome_Usuario}` 
-
-    const token = new AccessToken(
-      TWILIO_ACCOUNT_SID,
-      TWILIO_API_KEY_SID,
-      TWILIO_API_KEY_SECRET,
-      {identity}
-    )
-
-    const videoGrant = new VideoGrant({room})
-    token.addGrant(videoGrant)
-
-    return {
-      token: token.toJwt(),
-      indentity: identity,
-      Room: room
-    } 
+  if (!TWILIO_ACCOUNT_SID || !TWILIO_API_KEY_SID || !TWILIO_API_KEY_SECRET){
+    console.error("Erro: credenciais Twilio ausentes!");
+    return null;
   }
+
+  const token = new AccessToken(
+    TWILIO_ACCOUNT_SID,
+    TWILIO_API_KEY_SID,
+    TWILIO_API_KEY_SECRET,
+    { identity }
+  );
+
+  const videoGrant = new VideoGrant({ room });
+  token.addGrant(videoGrant);
+
+  return {
+    token: token.toJwt(),
+    identity,
+    room
+  };
 }

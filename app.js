@@ -50,6 +50,7 @@ import typeUserRoutes from './routes/typeUserRoutes/index.js'
 import doctorRoutes from './routes/doctorRoutes/index.js'
 import itemRoutineRoutes from './routes/routinesRoutes/routineItemRoutes/index.js'
 import routineRoutes from './routes/routinesRoutes/routineRespRoutes/index.js'
+import relacionamentoRoutine from './routes/routinesRoutes/RoutineRelacion/index.js'
 import calenderRoutes from './routes/calendarioRoutes/index.js'
 import tipsRoutes from './routes/tipRoutes/index.js'
 import categoryRoutes from './routes/categorysRoutes/categoryRoutes/index.js'
@@ -122,6 +123,7 @@ app.use('/v1/sosbaby', typeUserRoutes)
 app.use('/v1/sosbaby', doctorRoutes)
 app.use('/v1/sosbaby', itemRoutineRoutes)
 app.use('/v1/sosbaby', routineRoutes)
+app.use('/v1/sosbaby', relacionamentoRoutine)
 app.use('/v1/sosbaby', calenderRoutes)
 app.use('/v1/sosbaby', tipsRoutes)
 app.use('/v1/sosbaby', categoryRoutes)

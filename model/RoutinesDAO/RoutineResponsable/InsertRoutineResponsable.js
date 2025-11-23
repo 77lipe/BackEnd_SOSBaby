@@ -11,19 +11,21 @@
  
 
 export const inserSQLRoutineResponsable = async function (dataRoutine){
+    //console.log(dataRoutine);
+    
     try {
         
         let sql = `INSERT INTO tbl_rotina (
         titulo,
         cor,
-        id_user,
+        id_user
         )VALUES(
         ?,
         ?,
         ?
         )`
         const resultSQL = await prisma.$executeRawUnsafe(sql,
-        dataRoutine.titulo,
+        dataRoutine.titulo_rotina,
         dataRoutine.cor,
         dataRoutine.id_user)
 

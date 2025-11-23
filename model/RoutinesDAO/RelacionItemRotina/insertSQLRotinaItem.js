@@ -3,6 +3,7 @@ const { PrismaClient } = pkg
 
 const prisma = new PrismaClient()
 export const insertSQLRotinaItem = async function (dataRotinaItem){
+    //console.log(dataRotinaItem);
     try {
         
         let sql = `INSERT INTO tbl_rotina_item_relacionamento (
@@ -17,7 +18,9 @@ export const insertSQLRotinaItem = async function (dataRotinaItem){
         dataRotinaItem.id_item)
 
         if (resultSQL) {
-            return true
+            let getData = `SELECT * FROM tbl_rotina_item_relacionamento ORDER BY id_relacionamento DESC LIMIT 1`
+            let id = await prisma.$queryRawUnsafe(getData)
+            return id[0]
         }else{
             return false
         }

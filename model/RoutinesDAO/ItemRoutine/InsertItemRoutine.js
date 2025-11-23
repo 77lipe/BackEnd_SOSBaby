@@ -11,13 +11,15 @@
  const prisma = new PrismaClient()
 
 export const insertSqlItemRoutine = async function (dataRoutine){
+    //console.log(dataRoutine);
+    
     try {
         
         let sql = `INSERT INTO tbl_rotina_item (titulo, descricao, data_rotina, hora) VALUES (?, ?, ?, ?)`;
 
     const resultSql = await prisma.$executeRawUnsafe(
         sql,
-        dataRoutine.titulo,
+        dataRoutine.titulo_item,
         dataRoutine.descricao,
         dataRoutine.data_rotina,
         dataRoutine.hora

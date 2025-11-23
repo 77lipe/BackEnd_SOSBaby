@@ -55,8 +55,9 @@ export const insertRelacionamentoRoutine = async function (itemRoutine, contentT
                             var resultInsertRoutine = await inserSQLRoutineResponsable(itemRoutine)
                             if(resultInsertRoutine){
                                 console.log("ROTINA CRIADO COM SUCESSO");
-
-                                IdRotinaFinal = resultInsertItemRoutine.id_rotina
+                                console.log(resultInsertRoutine);
+                                
+                                IdRotinaFinal = resultInsertRoutine.id_rotina
                             }else{
                                 return {
                                     status_code: message.ERROR_INTERNAL_SERVER_MODEL.status_code,

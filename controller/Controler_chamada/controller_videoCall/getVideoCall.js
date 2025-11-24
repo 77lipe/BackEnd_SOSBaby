@@ -11,7 +11,8 @@ export const getChamada = async function (id) {
 
         if (chamada) {
             return {
-                ...message.SUCCES_REQUEST,
+                status_code: message.SUCCES_SEARCH_ITEM.status_code,
+                message: message.SUCCES_SEARCH_ITEM.message,
                 data: chamada
             }
         } else {

@@ -9,6 +9,7 @@
 
 import * as message from '../../config/status/status.js'
 import {insertSQLBaby} from '../../model/BabyDAO/InsertSQLBaby.js'
+import {SelectIdSQLConvenio} from '../../model/ConvenioDAO/getIdSQLConvenio.js'
 
 export const insertBebe = async function (bebe, contentType) {
     try {       
@@ -22,23 +23,36 @@ export const insertBebe = async function (bebe, contentType) {
                 bebe.altura                 == undefined || bebe.altura             == null || bebe.altura              == '' || bebe.altura.length             > 5     ||
                 bebe.id_sangue              == undefined || bebe.id_sangue          == null || bebe.id_sangue           == '' || isNaN(bebe.id_sangue)                  ||
                 bebe.certidao_nascimento    == undefined || bebe.certidao_nascimento== null || bebe.certidao_nascimento == '' || bebe.certidao_nascimento.length > 45   ||
-                bebe.cartao_medico          == undefined || bebe.cartao_medico      == null || bebe.cartao_medico       == '' || bebe.cartao_medico.length       > 100  ||
-                bebe.imagem_certidao        == undefined || bebe.imagem_certidao    == null || bebe.imagem_certidao     == '' || bebe.imagem_certidao.length     > 3000 
+                bebe.imagem_certidao        == undefined || bebe.imagem_certidao    == null || bebe.imagem_certidao     == '' || bebe.imagem_certidao.length     > 3000 ||
+                bebe.id_convenio            == undefined || bebe.id_convenio        == null || bebe.id_convenio         == '' || isNaN(bebe.id_convenio)                ||
+                bebe.id_user                == undefined || bebe.id_user            == null || bebe.id_user             == '' || isNaN(bebe.id_user)
                 
             ){
                 return message.ERROR_REQUIRED_FIELDS                
             }else{
 
-                let resultInsertBaby = await insertSQLBaby(bebe)
+                let resultConvenio = await SelectIdSQLConvenio(bebe.id_convenio)
+                if(resultConvenio){
+                    console.log("Convenio existente:", resultConvenio);
 
-                if(resultInsertBaby){
-                    return {
-                        ...message.SUCCES_CREATED_ITEM,
-                        data: resultInsertBaby
+                    let resultInsertBaby = await insertSQLBaby(bebe)
+
+                    let idsRelacion = {
+                        id_convenio: resultConvenio[0].id_convenio,
+                        id_user: resultUser.id_user
                     }
-                }else{
-                    return message.ERROR_INTERNAL_SERVER
-                }
+                    console.log(idsRelacion);
+
+                    if(resultInsertBaby){
+                        console.log("Bebê Criado:", resultInsertBaby);
+                        return {
+                            ...message.SUCCES_CREATED_ITEM,
+                            data: resultInsertBaby
+                        }
+                    }else{
+                        return message.ERROR_INTERNAL_SERVER
+                    }
+                  }
             }
         }else{
             return message.ERROR_CONTENT_TYPE

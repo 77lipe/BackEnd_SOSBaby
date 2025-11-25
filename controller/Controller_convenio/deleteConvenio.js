@@ -1,5 +1,5 @@
 import * as message from '../../config/status/status.js'
-import { DeleteSQLConvenio } from '../../model/ConvenioDAO/DeleteSQLConvenio.js'
+import { DeleteSQLConvenio } from '../../model/ConvenioDAO/deleteSQLConvenio.js'
 
 export const deleteConvenio = async function (id) {
     try {

@@ -12,11 +12,11 @@
 export const ListSQLAllBlood = async function (blood){
     try {
         
-        let sql = `SELECT * FROM tbl_sangue order by id desc`
+        let sql = `SELECT * FROM tbl_sangue order by id_sangue desc`
         let resultBlood = await prisma.$queryRawUnsafe(sql)
 
         if(resultBlood){
-            return true
+            return resultBlood
         }else{
             return false
         }

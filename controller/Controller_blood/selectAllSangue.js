@@ -15,9 +15,10 @@ export const selectAllBlood = async function (){
         let dadosBlood = {}
         let resultBlood = await ListSQLAllBlood()
         
-        if(resultBlood != false){
+        if(resultBlood){
             if(resultBlood.length > 0){
-                dadosBlood.message = message.SUCCES_SEARCH_ITEM
+                dadosBlood.status_code = message.SUCCES_SEARCH_ITEM.status_code
+                dadosBlood.message = message.SUCCES_SEARCH_ITEM.message
                 dadosBlood.items = resultBlood.length
                 dadosBlood.blood = resultBlood
 

@@ -24,7 +24,7 @@ export const insertBebe = async function (bebe, contentType) {
                 bebe.certidao_nascimento    == undefined || bebe.certidao_nascimento== null || bebe.certidao_nascimento == '' || bebe.certidao_nascimento.length > 45   ||
                 bebe.cartao_medico          == undefined || bebe.cartao_medico      == null || bebe.cartao_medico       == '' || bebe.cartao_medico.length       > 100  ||
                 bebe.imagem_certidao        == undefined || bebe.imagem_certidao    == null || bebe.imagem_certidao     == '' || bebe.imagem_certidao.length     > 3000 || 
-                bebe.convenio               == undefined || bebe.convenio           == null || bebe.convenio            == '' || isNaN(bebe.convenio) 
+                
             ){
                 return message.ERROR_REQUIRED_FIELDS                
             }else{

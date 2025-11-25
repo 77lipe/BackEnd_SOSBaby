@@ -19,7 +19,9 @@ export const SelectIdBlood = async function (id) {
         }else{
 
             let resultBlood = await SelectIdSQLBlood(id)
-            if (resultBlood != false || typeof(resultBlood) == 'object') {
+            console.log(resultBlood[0]);
+            
+            if (resultBlood.length > 0) {
                 return {
                     ...message.SUCCES_SEARCH_ITEM,
                     blood: resultBlood

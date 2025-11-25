@@ -11,12 +11,16 @@
  const prisma = new PrismaClient()
 
 export const SelectIdSQLBlood = async function (id){
+    console.log(id);
+    
     try {
         
         let sql = `SELECT * FROM tbl_sangue WHERE id_sangue = ${id}`
         let resultBlood = await prisma.$queryRawUnsafe(sql)
+        console.log(resultBlood[0]);
         
-        if(resultBlood){
+        
+        if(resultBlood.length > 0){
             return resultBlood
         }else{
             return false

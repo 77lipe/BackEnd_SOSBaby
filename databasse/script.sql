@@ -422,3 +422,78 @@ LEFT JOIN tbl_responsavel_bebe rb ON b.id_bebe = rb.id_bebe
 LEFT JOIN tbl_responsavel r ON rb.id_responsavel = r.id_responsavel
 GROUP BY b.id_bebe, b.nome, b.data_nascimento, b.peso, b.altura, s.sexo, g.tipo_sanguineo, cv.nome
 ORDER BY b.id_bebe DESC;
+
+
+
+
+///
+CREATE VIEW vw_relacionamentos_completos_usuario AS
+SELECT 
+    r.id_user,
+    r.id_rotina,
+    r.titulo AS titulo_rotina,
+    r.cor,
+    i.id_item,
+    i.titulo AS titulo_item,
+    i.descricao,
+    i.data_rotina,
+    i.hora
+FROM tbl_rotina_item_relacionamento rel
+INNER JOIN tbl_rotina r 
+    ON rel.id_rotina = r.id_rotina
+INNER JOIN tbl_rotina_item i
+    ON rel.id_item = i.id_item;
+
+
+
+////
+CREATE OR REPLACE VIEW view_todas_rotinas_com_itens AS
+SELECT 
+    -- Dados da rotina
+    r.id_rotina,
+    r.titulo AS titulo_rotina,
+    r.cor,
+    r.id_user,
+
+    -- Dados do item
+    i.id_item,
+    i.titulo AS titulo_item,
+    i.descricao,
+    i.data_rotina,
+    i.hora
+
+FROM tbl_rotina_item_relacionamento AS rel
+INNER JOIN tbl_rotina AS r
+    ON rel.id_rotina = r.id_rotina
+INNER JOIN tbl_rotina_item AS i
+    ON rel.id_item = i.id_item
+
+ORDER BY 
+    r.id_rotina ASC,
+    i.hora ASC;
+
+
+
+
+
+/////
+CREATE OR REPLACE VIEW view_rotina_com_itens AS
+SELECT 
+    -- Dados da rotina
+    r.id_rotina,
+    r.titulo AS titulo_rotina,
+    r.cor,
+    r.id_user,
+
+    -- Dados do item
+    i.id_item,
+    i.titulo AS titulo_item,
+    i.descricao,
+    i.data_rotina,
+    i.hora
+
+FROM tbl_rotina_item_relacionamento AS rel
+INNER JOIN tbl_rotina AS r
+    ON rel.id_rotina = r.id_rotina
+INNER JOIN tbl_rotina_item AS i
+    ON rel.id_item = i.id_item;

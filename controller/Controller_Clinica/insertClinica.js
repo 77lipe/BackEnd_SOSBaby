@@ -23,7 +23,8 @@ export const insertClinica = async function (clinica, contentType) {
                 !clinica.rua || clinica.rua.length > 150 || clinica.rua.match(/['"]/) ||
                 !clinica.bairro || clinica.bairro.length > 100 || clinica.bairro.match(/['"]/) ||
                 !clinica.numero || clinica.numero.length > 100 || clinica.numero.match(/['"]/) ||
-                !clinica.id_user || isNaN(clinica.id_user)
+                !clinica.id_user || isNaN(clinica.id_user) ||
+                clinica.convenio               == undefined || clinica.convenio           == null || clinica.convenio            == '' || isNaN(clinica.convenio) 
             ){
                 return message.ERROR_REQUIRED_FIELDS                
             }else{

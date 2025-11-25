@@ -8,6 +8,8 @@
 
 import * as message from '../../config/status/status.js'
 import { insertSQLResp } from "../../model/ResponsableDAO/InsertResp.js";
+import { SelectIdSQLConvenio } from "../../model/ConvenioDAO/getIdSQLConvenio.js"
+import { InsertSQLUserConvenio } from "../../model/ConvenioDAO/RelacionConvenioDAO/insertSQLRelacion.js"
 
 
 export const insertResp = async function (user, contentType) {
@@ -23,20 +25,48 @@ export const insertResp = async function (user, contentType) {
                 user.id_sexo                == "" || user.id_sexo               == undefined || user.id_sexo         == null || isNaN(user.id_sexo)              ||
                 user.arquivo                == "" || user.arquivo               == undefined || user.arquivo         == null || user.arquivo.length  > 3000      ||
                 user.cartao_medico          == "" || user.cartao_medico         == undefined || user.cartao_medico   == null || user.cartao_medico.length   > 45 ||         
-                user.id_user                == "" || user.id_user               == undefined || user.id_user         == null || isNaN(user.id_user)   
+                user.id_user                == "" || user.id_user               == undefined || user.id_user         == null || isNaN(user.id_user)              ||
+                user.id_convenio               == undefined || user.id_convenio           == null || user.id_convenio            == '' || isNaN(user.id_convenio) 
             ){
                 return message.ERROR_REQUIRED_FIELDS
             }else{
-                let resultUser = await insertSQLResp(user)
 
-                if(resultUser){
-                    return{
-                        ...message.SUCCES_CREATED_ITEM,
-                        data: resultUser
+                let resultConvenio = await SelectIdSQLConvenio(user.id_convenio)
+                if(resultConvenio){
+                    console.log("Convenio existente:", resultConvenio);
+                    
+                    let resultUser = await insertSQLResp(user)
+
+                    let IdsRelacion = {
+                        id_convenio: resultConvenio[].id_convenio,
+                        id_user: resultUser.id_user
                     }
+                    console.log(IdsRelacion);
+                    
+
+                    let resultRelacionamento = await InsertSQLUserConvenio(IdsRelacion)
+                    if(resultRelacionamento){
+                        console.log("Relacionamento Criado:", resultRelacionamento);
+
+                        if(resultUser){
+                            console.log("User Criado:", resultUser);
+                            return{
+                                ...message.SUCCES_CREATED_ITEM,
+                                data: resultUser
+                            }
+                        }else{
+                            return message.ERROR_INTERNAL_SERVER_MODEL
+                        }
+                    }else{
+                        console.log("ERROR AO CRIAR O RELACIONAMENTO");
+                        return message.ERROR_INTERNAL_SERVER_MODEL
+                    }
+    
                 }else{
+                    console.log("ERROR AO VERIFICAR CONVENIO");
                     return message.ERROR_INTERNAL_SERVER_MODEL
                 }
+                
             }
 
         }else{

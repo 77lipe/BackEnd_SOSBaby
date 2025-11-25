@@ -65,6 +65,8 @@ import chatIARoutes from './routes/IAchatRoutes/index.js'
 import relatorioRoutes from './routes/relatorioRoutes/index.js'
 import TokenCallSolicited from './routes/videoCallRoutes/index.js'
 import ChamadaVideo from './routes/chamadaRoutes/index.js'
+import Convenio from './routes/convenioRoute/index.js'
+import Especialidade from './routes/specialtyRoutes/index.js'
 
 
 // Inicializa Prisma
@@ -137,6 +139,8 @@ app.use('/v1/sosbaby', chatIARoutes)
 app.use('/v1/sosbaby', relatorioRoutes)
 app.use('/v1/sosbaby', TokenCallSolicited)
 app.use('/v1/sosbaby', ChamadaVideo)
+app.use('/v1/sosbaby', Convenio)
+app.use('/v1/sosbaby', Especialidade)
 
 // Porta para Azure ou padrão 3030
 const port = process.env.PORT || 3030;

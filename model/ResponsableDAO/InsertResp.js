@@ -24,7 +24,8 @@ export const insertSQLResp = async function (user) {
         id_sexo,
         arquivo,
         cartao_medico,
-        id_user
+        id_user,
+        id_convenio
         )
         values(
         '${user.nome}',
@@ -35,7 +36,9 @@ export const insertSQLResp = async function (user) {
         '${user.id_sexo}',
         '${user.arquivo}',
         '${user.cartao_medico}',
-        '${user.id_user}'
+        '${user.id_user}',
+        '${user.id_convenio}'
+
         )`
 
         let result = await prisma.$executeRawUnsafe(sql)

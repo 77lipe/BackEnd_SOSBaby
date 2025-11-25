@@ -17,7 +17,8 @@ export const SelectAllGender = async function () {
 
         if (resultType != false) {
             if (resultType.length > 0) {
-                dadosType.message = message.SUCCES_SEARCH_ITEM
+                dadosType.status_code = message.SUCCES_SEARCH_ITEM.status_code
+                dadosType.message = message.SUCCES_SEARCH_ITEM.message
                 dadosType.items = resultType.length
                 dadosType.type = resultType
 

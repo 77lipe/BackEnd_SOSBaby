@@ -28,10 +28,10 @@ export async function generativeTokenController(user, dados, contentType){
                             tipo: user.id_tipo
                         },
                         token: {
-                                     token: token.token,
-                                    identity: token.identity,
-                                    room: token.room
-}
+                                token: token.token,
+                                identity: token.identity,
+                                room: token.room
+                                }
                     }
                 }else{
                     return console.log("ERROR: erro ao gerar TOKEN de chamada!!");

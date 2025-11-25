@@ -38,7 +38,7 @@ export const insertResp = async function (user, contentType) {
                     let resultUser = await insertSQLResp(user)
 
                     let IdsRelacion = {
-                        id_convenio: resultConvenio[].id_convenio,
+                        id_convenio: resultConvenio[0].id_convenio,
                         id_user: resultUser.id_user
                     }
                     console.log(IdsRelacion);

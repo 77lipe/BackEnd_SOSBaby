@@ -11,6 +11,8 @@
  const prisma = new PrismaClient()
 
 export const insertSQLClinica = async function (clinica) {
+    //console.log(clinica);
+    
     try {
         
         let sql = `INSERT INTO tbl_clinica (
@@ -21,7 +23,8 @@ export const insertSQLClinica = async function (clinica) {
         cidade,
         rua,
         bairro,
-        numero
+        numero,
+        id_user
         )
         VALUES
         (
@@ -32,7 +35,8 @@ export const insertSQLClinica = async function (clinica) {
         '${clinica.cidade}',
         '${clinica.rua}',
         '${clinica.bairro}',
-        '${clinica.numero}'
+        '${clinica.numero}',
+        '${clinica.id_user}'
         )`
 
         let resultSQLClinica = await prisma.$executeRawUnsafe(sql)

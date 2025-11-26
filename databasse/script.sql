@@ -63,7 +63,6 @@ create table tbl_responsavel (
     cpf varchar(15) not null,
     telefone varchar(45) not null,
 	arquivo text(200) not null,
-    cartao_medico varchar(45) not null,
     cep varchar(20) not null,
     id_sexo int,
     id_user int,
@@ -501,3 +500,71 @@ INNER JOIN tbl_rotina AS r
     ON rel.id_rotina = r.id_rotina
 INNER JOIN tbl_rotina_item AS i
     ON rel.id_item = i.id_item;
+
+
+////////
+CREATE VIEW vw_responsavel_completo AS
+SELECT 
+    r.id_responsavel,
+    r.nome AS nome_responsavel,
+    r.data_nascimento,
+    r.cpf,
+    r.telefone,
+    r.arquivo,
+    r.cep,
+
+    -- Sexo
+    s.id_sexo,
+    s.sexo AS sexo,
+
+    -- User
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+
+    -- Tipo de usuário
+    tu.tipo AS tipo_user,
+
+    -- Convênios agrupados sem duplicados
+    JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'id_convenio', SUBSTRING_INDEX(cv.item, '|', 1),
+            'nome_convenio', SUBSTRING_INDEX(cv.item, '|', -1)
+        )
+    ) AS convenios
+
+FROM tbl_responsavel r
+LEFT JOIN tbl_sexo s 
+    ON r.id_sexo = s.id_sexo
+LEFT JOIN tbl_user u 
+    ON r.id_user = u.id_user
+LEFT JOIN tbl_type_user tu
+    ON u.id_tipo = tu.id_tipo
+
+-- SUBQUERY PARA REMOVER DUPLICADOS
+LEFT JOIN (
+    SELECT DISTINCT 
+        CONCAT(c.id_convenio, '|', c.nome) AS item,
+        uc.id_user
+    FROM tbl_user_convenio uc
+    LEFT JOIN tbl_convenio c
+        ON uc.id_convenio = c.id_convenio
+) AS cv
+ON cv.id_user = r.id_user
+
+GROUP BY 
+    r.id_responsavel,
+    r.nome,
+    r.data_nascimento,
+    r.cpf,
+    r.telefone,
+    r.arquivo,
+    r.cep,
+    s.id_sexo,
+    s.sexo,
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+    tu.tipo;

@@ -8,46 +8,30 @@
  ********************************************************/
 
 import * as message from '../../config/status/status.js'
-import { idResp } from "../../model/ResponsableDAO/SelectIDResp.js";
-import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser.js";
-import {SearchIDGender} from '../../controller/Controller_sexo/SelectByIdGender.js'
+import { idResp } from "../../model/ResponsableDAO/SelectIDResp.js"
 
 export const searchIDResp = async function (id) {
     try {
+
         let idGet = id
-        let respArray = []
-        let dadosResp = {}
-        
         if (idGet == undefined || idGet == null || idGet == "" || isNaN(idGet)) {
             return message.ERROR_REQUIRED_FIELDS
         }else{
 
             let resultResp = await idResp(idGet)
-            if (resultResp != false || typeof(resultResp) == 'object') {
-                if (resultResp.length > 0) {
-                    dadosResp.message = message.SUCCES_SEARCH_ITEM.message
-                    dadosResp.status_code = message.SUCCES_SEARCH_ITEM.status_code
-
-                    for(let itemRespon of resultResp){
-                        let dadosUser = await selectSQLIdUser(itemRespon.id_user)
-                        itemRespon.usuario = dadosUser
-                        delete itemRespon.id_user
-
-                        let dadosSex = await SearchIDGender(itemRespon.id_sexo)
-                        itemRespon.sexo = dadosSex.data[0].sexo
-                        delete itemRespon.id_sexo
-
-                        respArray.push(itemRespon)
-                    }
-                    dadosResp.responsavel = respArray
-                    
-                    return dadosResp
-                }else{
-                    return message.ERROR_NOT_FOUND
-                }
+            if (resultResp != false || typeof(resultResp) == 'object') {     
+                if(resultResp.length > 0){
+                        return{
+                            status_code: message.SUCCES_SEARCH_ITEM.status_code,
+                            message: message.SUCCES_SEARCH_ITEM.message,
+                            data: resultResp[0]
+                        } 
+                    }else{
+                        return message.ERROR_NOT_FOUND
+                    }     
             }else{
                 return message.ERROR_INTERNAL_SERVER_MODEL
-            }
+            }    
         }
     } catch (error) {
         console.log(error)

@@ -7,38 +7,25 @@
  *******************************************************************/
 
 import * as message from '../../config/status/status.js'
-import { ListSQLresps } from "../../model/ResponsableDAO/ListAllResp.js";
-import { selectSQLIdUser } from '../../model/UserDAO/SelectIDUser.js';
+import { ListSQLresps } from "../../model/ResponsableDAO/ListAllResp.js"
 
 export const ListAllResp = async function() {
     try {
 
-        let responsArray = []
-        let responDataJson = {}
-
         let resultResps = await ListSQLresps()
-        if (resultResps =! false) {
+        if (resultResps) {
             if (resultResps.length > 0) {
-                responDataJson.message = message.SUCCES_SEARCH_ITEM
-                responDataJson.items = resultResps.length
-                responDataJson.responsaveis = resultResps
-
-                for(item of resultResps){
-                    let dadoUser = await selectSQLIdUser(item.id_user)
-                    item.usuario = dadoUser.id_tipo
-
-                    responsArray.push(item)
+                return {
+                    status_code: message.SUCCES_SEARCH_ITEM.status_code,
+                    message: message.SUCCES_SEARCH_ITEM.message,
+                    data: resultResps
                 }
-                responDataJson.tipo_usuario = responsArray
-                return responDataJson
             }else{
                 return message.ERROR_NOT_FOUND
             }
         }else{
             return message.ERROR_INTERNAL_SERVER_MODEL
         }
-
-
 
     } catch (error) {
         console.log(error)

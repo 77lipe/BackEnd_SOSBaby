@@ -13,7 +13,7 @@
 export const idResp = async function (id) {
     try {
 
-        let sql = `SELECT * FROM tbl_responsavel WHERE id_responsavel = ${id}`
+        let sql = `SELECT * FROM vw_responsavel_completo_por_id WHERE id_responsavel = ${id}`
         let resultUser = await prisma.$queryRawUnsafe(sql)
 
         if (resultUser.length > 0) {

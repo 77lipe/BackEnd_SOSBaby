@@ -22,8 +22,9 @@ export const insertSQLBaby = async function (baby) {
         id_sangue,
         certidao_nascimento,
         cpf,
-        cartao_medico,
-        imagem_certidao
+        imagem_certidao,
+        id_convenio,
+        id_user
         )
         VALUES
         (
@@ -35,8 +36,9 @@ export const insertSQLBaby = async function (baby) {
         '${baby.id_sangue}',
         '${baby.certidao_nascimento}',
         '${baby.cpf}',
-        '${baby.cartao_medico}',
-        '${baby.imagem_certidao}'
+        '${baby.imagem_certidao}',
+        '${baby.id_convenio}',
+        '${baby.id_user}'
         )`
 
         let resultSQLbaby = await prisma.$executeRawUnsafe(sql)

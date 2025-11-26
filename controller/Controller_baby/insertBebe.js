@@ -36,12 +36,14 @@ export const insertBebe = async function (bebe, contentType) {
                     console.log("Convenio existente:", resultConvenio);
 
                     let resultInsertBaby = await insertSQLBaby(bebe)
+                   //console.log(resultInsertBaby);
+                    
 
                     let idsRelacion = {
                         id_convenio: resultConvenio[0].id_convenio,
-                        id_user: resultUser.id_user
+                        id_user: resultInsertBaby.id_user
                     }
-                    console.log(idsRelacion);
+                    //console.log(idsRelacion);
 
                     if(resultInsertBaby){
                         console.log("Bebê Criado:", resultInsertBaby);

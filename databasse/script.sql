@@ -85,10 +85,10 @@ create table tbl_bebe (
     altura int not null,
     certidao_nascimento varchar(50) not null,
     cpf varchar (15),
-    cartao_medico varchar(45)not null,
     imagem_certidao TEXT (100) not null,
     id_sexo int ,
     id_sangue int,
+    id_user int,
 	
 	constraint FK_SEXO_BEBE
     foreign key (id_sexo)
@@ -96,7 +96,11 @@ create table tbl_bebe (
     
 	constraint FK_SANGUE_RESPONSAVEL
     foreign key (id_sangue)
-    references tbl_sangue(id_sangue)
+    references tbl_sangue(id_sangue),
+
+    CONSTRAINT FK_USER_BEBE
+    FOREIGN KEY (id_user)
+    REFERENCES tbl_user(id_user);
 );
 
 

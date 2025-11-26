@@ -11,7 +11,6 @@ import { insertSQLResp } from "../../model/ResponsableDAO/InsertResp.js";
 import { SelectIdSQLConvenio } from "../../model/ConvenioDAO/getIdSQLConvenio.js"
 import { InsertSQLUserConvenio } from "../../model/ConvenioDAO/RelacionConvenioDAO/insertSQLRelacion.js"
 
-
 export const insertResp = async function (user, contentType) {
     try {
 
@@ -25,47 +24,54 @@ export const insertResp = async function (user, contentType) {
                 user.id_sexo                == "" || user.id_sexo               == undefined || user.id_sexo         == null || isNaN(user.id_sexo)              ||
                 user.arquivo                == "" || user.arquivo               == undefined || user.arquivo         == null || user.arquivo.length  > 3000      || 
                 user.id_user                == "" || user.id_user               == undefined || user.id_user         == null || isNaN(user.id_user)              ||
-                user.id_convenio               == undefined || user.id_convenio           == null || user.id_convenio            == '' || isNaN(user.id_convenio) 
+
+                user.id_convenio               == undefined ||  user.id_convenio               == null      || !Array.isArray(user.id_convenio)            || user.id_convenio.length === 0 
             ){
                 return message.ERROR_REQUIRED_FIELDS
             }else{
 
-                let resultConvenio = await SelectIdSQLConvenio(user.id_convenio)
-                if(resultConvenio){
-                    console.log("Convenio existente:", resultConvenio);
-                    
-                    let resultUser = await insertSQLResp(user)
+                let resultUser = await insertSQLResp(user)
+                if(resultUser){
 
-                    let IdsRelacion = {
-                        id_convenio: resultConvenio[0].id_convenio,
-                        id_user: resultUser.id_user
-                    }
-                    console.log(IdsRelacion);
-                    
-
-                    let resultRelacionamento = await InsertSQLUserConvenio(IdsRelacion)
-                    if(resultRelacionamento){
-                        console.log("Relacionamento Criado:", resultRelacionamento);
-
-                        if(resultUser){
-                            console.log("User Criado:", resultUser);
-                            return{
-                                ...message.SUCCES_CREATED_ITEM,
-                                data: resultUser
-                            }
+                    let conveniosValidados = []
+                    for (let idConvenio of user.id_convenio) {
+                        let resultConvenio = await SelectIdSQLConvenio(idConvenio)
+                        if(resultConvenio){
+                            conveniosValidados.push(resultConvenio[0])
                         }else{
+                            console.log("ERROR AO VERIFICAR CONVENIO:", idConvenio);
                             return message.ERROR_INTERNAL_SERVER_MODEL
                         }
+                    }
+
+                    let relacionamentosCriados = []
+
+                    for (let conv of conveniosValidados) {
+                        let IdsRelacion = {
+                            id_convenio: conv.id_convenio,
+                            id_user: resultUser.id_user
+                    }
+                        let resultRelacionamento = await InsertSQLUserConvenio(IdsRelacion)
+                        if(resultRelacionamento){
+                            relacionamentosCriados.push(resultRelacionamento)
+                        }else{
+                            console.log("ERROR AO CRIAR O RELACIONAMENTO");
+                            return message.ERROR_INTERNAL_SERVER_MODEL
+                        }
+                    }
+                    
+                    if(resultUser){
+                        return{
+                            ...message.SUCCES_CREATED_ITEM,
+                            data: resultUser,
+                            convenios: relacionamentosCriados
+                        }
                     }else{
-                        console.log("ERROR AO CRIAR O RELACIONAMENTO");
                         return message.ERROR_INTERNAL_SERVER_MODEL
                     }
-    
                 }else{
-                    console.log("ERROR AO VERIFICAR CONVENIO");
                     return message.ERROR_INTERNAL_SERVER_MODEL
                 }
-                
             }
 
         }else{
@@ -73,6 +79,7 @@ export const insertResp = async function (user, contentType) {
         }
 
     } catch (error) {
+        console.log(error);
         return message.ERROR_INTERNAL_SERVER_CONTROLLER
     }
 }

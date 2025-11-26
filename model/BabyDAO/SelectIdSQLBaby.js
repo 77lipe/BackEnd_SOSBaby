@@ -13,15 +13,11 @@
 export const SelectIdSQLBaby = async function (id) {
     try {
         
-        let sql = `SELECT * FROM tbl_bebe WHERE id_bebe = ${id}`
+        let sql = `SELECT * FROM vw_bebe_completo_por_id WHERE id_bebe = ${id}`
         let resultBaby = await prisma.$queryRawUnsafe(sql)
 
         if (resultBaby) {
-            if(resultBaby){
-                return resultBaby
-            }else{
-                return false
-            }
+            return resultBaby
         } else {
             return false
         }

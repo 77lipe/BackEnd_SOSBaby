@@ -568,3 +568,231 @@ GROUP BY
     u.email,
     u.id_tipo,
     tu.tipo;
+
+
+////////////////
+CREATE VIEW vw_responsavel_completo_por_id AS
+SELECT 
+    r.id_responsavel,
+    r.nome AS nome_responsavel,
+    r.data_nascimento,
+    r.cpf,
+    r.telefone,
+    r.arquivo,
+    r.cep,
+
+    -- Sexo
+    s.id_sexo,
+    s.sexo AS sexo,
+
+    -- User
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+
+    -- Tipo de usuário
+    tu.tipo AS tipo_user,
+
+    -- Convênios agrupados sem duplicados
+    JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'id_convenio', SUBSTRING_INDEX(cv.item, '|', 1),
+            'nome_convenio', SUBSTRING_INDEX(cv.item, '|', -1)
+        )
+    ) AS convenios
+
+FROM tbl_responsavel r
+LEFT JOIN tbl_sexo s 
+    ON r.id_sexo = s.id_sexo
+LEFT JOIN tbl_user u 
+    ON r.id_user = u.id_user
+LEFT JOIN tbl_type_user tu
+    ON u.id_tipo = tu.id_tipo
+
+-- SUBQUERY PARA REMOVER DUPLICADOS
+LEFT JOIN (
+    SELECT DISTINCT 
+        CONCAT(c.id_convenio, '|', c.nome) AS item,
+        uc.id_user
+    FROM tbl_user_convenio uc
+    LEFT JOIN tbl_convenio c
+        ON uc.id_convenio = c.id_convenio
+) AS cv
+ON cv.id_user = r.id_user
+
+WHERE r.id_responsavel = 1   -- <--- ALTERE AQUI PARA O ID QUE DESEJA
+
+GROUP BY 
+    r.id_responsavel,
+    r.nome,
+    r.data_nascimento,
+    r.cpf,
+    r.telefone,
+    r.arquivo,
+    r.cep,
+    s.id_sexo,
+    s.sexo,
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+    tu.tipo;
+
+
+
+//////
+DROP VIEW IF EXISTS vw_bebe_completo;
+
+CREATE VIEW vw_bebe_completo AS
+SELECT
+    b.id_bebe,
+    b.nome AS nome_bebe,
+    b.data_nascimento,
+    b.peso,
+    b.altura,
+    b.certidao_nascimento,
+    b.cpf,
+    b.imagem_certidao,
+
+    -- Sexo
+    s.id_sexo,
+    s.sexo,
+
+    -- Sangue
+    sg.id_sangue,
+    sg.tipo_sanguineo AS tipo_sanguineo,
+
+    -- User
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+
+    -- Tipo user
+    tu.tipo AS tipo_user,
+
+    -- Convênios (agrupados e sem duplicados)
+    JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'id_convenio', SUBSTRING_INDEX(cv.item, '|', 1),
+            'nome_convenio', SUBSTRING_INDEX(cv.item, '|', -1)
+        )
+    ) AS convenios
+
+FROM tbl_bebe b
+LEFT JOIN tbl_sexo s
+    ON b.id_sexo = s.id_sexo
+LEFT JOIN tbl_sangue sg
+    ON b.id_sangue = sg.id_sangue
+LEFT JOIN tbl_user u
+    ON b.id_user = u.id_user
+LEFT JOIN tbl_type_user tu
+    ON u.id_tipo = tu.id_tipo
+
+-- Subselect para remover duplicações de convênios
+LEFT JOIN (
+    SELECT DISTINCT
+        CONCAT(c.id_convenio, '|', c.nome) AS item,
+        uc.id_user
+    FROM tbl_user_convenio uc
+    LEFT JOIN tbl_convenio c
+        ON uc.id_convenio = c.id_convenio
+) AS cv
+ON cv.id_user = b.id_user
+
+GROUP BY
+    b.id_bebe,
+    b.nome,
+    b.data_nascimento,
+    b.peso,
+    b.altura,
+    b.certidao_nascimento,
+    b.cpf,
+    b.imagem_certidao,
+    s.id_sexo,
+    s.sexo,
+    sg.id_sangue,
+    sg.tipo_sanguineo,
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+    tu.tipo;
+    
+    
+    
+    
+    
+/////
+DROP VIEW IF EXISTS vw_bebe_completo_por_id;
+
+CREATE VIEW vw_bebe_completo_por_id AS
+SELECT
+    b.id_bebe,
+    b.nome AS nome_bebe,
+    b.data_nascimento,
+    b.peso,
+    b.altura,
+    b.certidao_nascimento,
+    b.cpf,
+    b.imagem_certidao,
+
+    -- Sexo
+    s.id_sexo,
+    s.sexo,
+
+    -- Sangue
+    sg.id_sangue,
+    sg.tipo_sanguineo AS tipo_sanguineo,
+
+    -- User
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+
+    -- Tipo user
+    tu.tipo AS tipo_user,
+
+    -- Convênios agrupados
+    JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'id_convenio', SUBSTRING_INDEX(cv.item, '|', 1),
+            'nome_convenio', SUBSTRING_INDEX(cv.item, '|', -1)
+        )
+    ) AS convenios
+
+FROM tbl_bebe b
+LEFT JOIN tbl_sexo s ON b.id_sexo = s.id_sexo
+LEFT JOIN tbl_sangue sg ON b.id_sangue = sg.id_sangue
+LEFT JOIN tbl_user u ON b.id_user = u.id_user
+LEFT JOIN tbl_type_user tu ON u.id_tipo = tu.id_tipo
+
+LEFT JOIN (
+    SELECT DISTINCT
+        CONCAT(c.id_convenio, '|', c.nome) AS item,
+        uc.id_user
+    FROM tbl_user_convenio uc
+    LEFT JOIN tbl_convenio c ON uc.id_convenio = c.id_convenio
+) AS cv
+ON cv.id_user = b.id_user
+
+GROUP BY
+    b.id_bebe,
+    b.nome,
+    b.data_nascimento,
+    b.peso,
+    b.altura,
+    b.certidao_nascimento,
+    b.cpf,
+    b.imagem_certidao,
+    s.id_sexo,
+    s.sexo,
+    sg.id_sangue,
+    sg.tipo_sanguineo,
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+    tu.tipo;

@@ -13,7 +13,7 @@
 export const ListSQLBaby = async function () {
     try {
         
-        let sql = `SELECT * FROM tbl_bebe order by id_bebe desc`
+        let sql = `SELECT * FROM vw_bebe_completo order by id_bebe desc`
         let resultBaby = await prisma.$queryRawUnsafe(sql)
 
         if (resultBaby) {

@@ -14,32 +14,19 @@ import { SelectIdSQLBlood } from '../../model/BloodDAO/SelectIdBlood.js'
 
 export const selectAllBebe = async function () {
     try {
-        
-        let ArrayBaby = []
-        let BabyDataJson = {}
 
         let resultBaby = await ListSQLBaby()
         if (resultBaby != false) {
             if (resultBaby.length > 0) {
-                BabyDataJson.message = message.SUCCES_SEARCH_ITEM
-                BabyDataJson.items = resultBaby.length
-                BabyDataJson.bebes = resultBaby
 
-                for (let item of resultBaby) {
-                    let dadoGender = await idGender(item.id_sexo)
-                    item.sexo = dadoGender.sexo
-
-                    let dadoBlood = await SelectIdSQLBlood(item.id_sangue)
-                    item.tipo_sanguineo = dadoBlood.tipo_sanguineo
-
-                    ArrayBaby.push(item)
+                return {
+                    status_code: message.SUCCES_SEARCH_ITEM.status_code,
+                    message: message.SUCCES_SEARCH_ITEM.message,
+                    data: resultBaby
                 }
-                BabyDataJson.bebes = ArrayBaby
-                return BabyDataJson
             } else {
                 return message.ERROR_NOT_FOUND
-            }
-            
+            }   
         }else{
             return message.ERROR_INTERNAL_SERVER_MODEL
         }

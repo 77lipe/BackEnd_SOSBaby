@@ -23,7 +23,6 @@ export const insertSQLBaby = async function (baby) {
         certidao_nascimento,
         cpf,
         imagem_certidao,
-        id_convenio,
         id_user
         )
         VALUES
@@ -37,7 +36,6 @@ export const insertSQLBaby = async function (baby) {
         '${baby.certidao_nascimento}',
         '${baby.cpf}',
         '${baby.imagem_certidao}',
-        '${baby.id_convenio}',
         '${baby.id_user}'
         )`
 

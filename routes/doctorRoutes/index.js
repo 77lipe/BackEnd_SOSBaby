@@ -10,6 +10,7 @@ import GetAllDoctor from './GetAllDoctor.js'
 import GetIdDoctor  from './GetIdDoctor.js'
 import DeleteDoctor from './DeleteDoctor.js'
 import PutDoctor   from './PutDoctor.js'
+import GetDoctorByUser   from './GetDoctorByUser.js'
 import { Router }   from "express"
 
 const router = Router()
@@ -19,5 +20,6 @@ router.use(PutDoctor)
 router.use(GetAllDoctor)
 router.use(GetIdDoctor)
 router.use(DeleteDoctor)
+router.use(GetDoctorByUser)
 
 export default router

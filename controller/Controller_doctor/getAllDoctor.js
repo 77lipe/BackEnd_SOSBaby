@@ -7,33 +7,21 @@
  ***********************************************************/
 import * as message from '../../config/status/status.js'
 import { getAllSQLDoctor } from '../../model/DoctorDAO/GetAllDoctor.js'
-import { selectSQLIdUser } from '../../model/UserDAO/SelectIDUser.js'
-import { idGender } from '../../model/SexDAO/SelectByIdGender.js'
 
 export const getAllDoctor = async function () {
     try {
 
-        let doctorArray = []
-        let doctorJson = {}
-
         let resultAllDoctor = await getAllSQLDoctor()
-        if (resultAllDoctor != false || typeof(resultAllDoctor) == 'object') {
+        console.log(resultAllDoctor);
+        
+        if (resultAllDoctor) {
             if (resultAllDoctor.length > 0) {
-                doctorJson.message = message.SUCCES_SEARCH_ITEM
-                doctorJson.items = resultAllDoctor.length
-                doctorJson.medicos = resultAllDoctor
-
-                for (item of resultAllDoctor) {
-                    let dadoUser = await selectSQLIdUser(item.id_user)
-                    item.usuario = dadoUser.id_user
-
-                    let dadoGender = await idGender(item.id_sexo)
-                    item.sexo = dadoGender.id_sexo
-
-                    doctorArray.push(item)
+                return {
+                    status_code: message.SUCCES_SEARCH_ITEM.status_code,
+                    message: message.SUCCES_SEARCH_ITEM.message,
+                    itens: resultAllDoctor.length,
+                    data: resultAllDoctor
                 }
-                doctorJson.tipo_usuario = doctorArray
-                return doctorJson
 
             } else {
                  return message.ERROR_NOT_FOUND

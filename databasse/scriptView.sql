@@ -1,349 +1,684 @@
+    CREATE OR REPLACE VIEW view_rotina_com_itens AS
+SELECT 
+    -- Dados da rotina
+    r.id_rotina,
+    r.titulo AS titulo_rotina,
+    r.cor,
+    r.id_user,
 
+    -- Dados do item
+    i.id_item,
+    i.titulo AS titulo_item,
+    i.descricao,
+    i.data_rotina,
+    i.hora
 
--- SEXO --
--- vw_all_sexo
-DROP VIEW IF EXISTS vw_all_sexo;
-CREATE VIEW vw_all_sexo AS
-SELECT * FROM tbl_sexo;
-
--- vw_sexo_by_id
-DROP VIEW IF EXISTS vw_sexo_by_id;
-CREATE VIEW vw_sexo_by_id AS
-SELECT * FROM tbl_sexo WHERE id_sexo = 1;
-
-
-
-
-
--- SANGUE --
--- Procedure tbl_sexo
--- INSERT
-DELIMITER $
-DROP procedure IF EXISTS insertSexo;
-CREATE PROCEDURE insertSexo(
-	IN p_sexo varchar(100)
-)
-BEGIN
-	INSERT INTO tbl_sexo (
-		sexo
-    )
-    VALUES (
-		p_sexo
-    );
+FROM tbl_rotina_item_relacionamento AS rel
+INNER JOIN tbl_rotina AS r
+    ON rel.id_rotina = r.id_rotina
+INNER JOIN tbl_rotina_item AS i
+    ON rel.id_item = i.id_item;
     
-     SELECT LAST_INSERT_ID() AS id_sexo;
-END $ 
+    
+    
+    
+/////
+CREATE OR REPLACE VIEW view_todas_rotinas_com_itens AS
+SELECT 
+    -- Dados da rotina
+    r.id_rotina,
+    r.titulo AS titulo_rotina,
+    r.cor,
+    r.id_user,
 
--- DELETE
+    -- Dados do item
+    i.id_item,
+    i.titulo AS titulo_item,
+    i.descricao,
+    i.data_rotina,
+    i.hora
 
-DELIMITER $$
-DROP PROCEDURE IF EXISTS deleteSexo; 
-CREATE PROCEDURE deleteSexo(
-    IN p_id INT
-)
-BEGIN
-    DELETE FROM tbl_sexo
-    WHERE id_sexo = p_id;
-END $$
+FROM tbl_rotina_item_relacionamento AS rel
+INNER JOIN tbl_rotina AS r
+    ON rel.id_rotina = r.id_rotina
+INNER JOIN tbl_rotina_item AS i
+    ON rel.id_item = i.id_item
 
+ORDER BY 
+    r.id_rotina ASC,
+    i.hora ASC;
+    
+    
 
+CREATE VIEW vw_relacionamentos_completos_usuario AS
+SELECT 
+    r.id_user,
 
--- TIPO USER --
--- vw_all_type_user
-DROP VIEW IF EXISTS vw_all_type_user;
-CREATE VIEW vw_all_type_user AS
-SELECT * FROM tbl_type_user;
+    -- Dados da tabela rotina
+    r.id_rotina,
+    r.titulo AS titulo_rotina,
+    r.cor,
+    
+    -- Dados da tabela item
+    i.id_item,
+    i.titulo AS titulo_item,
+    i.descricao,
+    i.data_rotina,
+    i.hora
 
--- vw_type_user_by_id
-DROP VIEW IF EXISTS vw_type_user_by_id;
-CREATE VIEW vw_type_user_by_id AS
-SELECT * FROM tbl_type_user WHERE id_tipo = 1;
+FROM tbl_rotina_item_relacionamento rel
+INNER JOIN tbl_rotina r 
+    ON rel.id_rotina = r.id_rotina
+INNER JOIN tbl_rotina_item i
+    ON rel.id_item = i.id_item;
 
+    
+    
+    
+    
+///////////
+SELECT * FROM tbl_responsavel;
 
+SET SQL_SAFE_UPDATES = 0;
 
+DELETE FROM tbl_sangue
+WHERE tipo_sanguineo = 't';
 
--- ESPECIALIDADE --
--- vw_all_especialidade
-DROP VIEW IF EXISTS vw_all_especialidade;
-CREATE VIEW vw_all_especialidade AS
-SELECT * FROM tbl_especialidade;
-
--- vw_especialidade_by_id
-DROP VIEW IF EXISTS vw_especialidade_by_id;
-CREATE VIEW vw_especialidade_by_id AS
-SELECT * FROM tbl_especialidade WHERE id_especialidade = 1;
-
-
-
--- TIPO MENSAGEM -- 
--- vw_all_type_messager
-DROP VIEW IF EXISTS vw_all_type_messager;
-CREATE VIEW vw_all_type_messager AS
-SELECT * FROM tbl_type_messager;
-
--- vw_type_messager_by_id
-DROP VIEW IF EXISTS vw_type_messager_by_id;
-CREATE VIEW vw_type_messager_by_id AS
-SELECT * FROM tbl_type_messager WHERE id_tipo_mensagem = 1;
-
-
-
--- STATUS MENSAGEM --
--- vw_all_status_messager
-DROP VIEW IF EXISTS vw_all_status_messager;
-CREATE VIEW vw_all_status_messager AS
-SELECT * FROM tbl_status_messager;
-
--- vw_status_messager_by_id
-DROP VIEW IF EXISTS vw_status_messager_by_id;
-CREATE VIEW vw_status_messager_by_id AS
-SELECT * FROM tbl_status_messager WHERE id_status = 1;
-
+SET SQL_SAFE_UPDATES = 1;
 
 
--- USER --
--- vw_all_user
-DROP VIEW IF EXISTS vw_all_user;
-CREATE VIEW vw_all_user AS
-SELECT u.id_user, u.email, u.senha, t.tipo
-FROM tbl_user u
-LEFT JOIN tbl_type_user t ON u.id_tipo = t.id_tipo;
+use sosbaby;
+ALTER TABLE tbl_bebe
+DROP COLUMN cartao_medico;
 
--- vw_user_by_id
-DROP VIEW IF EXISTS vw_user_by_id;
-CREATE VIEW vw_user_by_id AS
-SELECT u.id_user, u.email, u.senha, t.tipo
-FROM tbl_user u
-LEFT JOIN tbl_type_user t ON u.id_tipo = t.id_tipo
-WHERE u.id_user = 1;
+SET FOREIGN_KEY_CHECKS = 0;
 
+DROP TABLE tbl_sangue;
 
+SET FOREIGN_KEY_CHECKS = 1;
 
--- MENSAGEM --
--- vw_all_messager
-DROP VIEW IF EXISTS vw_all_messager;
-CREATE VIEW vw_all_messager AS
-SELECT m.id_mensagem, m.conteudo, t.tipo_mensagem, s.status_messagem
-FROM tbl_messager m
-LEFT JOIN tbl_type_messager t ON m.id_tipo_mensagem = t.id_tipo_mensagem
-LEFT JOIN tbl_status_messager s ON m.id_status = s.id_status;
+create table tbl_sangue (
+	id_sangue int auto_increment primary key not null,
+    tipo_sanguineo VARCHAR(4) not null
+);
 
--- vw_messager_by_id
-DROP VIEW IF EXISTS vw_messager_by_id;
-CREATE VIEW vw_messager_by_id AS
-SELECT m.id_mensagem, m.conteudo, t.tipo_mensagem, s.status_messagem
-FROM tbl_messager m
-LEFT JOIN tbl_type_messager t ON m.id_tipo_mensagem = t.id_tipo_mensagem
-LEFT JOIN tbl_status_messager s ON m.id_status = s.id_status
-WHERE m.id_mensagem = 1;
+ALTER TABLE tbl_bebe
+ADD COLUMN id_user INT;
+
+ALTER TABLE tbl_bebe
+ADD CONSTRAINT FK_USER_BEBE
+FOREIGN KEY (id_user)
+REFERENCES tbl_user(id_user);
 
 
+SELECT 
+    CONSTRAINT_NAME
+FROM 
+    information_schema.KEY_COLUMN_USAGE
+WHERE 
+    TABLE_NAME = 'tbl_bebe'
+    AND COLUMN_NAME = 'id_convenio';
 
--- CHAT --
--- vw_all_chat
-DROP VIEW IF EXISTS vw_all_chat;
-CREATE VIEW vw_all_chat AS
-SELECT c.id_chat, u.email AS usuario, m.conteudo AS mensagem
-FROM tbl_chat c
-LEFT JOIN tbl_user u ON c.id_user = u.id_user
-LEFT JOIN tbl_messager m ON c.id_mensagem = m.id_mensagem;
+ALTER TABLE tbl_bebe
+DROP FOREIGN KEY FK_CONVENIO_BEBE;
 
--- vw_chat_by_id
-DROP VIEW IF EXISTS vw_chat_by_id;
-CREATE VIEW vw_chat_by_id AS
-SELECT c.id_chat, u.email AS usuario, m.conteudo AS mensagem
-FROM tbl_chat c
-LEFT JOIN tbl_user u ON c.id_user = u.id_user
-LEFT JOIN tbl_messager m ON c.id_mensagem = m.id_mensagem
-WHERE c.id_chat = 1;
+ALTER TABLE tbl_bebe
+DROP COLUMN id_convenio;
 
 
 
 
--- CEP --
--- vw_all_cep
-DROP VIEW IF EXISTS vw_all_cep;
-CREATE VIEW vw_all_cep AS
-SELECT * FROM tbl_cep;
+////////////////
+DROP VIEW IF EXISTS vw_responsavel_completo;
 
--- vw_cep_by_id
-DROP VIEW IF EXISTS vw_cep_by_id;
-CREATE VIEW vw_cep_by_id AS
-SELECT * FROM tbl_cep WHERE id_cep = 1;
+CREATE VIEW vw_responsavel_completo AS
+SELECT 
+    r.id_responsavel,
+    r.nome AS nome_responsavel,
+    r.data_nascimento,
+    r.cpf,
+    r.telefone,
+    r.arquivo,
+    r.cep,
 
+    -- Sexo
+    s.id_sexo,
+    s.sexo AS sexo,
 
+    -- User
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
 
--- RESPONSAVEL -- 
--- vw_all_responsavel
-DROP VIEW IF EXISTS vw_all_responsavel;
-CREATE VIEW vw_all_responsavel AS
-SELECT r.id_responsavel, r.nome, r.cpf, r.telefone, u.email
+    -- Tipo de usuário
+    tu.tipo AS tipo_user,
+
+    -- Convênios agrupados sem duplicados
+    JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'id_convenio', SUBSTRING_INDEX(cv.item, '|', 1),
+            'nome_convenio', SUBSTRING_INDEX(cv.item, '|', -1)
+        )
+    ) AS convenios
+
 FROM tbl_responsavel r
-LEFT JOIN tbl_user u ON r.id_user = u.id_user;
+LEFT JOIN tbl_sexo s 
+    ON r.id_sexo = s.id_sexo
+LEFT JOIN tbl_user u 
+    ON r.id_user = u.id_user
+LEFT JOIN tbl_type_user tu
+    ON u.id_tipo = tu.id_tipo
 
--- vw_responsavel_by_id
-DROP VIEW IF EXISTS vw_responsavel_by_id;
-CREATE VIEW vw_responsavel_by_id AS
-SELECT r.id_responsavel, r.nome, r.cpf, r.telefone, u.email
+-- SUBQUERY PARA REMOVER DUPLICADOS
+LEFT JOIN (
+    SELECT DISTINCT 
+        CONCAT(c.id_convenio, '|', c.nome) AS item,
+        uc.id_user
+    FROM tbl_user_convenio uc
+    LEFT JOIN tbl_convenio c
+        ON uc.id_convenio = c.id_convenio
+) AS cv
+ON cv.id_user = r.id_user
+
+GROUP BY 
+    r.id_responsavel,
+    r.nome,
+    r.data_nascimento,
+    r.cpf,
+    r.telefone,
+    r.arquivo,
+    r.cep,
+    s.id_sexo,
+    s.sexo,
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+    tu.tipo;
+    
+    
+///////
+DROP VIEW IF EXISTS vw_responsavel_completo_por_id;
+
+CREATE VIEW vw_responsavel_completo_por_id AS
+SELECT 
+    r.id_responsavel,
+    r.nome AS nome_responsavel,
+    r.data_nascimento,
+    r.cpf,
+    r.telefone,
+    r.arquivo,
+    r.cep,
+
+    -- Sexo
+    s.id_sexo,
+    s.sexo AS sexo,
+
+    -- User
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+
+    -- Tipo de usuário
+    tu.tipo AS tipo_user,
+
+    -- Convênios agrupados SEM duplicados
+    JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'id_convenio', SUBSTRING_INDEX(cv.item, '|', 1),
+            'nome_convenio', SUBSTRING_INDEX(cv.item, '|', -1)
+        )
+    ) AS convenios
+
 FROM tbl_responsavel r
-LEFT JOIN tbl_user u ON r.id_user = u.id_user
-WHERE r.id_responsavel = 1;
+LEFT JOIN tbl_sexo s 
+    ON r.id_sexo = s.id_sexo
+LEFT JOIN tbl_user u 
+    ON r.id_user = u.id_user
+LEFT JOIN tbl_type_user tu
+    ON u.id_tipo = tu.id_tipo
+
+-- SUBQUERY PARA REMOVER DUPLICADOS
+LEFT JOIN (
+    SELECT DISTINCT 
+        CONCAT(c.id_convenio, '|', c.nome) AS item,
+        uc.id_user
+    FROM tbl_user_convenio uc
+    LEFT JOIN tbl_convenio c
+        ON uc.id_convenio = c.id_convenio
+) AS cv
+ON cv.id_user = r.id_user
+
+GROUP BY 
+    r.id_responsavel,
+    r.nome,
+    r.data_nascimento,
+    r.cpf,
+    r.telefone,
+    r.arquivo,
+    r.cep,
+    s.id_sexo,
+    s.sexo,
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+    tu.tipo;
 
 
 
--- BEBÊ --
--- vw_all_bebe
-DROP VIEW IF EXISTS vw_all_bebe;
-CREATE VIEW vw_all_bebe AS
-SELECT b.id_bebe, b.nome, b.data_nascimento, s.sexo, sg.tipo_sanguineo
+
+
+//////
+DROP VIEW IF EXISTS vw_bebe_completo;
+
+CREATE VIEW vw_bebe_completo AS
+SELECT
+    b.id_bebe,
+    b.nome AS nome_bebe,
+    b.data_nascimento,
+    b.peso,
+    b.altura,
+    b.certidao_nascimento,
+    b.cpf,
+    b.imagem_certidao,
+
+    -- Sexo
+    s.id_sexo,
+    s.sexo,
+
+    -- Sangue
+    sg.id_sangue,
+    sg.tipo_sanguineo AS tipo_sanguineo,
+
+    -- User
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+
+    -- Tipo user
+    tu.tipo AS tipo_user,
+
+    -- Convênios (agrupados e sem duplicados)
+    JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'id_convenio', SUBSTRING_INDEX(cv.item, '|', 1),
+            'nome_convenio', SUBSTRING_INDEX(cv.item, '|', -1)
+        )
+    ) AS convenios
+
 FROM tbl_bebe b
-LEFT JOIN tbl_sexo s ON b.id_sexo = s.id_sexo
-LEFT JOIN tbl_sangue sg ON b.id_sangue = sg.id_sangue;
+LEFT JOIN tbl_sexo s
+    ON b.id_sexo = s.id_sexo
+LEFT JOIN tbl_sangue sg
+    ON b.id_sangue = sg.id_sangue
+LEFT JOIN tbl_user u
+    ON b.id_user = u.id_user
+LEFT JOIN tbl_type_user tu
+    ON u.id_tipo = tu.id_tipo
 
--- vw_bebe_by_id
-DROP VIEW IF EXISTS vw_bebe_by_id;
-CREATE VIEW vw_bebe_by_id AS
-SELECT b.id_bebe, b.nome, b.data_nascimento, s.sexo, sg.tipo_sanguineo
+-- Subselect para remover duplicações de convênios
+LEFT JOIN (
+    SELECT DISTINCT
+        CONCAT(c.id_convenio, '|', c.nome) AS item,
+        uc.id_user
+    FROM tbl_user_convenio uc
+    LEFT JOIN tbl_convenio c
+        ON uc.id_convenio = c.id_convenio
+) AS cv
+ON cv.id_user = b.id_user
+
+GROUP BY
+    b.id_bebe,
+    b.nome,
+    b.data_nascimento,
+    b.peso,
+    b.altura,
+    b.certidao_nascimento,
+    b.cpf,
+    b.imagem_certidao,
+    s.id_sexo,
+    s.sexo,
+    sg.id_sangue,
+    sg.tipo_sanguineo,
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+    tu.tipo;
+    
+    
+    
+    
+    
+/////
+DROP VIEW IF EXISTS vw_bebe_completo_por_id;
+
+CREATE VIEW vw_bebe_completo_por_id AS
+SELECT
+    b.id_bebe,
+    b.nome AS nome_bebe,
+    b.data_nascimento,
+    b.peso,
+    b.altura,
+    b.certidao_nascimento,
+    b.cpf,
+    b.imagem_certidao,
+
+    -- Sexo
+    s.id_sexo,
+    s.sexo,
+
+    -- Sangue
+    sg.id_sangue,
+    sg.tipo_sanguineo AS tipo_sanguineo,
+
+    -- User
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+
+    -- Tipo user
+    tu.tipo AS tipo_user,
+
+    -- Convênios agrupados
+    JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'id_convenio', SUBSTRING_INDEX(cv.item, '|', 1),
+            'nome_convenio', SUBSTRING_INDEX(cv.item, '|', -1)
+        )
+    ) AS convenios
+
 FROM tbl_bebe b
 LEFT JOIN tbl_sexo s ON b.id_sexo = s.id_sexo
 LEFT JOIN tbl_sangue sg ON b.id_sangue = sg.id_sangue
-WHERE b.id_bebe = 1;
+LEFT JOIN tbl_user u ON b.id_user = u.id_user
+LEFT JOIN tbl_type_user tu ON u.id_tipo = tu.id_tipo
+
+LEFT JOIN (
+    SELECT DISTINCT
+        CONCAT(c.id_convenio, '|', c.nome) AS item,
+        uc.id_user
+    FROM tbl_user_convenio uc
+    LEFT JOIN tbl_convenio c ON uc.id_convenio = c.id_convenio
+) AS cv
+ON cv.id_user = b.id_user
+
+GROUP BY
+    b.id_bebe,
+    b.nome,
+    b.data_nascimento,
+    b.peso,
+    b.altura,
+    b.certidao_nascimento,
+    b.cpf,
+    b.imagem_certidao,
+    s.id_sexo,
+    s.sexo,
+    sg.id_sangue,
+    sg.tipo_sanguineo,
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+    tu.tipo;
+    
+    
+    use sosbaby;
+    //////////
+CREATE VIEW vw_responsavel_completo_por_user AS
+SELECT 
+    r.id_responsavel,
+    r.nome AS nome_responsavel,
+    r.data_nascimento,
+    r.cpf,
+    r.telefone,
+    r.arquivo,
+    r.cep,
+
+    -- Sexo
+    s.id_sexo,
+    s.sexo AS sexo,
+
+    -- User
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+
+    -- Tipo de usuário
+    tu.tipo AS tipo_user,
+
+    -- Convênios agrupados sem duplicados
+    JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'id_convenio', SUBSTRING_INDEX(cv.item, '|', 1),
+            'nome_convenio', SUBSTRING_INDEX(cv.item, '|', -1)
+        )
+    ) AS convenios
+
+FROM tbl_responsavel r
+LEFT JOIN tbl_sexo s 
+    ON r.id_sexo = s.id_sexo
+LEFT JOIN tbl_user u 
+    ON r.id_user = u.id_user
+LEFT JOIN tbl_type_user tu
+    ON u.id_tipo = tu.id_tipo
+
+-- SUBQUERY PARA REMOVER DUPLICADOS
+LEFT JOIN (
+    SELECT DISTINCT 
+        CONCAT(c.id_convenio, '|', c.nome) AS item,
+        uc.id_user
+    FROM tbl_user_convenio uc
+    LEFT JOIN tbl_convenio c
+        ON uc.id_convenio = c.id_convenio
+) AS cv
+ON cv.id_user = r.id_user
+
+WHERE u.id_user = u.id_user  -- Filtro dinâmico (deixe assim para a VIEW)
+
+GROUP BY 
+    r.id_responsavel,
+    r.nome,
+    r.data_nascimento,
+    r.cpf,
+    r.telefone,
+    r.arquivo,
+    r.cep,
+    s.id_sexo,
+    s.sexo,
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+    tu.tipo;
 
 
+////////////////////
+CREATE VIEW vw_medicos_completos AS
+SELECT
+    m.id_medico,
+    m.nome AS nome_medico,
+    m.email,
+    m.telefone,
+    m.crm,
+    m.cpf,
+    m.foto,
 
+    -- Sexo
+    s.id_sexo,
+    s.sexo AS sexo,
 
--- vw_all_responsavel_bebe
-DROP VIEW IF EXISTS vw_all_responsavel_bebe;
-CREATE VIEW vw_all_responsavel_bebe AS
-SELECT rb.id_bebe_responsavel, b.nome AS bebe, r.nome AS responsavel
-FROM tbl_responsavel_bebe rb
-LEFT JOIN tbl_bebe b ON rb.id_bebe = b.id_bebe
-LEFT JOIN tbl_responsavel r ON rb.id_responsavel = r.id_responsavel;
+    -- User
+    u.id_user,
+    u.nome_user,
+    u.email AS email_user,
+    u.id_tipo,
 
--- vw_responsavel_bebe_by_id
-DROP VIEW IF EXISTS vw_responsavel_bebe_by_id;
-CREATE VIEW vw_responsavel_bebe_by_id AS
-SELECT rb.id_bebe_responsavel, b.nome AS bebe, r.nome AS responsavel
-FROM tbl_responsavel_bebe rb
-LEFT JOIN tbl_bebe b ON rb.id_bebe = b.id_bebe
-LEFT JOIN tbl_responsavel r ON rb.id_responsavel = r.id_responsavel
-WHERE rb.id_bebe_responsavel = 1;
+    -- Tipo de usuário
+    tu.tipo AS tipo_user,
 
+    -- Clínica
+    c.id_clinica,
+    c.nome AS nome_clinica,
+    c.cnpj AS cnpj_clinica,
+    c.telefone AS telefone_clinica,
+    c.email AS email_clinica,
+    c.cidade,
+    c.rua,
+    c.bairro,
+    c.numero
 
-
--- MÉDICO -- 
--- vw_all_medico
-DROP VIEW IF EXISTS vw_all_medico;
-CREATE VIEW vw_all_medico AS
-SELECT m.id_medico, m.nome, m.email, m.telefone, m.crm, m.cpf, s.sexo
 FROM tbl_medico m
-LEFT JOIN tbl_sexo s ON m.id_sexo = s.id_sexo;
-
--- vw_medico_by_id
-DROP VIEW IF EXISTS vw_medico_by_id;
-CREATE VIEW vw_medico_by_id AS
-SELECT m.id_medico, m.nome, m.email, m.telefone, m.crm, m.cpf, s.sexo
-FROM tbl_medico m
-LEFT JOIN tbl_sexo s ON m.id_sexo = s.id_sexo
-WHERE m.id_medico = 1;
-
+LEFT JOIN tbl_sexo s 
+    ON m.id_sexo = s.id_sexo
+LEFT JOIN tbl_user u 
+    ON m.id_user = u.id_user
+LEFT JOIN tbl_type_user tu
+    ON u.id_tipo = tu.id_tipo
+LEFT JOIN tbl_clinica c
+    ON m.id_clinica = c.id_clinica;
 
 
 
+////////////////////////
+CREATE VIEW vw_medico_completo AS
+SELECT 
+    m.id_medico,
+    m.nome AS nome_medico,
+    m.email AS email_medico,
+    m.telefone AS telefone_medico,
+    m.crm,
+    m.cpf,
+    m.foto,
 
--- RELAÇAOM MÉDICO E ESPECIALIDADE --
--- vw_all_especialidade_medico
-DROP VIEW IF EXISTS vw_all_especialidade_medico;
-CREATE VIEW vw_all_especialidade_medico AS
-SELECT em.id, m.nome AS medico, e.especialidade
-FROM tbl_especialidade_medico em
-LEFT JOIN tbl_medico m ON em.id_medico = m.id_medico
-LEFT JOIN tbl_especialidade e ON em.id_especialidade = e.id_especialidade;
+    -- Sexo
+    s.id_sexo,
+    s.sexo,
 
--- vw_especialidade_medico_by_id
-DROP VIEW IF EXISTS vw_especialidade_medico_by_id;
-CREATE VIEW vw_especialidade_medico_by_id AS
-SELECT em.id, m.nome AS medico, e.especialidade
-FROM tbl_especialidade_medico em
-LEFT JOIN tbl_medico m ON em.id_medico = m.id_medico
-LEFT JOIN tbl_especialidade e ON em.id_especialidade = e.id_especialidade
-WHERE em.id = 1;
+    -- User
+    u.id_user,
+    u.nome_user,
+    u.email AS email_user,
+    u.id_tipo,
 
+    -- Tipo de Usuário
+    t.tipo AS tipo_usuario,
 
+    -- Clínica
+    c.id_clinica,
+    c.nome AS nome_clinica,
+    c.cnpj,
+    c.telefone AS telefone_clinica,
+    c.email AS email_clinica,
+    c.cidade,
+    c.rua,
+    c.bairro,
+    c.numero
 
+FROM tbl_medico AS m
+LEFT JOIN tbl_sexo AS s 
+    ON m.id_sexo = s.id_sexo
+LEFT JOIN tbl_user AS u
+    ON m.id_user = u.id_user
+LEFT JOIN tbl_type_user AS t
+    ON u.id_tipo = t.id_tipo
+LEFT JOIN tbl_clinica AS c
+    ON m.id_clinica = c.id_clinica;
 
+//////////////////////
+CREATE VIEW vw_medico_completo_por_user AS
+SELECT 
+    m.id_medico,
+    m.nome AS nome_medico,
+    m.email AS email_medico,
+    m.telefone AS telefone_medico,
+    m.crm,
+    m.cpf,
+    m.foto,
 
+    -- Sexo
+    s.id_sexo,
+    s.sexo,
 
+    -- User (responsável pelo médico)
+    u.id_user,
+    u.nome_user,
+    u.email AS email_user,
+    u.id_tipo,
 
--- CLÍNICA --
--- vw_all_clinica
-DROP VIEW IF EXISTS vw_all_clinica;
-CREATE VIEW vw_all_clinica AS
-SELECT c.id_clinica, c.nome, c.cnpj, c.telefone, c.email
-FROM tbl_clinica c;
+    -- Tipo de usuário
+    t.tipo AS tipo_usuario,
 
--- vw_clinica_by_id
-DROP VIEW IF EXISTS vw_clinica_by_id;
-CREATE VIEW vw_clinica_by_id AS
-SELECT c.id_clinica, c.nome, c.cnpj, c.telefone, c.email
-FROM tbl_clinica c
-WHERE c.id_clinica = 1;
+    -- Clínica
+    c.id_clinica,
+    c.nome AS nome_clinica,
+    c.cnpj,
+    c.telefone AS telefone_clinica,
+    c.email AS email_clinica,
+    c.cidade,
+    c.rua,
+    c.bairro,
+    c.numero
 
-
-
--- RELAÇÃO CLÍNICA E ESPECIALIDADE --
--- vw_all_especialidade_clinica
-DROP VIEW IF EXISTS vw_all_especialidade_clinica;
-CREATE VIEW vw_all_especialidade_clinica AS
-SELECT ec.id, c.nome AS clinica, e.especialidade
-FROM tbl_especialidade_clinica ec
-LEFT JOIN tbl_clinica c ON ec.id_clinica = c.id_clinica
-LEFT JOIN tbl_especialidade e ON ec.id_especialidade = e.id_especialidade;
-
--- vw_especialidade_clinica_by_id
-DROP VIEW IF EXISTS vw_especialidade_clinica_by_id;
-CREATE VIEW vw_especialidade_clinica_by_id AS
-SELECT ec.id, c.nome AS clinica, e.especialidade
-FROM tbl_especialidade_clinica ec
-LEFT JOIN tbl_clinica c ON ec.id_clinica = c.id_clinica
-LEFT JOIN tbl_especialidade e ON ec.id_especialidade = e.id_especialidade
-WHERE ec.id = 1;
-
-
-
--- ROTINA --
--- vw_all_rotina
-DROP VIEW IF EXISTS vw_all_rotina;
-CREATE VIEW view_rotinas AS
-SELECT r.id_rotina, r.titulo, r.cor, u.id_user
-FROM tbl_rotina r
-JOIN tbl_user u ON r.id_user = u.id_user;
-
-
--- vw_rotina_by_id
-DROP VIEW IF EXISTS vw_rotina_by_id;
-CREATE VIEW view_rotina_itens AS
-SELECT i.id_item, i.titulo, i.descricao, i.data_rotina, i.hora,
-       r.id_rotina, r.titulo AS rotina_titulo
-FROM tbl_rotina_item i
-JOIN tbl_rotina r ON i.id_rotina = r.id_rotina;
-
-
--- vw_all_rotina_item -- 
-DROP VIEW IF EXISTS vw_all_rotina_itens;
-CREATE VIEW vw_all_rotina_itens AS
-SELECT i.id_item, i.titulo, i.descricao, i.data_rotina, i.hora,
-       r.id_rotina, r.titulo AS rotina_titulo
-FROM tbl_rotina_item i
-JOIN tbl_rotina r ON i.id_rotina = r.id_rotina;
-
--- vw_rotina_item_by_id
-CREATE VIEW view_rotina_item_by_id AS
-SELECT i.id_item, i.titulo, i.descricao, i.data_rotina, i.hora,
-       r.id_rotina, r.titulo AS rotina_titulo
-FROM tbl_rotina_item i
-JOIN tbl_rotina r ON i.id_rotina = r.id_rotina
-WHERE i.id_item = i.id_item; 
+FROM tbl_medico AS m
+LEFT JOIN tbl_sexo AS s 
+    ON m.id_sexo = s.id_sexo
+LEFT JOIN tbl_user AS u
+    ON m.id_user = u.id_user
+LEFT JOIN tbl_type_user AS t
+    ON u.id_tipo = t.id_tipo
+LEFT JOIN tbl_clinica AS c
+    ON m.id_clinica = c.id_clinica;
 
 
 
+/////////
+CREATE VIEW vw_medico_completo_por_user AS
+SELECT 
+    m.id_medico,
+    m.nome AS nome_medico,
+    m.email AS email_medico,
+    m.telefone AS telefone_medico,
+    m.crm,
+    m.cpf,
+    m.foto,
+
+    -- Sexo
+    s.id_sexo,
+    s.sexo,
+
+    -- User (responsável pelo médico)
+    u.id_user,
+    u.nome_user,
+    u.email AS email_user,
+    u.id_tipo,
+
+    -- Tipo de usuário
+    t.tipo AS tipo_usuario,
+
+    -- Clínica
+    c.id_clinica,
+    c.nome AS nome_clinica,
+    c.cnpj,
+    c.telefone AS telefone_clinica,
+    c.email AS email_clinica,
+    c.cidade,
+    c.rua,
+    c.bairro,
+    c.numero
+
+FROM tbl_medico AS m
+LEFT JOIN tbl_sexo AS s 
+    ON m.id_sexo = s.id_sexo
+LEFT JOIN tbl_user AS u
+    ON m.id_user = u.id_user
+LEFT JOIN tbl_type_user AS t
+    ON u.id_tipo = t.id_tipo
+LEFT JOIN tbl_clinica AS c
+    ON m.id_clinica = c.id_clinica;

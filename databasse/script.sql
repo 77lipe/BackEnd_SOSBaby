@@ -127,6 +127,7 @@ create table tbl_medico(
     foto text(200) not null,
     id_sexo int,
     id_user int,
+    id_clinica int,
     
     constraint FK_SEXO_MEDICO
     foreign key (id_sexo)
@@ -135,6 +136,10 @@ create table tbl_medico(
 	constraint FK_USUARIO_MEDICO
     foreign key (id_user)
     references tbl_user(id_user) 
+
+    constraint FK_CLINICA_MEDICO
+    foreign key (id_clinica)
+    references tbl_clinica(id_clinica)
 );
 
 create table tbl_especialidade_medico(

@@ -13,8 +13,10 @@
 export const getIdSQLDoctor = async function(id){
     try {
         
-        let sql = `SELECT * FROM tbl_medico WHERE id_medico = ${id}`
+        let sql = `SELECT * FROM vw_medico_completo WHERE id_medico = ${id}`
         let resultDoctor = await prisma.$queryRawUnsafe(sql)
+        console.log(resultDoctor);
+        
 
         if(resultDoctor){
             return resultDoctor

@@ -1,15 +1,7 @@
-/***********************************************************
- * Autor: Felipe Vieira
- * Date: 30/09/25
- * Versão: 1.0
- * Desc: App que irá realizar as 
- *       validações dos dados recebidos para GET ID Doctor
- ***********************************************************/
-
 import * as message from '../../config/status/status.js'
-import { getIdSQLDoctor } from '../../model/DoctorDAO/GetIdDoctor.js'
+import { getIdSQLDoctorByUser } from '../../model/DoctorDAO/GetIdDoctorByUser.js'
 
-export const getIdDoctor = async function (id) {
+export const getDoctorByUser = async function (id) {
     try {
 
         let idGet = id
@@ -20,7 +12,7 @@ export const getIdDoctor = async function (id) {
             return message.ERROR_REQUIRED_FIELDS
         } else {
         
-            let resultIdDoctor = await getIdSQLDoctor(idGet)
+            let resultIdDoctor = await getIdSQLDoctorByUser(idGet)
             if (resultIdDoctor != false && typeof (resultIdDoctor) == 'object') {
                 if (resultIdDoctor.length > 0) {
                     return {

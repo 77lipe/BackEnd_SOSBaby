@@ -796,3 +796,74 @@ GROUP BY
     u.email,
     u.id_tipo,
     tu.tipo;
+
+
+
+/////////
+CREATE VIEW vw_responsavel_completo_por_user AS
+SELECT 
+    r.id_responsavel,
+    r.nome AS nome_responsavel,
+    r.data_nascimento,
+    r.cpf,
+    r.telefone,
+    r.arquivo,
+    r.cep,
+
+    -- Sexo
+    s.id_sexo,
+    s.sexo AS sexo,
+
+    -- User
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+
+    -- Tipo de usuário
+    tu.tipo AS tipo_user,
+
+    -- Convênios agrupados sem duplicados
+    JSON_ARRAYAGG(
+        JSON_OBJECT(
+            'id_convenio', SUBSTRING_INDEX(cv.item, '|', 1),
+            'nome_convenio', SUBSTRING_INDEX(cv.item, '|', -1)
+        )
+    ) AS convenios
+
+FROM tbl_responsavel r
+LEFT JOIN tbl_sexo s 
+    ON r.id_sexo = s.id_sexo
+LEFT JOIN tbl_user u 
+    ON r.id_user = u.id_user
+LEFT JOIN tbl_type_user tu
+    ON u.id_tipo = tu.id_tipo
+
+-- SUBQUERY PARA REMOVER DUPLICADOS
+LEFT JOIN (
+    SELECT DISTINCT 
+        CONCAT(c.id_convenio, '|', c.nome) AS item,
+        uc.id_user
+    FROM tbl_user_convenio uc
+    LEFT JOIN tbl_convenio c
+        ON uc.id_convenio = c.id_convenio
+) AS cv
+ON cv.id_user = r.id_user
+
+WHERE u.id_user = u.id_user  -- Filtro dinâmico (deixe assim para a VIEW)
+
+GROUP BY 
+    r.id_responsavel,
+    r.nome,
+    r.data_nascimento,
+    r.cpf,
+    r.telefone,
+    r.arquivo,
+    r.cep,
+    s.id_sexo,
+    s.sexo,
+    u.id_user,
+    u.nome_user,
+    u.email,
+    u.id_tipo,
+    tu.tipo;

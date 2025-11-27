@@ -6,7 +6,7 @@ const routerFilterName = Router()
 import { FilterClinicByConvenio } from '../../controller/Controller_filters/FilterClinic/getClinicByConvenio.js'
 import { authAccess} from '../../config/middleware/authAcces.js'
 
-routerFilterName.post('/filter/ConvClinica', bodyJsonParser, authAccess(["Médico", "Clínica", "ADMIN"]),async (req, res) => {
+routerFilterName.post('/filter/ConvClinica', bodyJsonParser, authAccess(["Médico", "Clínica", "ADMIN", "Responsável"]),async (req, res) => {
 
     const contentType = req.headers['content-type']
     const dataName = req.body

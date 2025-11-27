@@ -88,7 +88,12 @@ export const insertClinica = async function (clinica, contentType) {
 
                 for (let idEsp of clinica.id_especialidade) {
 
-                    let relacionamento = await insertSQLRelacionEspecialidade(id_user, idEsp);
+                    let relacionamento = await insertSQLRelacionEspecialidade({
+                        id_user: id_user,
+                        id_especialidade: idEsp
+                    });
+
+                    
 
                     if (!relacionamento) {
                         return message.ERROR_INTERNAL_SERVER_MODEL;

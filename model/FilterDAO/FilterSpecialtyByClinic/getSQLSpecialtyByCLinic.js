@@ -7,8 +7,10 @@ const prisma = new PrismaClient()
 export const FilterSpecialtyByClinic = async function(dataName){
     try {
         
-        let sql = `SELECT * FROM vw_clinica_por_especialidade WHERE responsabilidade LIKE '%${dataName}%' order by id_clinica desc`
+        let sql = `SELECT * FROM vw_clinicas_por_especialidade WHERE nome_especialidade LIKE '%${dataName}%' order by id_clinica desc`
         let resultName = await prisma.$queryRawUnsafe(sql)
+        console.log(resultName, resultName[0]);
+        
         
         if(resultName.length > 0){
             return resultName

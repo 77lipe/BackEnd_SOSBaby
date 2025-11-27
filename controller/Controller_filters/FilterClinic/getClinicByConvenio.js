@@ -1,4 +1,4 @@
-import * as message from '../../config/status/status.js'
+import * as message from '../../../config/status/status.js'
 import { FilterConvenioByClinic } from '../../../model/FilterDAO/FilterConvenioByClinic/getSQLConvenioByClinic.js'
 
 export const FilterClinicByConvenio = async function(dataName, contentType){

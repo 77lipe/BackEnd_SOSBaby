@@ -692,7 +692,9 @@ LEFT JOIN tbl_clinica AS c
 
 
 //////////////////////////////
-CREATE VIEW vw_clinica_por_especialidade AS
+DROP VIEW IF EXISTS vw_clinicas_por_especialidade;
+
+CREATE VIEW vw_clinicas_por_especialidade AS
 SELECT 
     c.id_clinica,
     c.nome AS nome_clinica,
@@ -708,20 +710,22 @@ SELECT
     u.nome_user,
     u.email AS email_user,
 
-    e.id_especialidade,
-    e.especialidade
+    t.id_tipo,
+    t.tipo AS tipo_user,
 
-FROM tbl_clinica c
-LEFT JOIN tbl_user u
-       ON u.id_user = c.id_user
+    ue.id_especialidade,
+    e.especialidade AS nome_especialidade
 
-LEFT JOIN tbl_user_especialidade ue
-       ON ue.id_user = u.id_user
+FROM tbl_clinica AS c
+INNER JOIN tbl_user AS u 
+    ON c.id_user = u.id_user
+INNER JOIN tbl_type_user AS t
+    ON u.id_tipo = t.id_tipo
+INNER JOIN tbl_user_especialidade AS ue
+    ON u.id_user = ue.id_user
+INNER JOIN tbl_especialidade AS e
+    ON ue.id_especialidade = e.id_especialidade;
 
-LEFT JOIN tbl_especialidade e
-       ON e.id_especialidade = ue.id_especialidade
-
-WHERE e.id_especialidade IS NOT NULL;
 
 
 

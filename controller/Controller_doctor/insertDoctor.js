@@ -9,7 +9,7 @@
 import * as message from '../../config/status/status.js'
 
 import { insertSQLDoctor } from '../../model/DoctorDAO/InsertDoctor.js'
-import { getEspecialidadeById } from '../../model/SpecialtyDAO/getIdSQLSpecialty.js'
+import { SelectIdSQLEspecialidade } from '../../model/SpecialtyDAO/getIdSQLSpecialty.js'
 import { insertSQLRelacionEspecialidade } from '../../model/SpecialtyDAO/RelacionSpecialtyDAO/inserRelacionamenoSpecialty.js'
 
 export const insertDoctor = async function (dataDoctor, contentType) {
@@ -39,7 +39,7 @@ export const insertDoctor = async function (dataDoctor, contentType) {
             } else {
 
                 for (let esp of dataDoctor.id_especialidade) {
-                    let exists = await getEspecialidadeById(esp)
+                    let exists = await SelectIdSQLEspecialidade(esp)
 
                     if (!exists) {
                         return {

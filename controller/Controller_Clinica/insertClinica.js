@@ -13,7 +13,7 @@ import { insertSQLClinica } from '../../model/ClinicaDAO/insertClinica.js';
 import { InsertSQLUserConvenio } from '../../model/ConvenioDAO/RelacionConvenioDAO/insertSQLRelacion.js';
 
 // NOVOS IMPORTS
-import { getEspecialidadeById } from '../../model/SpecialtyDAO/getIdSQLSpecialty.js';
+import { SelectIdSQLEspecialidade } from '../../model/SpecialtyDAO/getIdSQLSpecialty.js';
 import { insertSQLRelacionEspecialidade } from '../../model/SpecialtyDAO/RelacionSpecialtyDAO/inserRelacionamenoSpecialty.js';
 
 export const insertClinica = async function (clinica, contentType) {
@@ -51,7 +51,7 @@ export const insertClinica = async function (clinica, contentType) {
 
 
                 for (let idEsp of clinica.id_especialidade) {
-                    let exists = await getEspecialidadeById(idEsp);
+                    let exists = await SelectIdSQLEspecialidade(idEsp);
 
                     if (!exists) {
                         return {

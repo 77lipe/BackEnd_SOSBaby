@@ -27,7 +27,6 @@ export const insertDoctor = async function (dataDoctor, contentType) {
                 dataDoctor.id_sexo == null  || dataDoctor.id_sexo == undefined  || dataDoctor.id_sexo == ""  || isNaN(dataDoctor.id_sexo)        ||
                 dataDoctor.id_user == null  || dataDoctor.id_user == undefined  || dataDoctor.id_user == ""  || isNaN(dataDoctor.id_user)        ||
 
-                // -------- VALIDAÇÃO DO ARRAY DE ESPECIALIDADES --------
                 dataDoctor.id_especialidade == null ||
                 dataDoctor.id_especialidade == undefined ||
                 !Array.isArray(dataDoctor.id_especialidade) ||
@@ -39,9 +38,6 @@ export const insertDoctor = async function (dataDoctor, contentType) {
 
             } else {
 
-                // ---------------------------------------------
-                // 🔍 VALIDAR SE CADA id_especialidade EXISTE
-                // ---------------------------------------------
                 for (let esp of dataDoctor.id_especialidade) {
                     let exists = await getEspecialidadeById(esp)
 
@@ -54,18 +50,12 @@ export const insertDoctor = async function (dataDoctor, contentType) {
                     }
                 }
 
-                // ---------------------------------------------
-                // 🩺 INSERE O MÉDICO
-                // ---------------------------------------------
                 let resultInsertDoctor = await insertSQLDoctor(dataDoctor)
 
                 if (resultInsertDoctor) {
 
                     const id_user = resultInsertDoctor.id_user
 
-                    // ---------------------------------------------
-                    // 🔗 INSERE RELACIONAMENTOS MÉDICO × ESPECIALIDADE
-                    // ---------------------------------------------
                     for (let esp of dataDoctor.id_especialidade) {
                         let relacionamento = await insertSQLRelacionEspecialidade(id_user, esp)
 

@@ -10,6 +10,8 @@ import PutClinica from './PutClinica.js'
 import GetAllClinica from './GetAllClinica.js'
 import GetIdClinica from './GetIdClinica.js'
 import DeleteClinica from './DeleteClinica.js'
+import ConvClinica from './FilterClinicaByConvenio.js'
+import EspClinica from './FilterClinicaByEspecialidade.js'
 import { Router } from "express"
 
 const router = Router()
@@ -19,5 +21,7 @@ router.use(GetIdClinica)
 router.use(GetAllClinica)
 router.use(PutClinica)
 router.use(DeleteClinica)
+router.use(EspClinica)
+router.use(ConvClinica)
 
 export default router

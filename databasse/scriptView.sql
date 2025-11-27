@@ -686,3 +686,107 @@ LEFT JOIN tbl_type_user AS t
     ON u.id_tipo = t.id_tipo
 LEFT JOIN tbl_clinica AS c
     ON m.id_clinica = c.id_clinica;
+
+
+
+
+
+//////////////////////////////
+CREATE VIEW vw_clinica_por_especialidade AS
+SELECT 
+    c.id_clinica,
+    c.nome AS nome_clinica,
+    c.cnpj,
+    c.telefone AS telefone_clinica,
+    c.email AS email_clinica,
+    c.cidade,
+    c.rua,
+    c.bairro,
+    c.numero,
+
+    u.id_user,
+    u.nome_user,
+    u.email AS email_user,
+
+    e.id_especialidade,
+    e.especialidade
+
+FROM tbl_clinica c
+LEFT JOIN tbl_user u
+       ON u.id_user = c.id_user
+
+LEFT JOIN tbl_user_especialidade ue
+       ON ue.id_user = u.id_user
+
+LEFT JOIN tbl_especialidade e
+       ON e.id_especialidade = ue.id_especialidade
+
+WHERE e.id_especialidade IS NOT NULL;
+
+
+
+
+
+
+
+////////////////////////////
+CREATE VIEW vw_clinica_por_convenio AS
+SELECT 
+    c.id_clinica,
+    c.nome AS nome_clinica,
+    c.cnpj,
+    c.telefone AS telefone_clinica,
+    c.email AS email_clinica,
+    c.cidade,
+    c.rua,
+    c.bairro,
+    c.numero,
+
+    u.id_user,
+    u.nome_user,
+    u.email AS email_user,
+
+    conv.id_convenio,
+    conv.nome AS nome_convenio
+
+FROM tbl_clinica c
+LEFT JOIN tbl_user u
+       ON u.id_user = c.id_user
+
+LEFT JOIN tbl_user_convenio uc
+       ON uc.id_user = u.id_user
+
+LEFT JOIN tbl_convenio conv
+       ON conv.id_convenio = uc.id_convenio
+
+WHERE conv.id_convenio IS NOT NULL;
+
+
+
+//////////////////////
+CREATE VIEW vw_medico_por_especialidade AS
+SELECT 
+    m.id_medico,
+    m.nome AS nome_medico,
+    m.email AS email_medico,
+    m.telefone,
+    m.crm,
+
+    u.id_user,
+    u.nome_user,
+    u.email AS email_user,
+
+    e.id_especialidade,
+    e.especialidade
+
+FROM tbl_medico m
+LEFT JOIN tbl_user u
+       ON u.id_user = m.id_user
+
+LEFT JOIN tbl_user_especialidade ue
+       ON ue.id_user = u.id_user
+
+LEFT JOIN tbl_especialidade e
+       ON e.id_especialidade = ue.id_especialidade
+
+WHERE e.id_especialidade IS NOT NULL;

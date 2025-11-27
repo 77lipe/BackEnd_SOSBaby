@@ -86,10 +86,7 @@ create table tbl_status_messager(
     status_messagem varchar(50)
 );
 
-CREATE TABLE tbl_convenio (
-    id_convenio INT AUTO_INCREMENT PRIMARY KEY,
-    nome VARCHAR(100) NOT NULL
-);
+
 
 create table tbl_responsavel (
 	id_responsavel int auto_increment primary key,

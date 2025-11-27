@@ -11,6 +11,9 @@ import GetIdDoctor  from './GetIdDoctor.js'
 import DeleteDoctor from './DeleteDoctor.js'
 import PutDoctor   from './PutDoctor.js'
 import GetDoctorByUser   from './GetDoctorByUser.js'
+import GetDoctorByEspecialidade   from './filterRoutes/filterDoctorByEspecialidade.js'
+import GetDoctorByName   from './filterRoutes/filterNameDoctor.js'
+
 import { Router }   from "express"
 
 const router = Router()
@@ -21,5 +24,7 @@ router.use(GetAllDoctor)
 router.use(GetIdDoctor)
 router.use(DeleteDoctor)
 router.use(GetDoctorByUser)
+router.use(GetDoctorByEspecialidade)
+router.use(GetDoctorByName)
 
 export default router

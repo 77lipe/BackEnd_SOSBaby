@@ -50,6 +50,7 @@ ORDER BY
     
     
 
+//////
 CREATE VIEW vw_relacionamentos_completos_usuario AS
 SELECT 
     r.id_user,
@@ -429,7 +430,10 @@ GROUP BY
     
     
     use sosbaby;
-    //////////
+
+
+
+//////////
 CREATE VIEW vw_responsavel_completo_por_user AS
 SELECT 
     r.id_responsavel,

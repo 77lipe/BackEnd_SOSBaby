@@ -36,9 +36,44 @@ create table tbl_user(
     references tbl_type_user(id_tipo)
 );
 
+
 create table tbl_especialidade(
       id_especialidade int auto_increment primary key not null,
       especialidade varchar(100)
+);
+
+CREATE TABLE tbl_convenio (
+    id_convenio INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(100) NOT NULL
+);
+
+
+create table tbl_user_convenio(
+	id_user_convenio INT AUTO_INCREMENT PRIMARY KEY,
+    id_convenio int,
+    id_user int,
+    
+    constraint FK_CONVENIO_USER
+    foreign key(id_convenio)
+    references tbl_convenio(id_convenio),
+    
+    constraint FK__USER_CONVENIO
+    foreign key(id_user)
+    references tbl_user(id_user)
+);
+
+create table tbl_user_especialidade(
+	 id_user_especialidade int auto_increment primary key not null,
+     id_user int,
+     id_especialidade int,
+     
+	constraint FK_ESPECIALDIADE_USER
+    foreign key(id_user)
+    references tbl_user(id_user),
+    
+    constraint FK__USER_ESPECIALIDADE
+    foreign key(id_especialidade)
+    references tbl_especialidade(id_especialidade)
 );
 
 create table tbl_type_messager(
@@ -326,33 +361,6 @@ create table tbl_chat_message(
     foreign key (id_mensagem)
     references tbl_messager(id_mensagem)
 );
-
-///////médico
-ALTER TABLE tbl_medico
-ADD COLUMN id_clinica INT NULL,
-ADD CONSTRAINT FK_CLINICA_MEDICO
-    FOREIGN KEY (id_clinica)
-    REFERENCES tbl_clinica(id_clinica)
-    ON DELETE SET NULL
-    ON UPDATE CASCADE;
-
-//////RESPONSÁVEL
-ALTER TABLE tbl_responsavel
-ADD COLUMN id_convenio INT NULL,
-ADD CONSTRAINT FK_CONVENIO_RESPONSAVEL
-    FOREIGN KEY (id_convenio)
-    REFERENCES tbl_convenio(id_convenio)
-    ON DELETE SET NULL
-    ON UPDATE CASCADE;
-
-//////BEBÊ
-ALTER TABLE tbl_bebe
-ADD COLUMN id_convenio INT NULL,
-ADD CONSTRAINT FK_CONVENIO_BEBE
-    FOREIGN KEY (id_convenio)
-    REFERENCES tbl_convenio(id_convenio)
-    ON DELETE SET NULL
-    ON UPDATE CASCADE;
 
 
 

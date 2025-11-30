@@ -3,7 +3,7 @@ const { PrismaClient } = pkg
 const prisma = new PrismaClient()
 
 export const insertSQLRelacionEspecialidade = async function (especialidade) {
-    console.log(especialidade);
+    console.log("DADOS PARA RELACIONAMENTO:", especialidade);
     
     try {
 

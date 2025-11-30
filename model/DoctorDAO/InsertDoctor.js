@@ -11,6 +11,7 @@
  const prisma = new PrismaClient()
 
 export const insertSQLDoctor = async function(dataDoctor){
+    
     try {
         
         let sql = `INSERT INTO tbl_medico(
@@ -21,7 +22,8 @@ export const insertSQLDoctor = async function(dataDoctor){
         cpf,
         foto,
         id_sexo,
-        id_user
+        id_user,
+        id_clinica
         )
         VALUES(
         ?, ?, ?, ?, ?, ?, ?, ?
@@ -35,11 +37,16 @@ export const insertSQLDoctor = async function(dataDoctor){
             dataDoctor.cpf,
             dataDoctor.foto,
             dataDoctor.id_sexo,
-            dataDoctor.id_user
+            dataDoctor.id_user,
+            dataDoctor.id_clinica
         )
+        
 
         if(resultDoctor){
-            return resultDoctor
+            let getID = `SELECT * FROM tbl_medico ORDER BY id_medico DESC LIMIT 1`
+            let id = await prisma.$queryRawUnsafe(getID)
+
+            return id[0]
         }else{
             return false
         }

@@ -51,13 +51,22 @@ export const insertDoctor = async function (dataDoctor, contentType) {
                 }
 
                 let resultInsertDoctor = await insertSQLDoctor(dataDoctor)
-
+                console.log("Retorno na controller do MÉDICO:", resultInsertDoctor);
+                
                 if (resultInsertDoctor) {
 
                     const id_user = resultInsertDoctor.id_user
+                    console.log("data de id_user:", id_user);
+                    
+                    for (let id_especialidade of dataDoctor.id_especialidade) {
 
-                    for (let esp of dataDoctor.id_especialidade) {
-                        let relacionamento = await insertSQLRelacionEspecialidade(id_user, esp)
+                        const dataRelacion = {
+                            id_user,
+                            id_especialidade
+                        }
+                        var relacionamento = await insertSQLRelacionEspecialidade(dataRelacion)
+                        console.log(relacionamento);
+                        
 
                         if (!relacionamento) {
                             return message.ERROR_INTERNAL_SERVER_MODEL
@@ -66,7 +75,8 @@ export const insertDoctor = async function (dataDoctor, contentType) {
 
                     return {
                         ...message.SUCCES_CREATED_ITEM,
-                        data: resultInsertDoctor
+                        data: resultInsertDoctor,
+                        relacionamento_especialidade: relacionamento
                     }
 
                 } else {

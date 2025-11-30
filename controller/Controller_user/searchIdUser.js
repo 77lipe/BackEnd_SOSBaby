@@ -11,6 +11,8 @@ import { selectSQLIdUser } from "../../model/UserDAO/SelectIDUser.js"
 import { idTypeUser } from "../../model/TypeUserDAO/SelectByIdTypeUser.js";
 
 export const selectIDUser = async function (id) {
+    console.log("Id passado para user:", id);
+    
     try {
 
         let arrayUser = []

@@ -9,7 +9,8 @@
 
 import * as message from '../../../config/status/status.js'
 import { getIdSQLChatMessage } from '../../../model/ChatDAO/ChatMessageDAO/getIdSQLChatMessage.js'
-import { getIdChat } from "../../Controller_chat/GetIdChat.js"
+import { getIdSQLChat } from '../../../model/ChatDAO/getIdSQLChat.js'
+
 import { getIdMessage } from "../../Controller_message/getIdMessage.js"
 
 export const getIdChatMessage = async function (id) {
@@ -32,11 +33,17 @@ export const getIdChatMessage = async function (id) {
                     
 
                     for(let item of resultChatMessage){
-                        let dadoChat = await getIdChat(resultChatMessage[0].id_chat)
-                        item.chat = dadoChat.data[0].nome_chat
+                        let dadoChat = await getIdSQLChat(item.id_chat)
+                        //console.log("Dado chat:", dadoChat);
+                        
+                        item.chat = dadoChat[0].nome_chat
                         delete item.id_chat
 
-                        let dadoMessage = await getIdMessage(resultChatMessage[0].id_mensagem)
+                        let dadoMessage = await getIdMessage(item.id_mensagem)
+                        //console.log("DadoMESSAGE:", dadoMessage);
+                        
+                        //console.log(dadoMessage);
+                        
                         item.mensagem_enviada = {
                             mensagem: dadoMessage.data[0].conteudo,
                             hora_envio: dadoMessage.data[0].created_at,
@@ -48,6 +55,7 @@ export const getIdChatMessage = async function (id) {
                     }
 
                     ChatMessageDataJson.chat_message = ArrayDataChatMessage
+                    
                     return ChatMessageDataJson
 
                 } else {

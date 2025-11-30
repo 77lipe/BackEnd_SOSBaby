@@ -23,6 +23,7 @@ export const getIdMessage = async function (idGet){
         }else{
 
             let resultGetId = await getIdSQLMessage(idGet)
+            
             if(resultGetId != false || typeof (resultGetId) == 'object'){
                 if(resultGetId.length > 0){
                     dadosMessage.status_code = message.SUCCES_SEARCH_ITEM.status_code
@@ -35,6 +36,9 @@ export const getIdMessage = async function (idGet){
                         delete item.id_chat
 
                         let dadosUser = await selectIDUser(item.id_user)
+                       console.log(dadosUser);
+                       
+                        
                         item.user = {
                             id_usuario: dadosUser.usuario[0].id_user,
                             usuario: dadosUser.usuario[0].nome_user,

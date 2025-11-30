@@ -14,7 +14,7 @@ const prisma = new PrismaClient()
 export const filterNameSQLDoctor = async function(name){
     try {
         
-        let sql = `SELECT * FROM vw_medico_info WHERE nome LIKE '%${name}%' ORDER BY id_medico DESC`
+        let sql = `SELECT * FROM vw_medico_info WHERE nome_medico LIKE '%${name}%' ORDER BY id_medico DESC`
         let resultDoctor = await prisma.$queryRawUnsafe(sql)
 
         if(resultDoctor.length > 0){

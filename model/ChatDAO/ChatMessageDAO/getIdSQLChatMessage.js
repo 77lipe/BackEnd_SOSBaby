@@ -13,7 +13,7 @@
 export const getIdSQLChatMessage = async function (id) {
     try {
         
-        let getID = `SELECT * FROM tbl_chat_message WHERE id_chat_user = ${id}`
+        let getID = `SELECT * FROM tbl_chat_message WHERE id_chat = ${id}`
         let resultChatMessage = await prisma.$queryRawUnsafe(getID)
 
         if(resultChatMessage){

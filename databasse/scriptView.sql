@@ -694,8 +694,9 @@ LEFT JOIN tbl_clinica AS c
 //////////////////////////////
 DROP VIEW IF EXISTS vw_clinicas_por_especialidade;
 
-CREATE VIEW vw_clinicas_por_especialidade AS
+CREATE OR REPLACE VIEW vw_clinicas_por_especialidade AS
 SELECT 
+    -- Clínica
     c.id_clinica,
     c.nome AS nome_clinica,
     c.cnpj,
@@ -706,25 +707,47 @@ SELECT
     c.bairro,
     c.numero,
 
+    -- Usuário da clínica
     u.id_user,
     u.nome_user,
     u.email AS email_user,
 
+    -- Tipo usuário
     t.id_tipo,
     t.tipo AS tipo_user,
 
-    ue.id_especialidade,
-    e.especialidade AS nome_especialidade
+    -- Especialidade (mantida normal para usar LIKE)
+    e.id_especialidade,
+    e.especialidade AS nome_especialidade,
+
+    -- Convênios em JSON (para evitar duplicação)
+    (
+        SELECT JSON_ARRAYAGG(
+            JSON_OBJECT(
+                'id_convenio', conv.id_convenio,
+                'nome_convenio', conv.nome
+            )
+        )
+        FROM tbl_user_convenio uc
+        INNER JOIN tbl_convenio conv
+            ON uc.id_convenio = conv.id_convenio
+        WHERE uc.id_user = u.id_user
+    ) AS convenios
 
 FROM tbl_clinica AS c
+
 INNER JOIN tbl_user AS u 
     ON c.id_user = u.id_user
+
 INNER JOIN tbl_type_user AS t
     ON u.id_tipo = t.id_tipo
-INNER JOIN tbl_user_especialidade AS ue
-    ON u.id_user = ue.id_user
+
+INNER JOIN tbl_especialidade_clinica AS ec
+    ON c.id_clinica = ec.id_clinica
+
 INNER JOIN tbl_especialidade AS e
-    ON ue.id_especialidade = e.id_especialidade;
+    ON ec.id_especialidade = e.id_especialidade;
+
 
 
 

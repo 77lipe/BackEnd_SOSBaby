@@ -64,12 +64,14 @@ export const insertClinica = async function (clinica, contentType) {
 
 
                 let resultInsertClinica = await insertSQLClinica(clinica);
+                console.log(resultInsertClinica)
 
                 if (!resultInsertClinica) {
                     return message.ERROR_INTERNAL_SERVER_MODEL;
                 }
 
-                let id_user = resultInsertClinica.id_user;
+                let id_user = resultInsertClinica.id_user
+                let id_clinica = resultInsertClinica.id_clinica
 
 
                 let conveniosArray = [];
@@ -89,7 +91,7 @@ export const insertClinica = async function (clinica, contentType) {
                 for (let idEsp of clinica.id_especialidade) {
 
                     let relacionamento = await insertSQLRelacionEspecialidade({
-                        id_user: id_user,
+                        id_clinica: id_clinica,
                         id_especialidade: idEsp
                     });
 

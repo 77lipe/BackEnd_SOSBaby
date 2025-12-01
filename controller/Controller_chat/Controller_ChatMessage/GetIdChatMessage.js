@@ -33,7 +33,7 @@ export const getIdChatMessage = async function (id) {
                     
 
                     for(let item of resultChatMessage){
-                        let dadoChat = await getIdSQLChat(item.id_chat)
+                        var dadoChat = await getIdSQLChat(item.id_chat)
                         //console.log("Dado chat:", dadoChat);
                         
                         item.chat = dadoChat[0].nome_chat
@@ -54,9 +54,14 @@ export const getIdChatMessage = async function (id) {
                         ArrayDataChatMessage.push(item)
                     }
 
-                    ChatMessageDataJson.chat_message = ArrayDataChatMessage
+                    if(dadoChat.length > 0){
+                        ChatMessageDataJson.chat_message = ArrayDataChatMessage
                     
-                    return ChatMessageDataJson
+                        return ChatMessageDataJson
+                    }else{
+                        return message.ERROR_NOT_FOUND
+                    }
+                    
 
                 } else {
                     return message.ERROR_NOT_FOUND

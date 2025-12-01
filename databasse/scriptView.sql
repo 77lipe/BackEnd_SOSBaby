@@ -643,50 +643,27 @@ LEFT JOIN tbl_clinica AS c
 
 
 /////////
-CREATE VIEW vw_medico_completo_por_user AS
+CREATE OR REPLACE VIEW vw_medico_por_especialidade AS
 SELECT 
     m.id_medico,
-    m.nome AS nome_medico,
-    m.email AS email_medico,
-    m.telefone AS telefone_medico,
-    m.crm,
-    m.cpf,
+    m.nome        AS nome_medico,
+    m.email,
+    m.telefone,
     m.foto,
-
-    -- Sexo
-    s.id_sexo,
     s.sexo,
-
-    -- User (responsável pelo médico)
-    u.id_user,
-    u.nome_user,
-    u.email AS email_user,
-    u.id_tipo,
-
-    -- Tipo de usuário
-    t.tipo AS tipo_usuario,
-
-    -- Clínica
-    c.id_clinica,
-    c.nome AS nome_clinica,
-    c.cnpj,
-    c.telefone AS telefone_clinica,
-    c.email AS email_clinica,
+    c.nome        AS nome_clinica,
     c.cidade,
-    c.rua,
-    c.bairro,
-    c.numero
-
+    e.id_especialidade,
+    e.especialidade
 FROM tbl_medico AS m
-LEFT JOIN tbl_sexo AS s 
+INNER JOIN tbl_sexo AS s
     ON m.id_sexo = s.id_sexo
-LEFT JOIN tbl_user AS u
-    ON m.id_user = u.id_user
-LEFT JOIN tbl_type_user AS t
-    ON u.id_tipo = t.id_tipo
-LEFT JOIN tbl_clinica AS c
-    ON m.id_clinica = c.id_clinica;
-
+INNER JOIN tbl_clinica AS c
+    ON m.id_clinica = c.id_clinica
+INNER JOIN tbl_especialidade_medico AS em
+    ON m.id_medico = em.id_medico
+INNER JOIN tbl_especialidade AS e
+    ON em.id_especialidade = e.id_especialidade;
 
 
 

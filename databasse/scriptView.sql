@@ -822,3 +822,82 @@ SELECT
 FROM tbl_responsavel r
 LEFT JOIN tbl_sexo s ON r.id_sexo = s.id_sexo
 LEFT JOIN tbl_user u ON r.id_user = u.id
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+CREATE OR REPLACE VIEW vw_medico_info AS
+SELECT 
+    m.id_medico,
+    m.id_user,
+    m.nome AS nome_medico,
+    m.email,
+    m.telefone,
+    m.crm,
+    m.cpf,
+    m.foto,
+    s.sexo AS sexo_medico,
+    u.nome_user AS usuario_vinculado,
+    c.nome AS nome_clinica
+FROM tbl_medico m
+LEFT JOIN tbl_sexo s ON m.id_sexo = s.id_sexo
+LEFT JOIN tbl_user u ON m.id_user = u.id_user
+LEFT JOIN tbl_clinica c ON m.id_clinica = c.id_clinica
+GROUP BY 
+    m.id_medico,
+    m.id_user,
+    m.nome,
+    m.email,
+    m.telefone,
+    m.crm,
+    m.cpf,
+    m.foto,
+    s.sexo,
+    u.nome_user,
+    c.nome;
+
+
+
+CREATE OR REPLACE VIEW vw_responsavel_info AS
+SELECT 
+    r.id_responsavel,
+    r.nome AS nome_responsavel,
+    r.data_nascimento,
+    r.cpf,
+    r.telefone,
+    r.id_user,
+    s.sexo AS sexo_responsavel,
+    u.nome_user,
+    u.nome_user AS usuario_vinculado
+FROM tbl_responsavel r
+LEFT JOIN tbl_sexo s 
+    ON r.id_sexo = s.id_sexo
+LEFT JOIN tbl_user u 
+    ON r.id_user = u.id_user;
+
+
+
+CREATE OR REPLACE VIEW vw_chat_mensagens AS
+SELECT
+    m.id_mensagem,
+    m.conteudo,
+    m.id_chat,
+    m.id_user,
+    u.nome_user,
+    m.created_at
+FROM tbl_messager AS m
+LEFT JOIN tbl_user AS u
+    ON u.id_user = m.id_user;

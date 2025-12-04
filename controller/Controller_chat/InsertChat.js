@@ -23,7 +23,7 @@ export const insertChat = async function(dadosChat, contentType){
             }else{
 
                 console.log(dadosChat)
-                let existChat = await getIdSQLChat(dadosChat)
+                let existChat = await getIdSQLChat(dadosChat.user1_id, dadosChat.user2_id)
                 if(existChat){
                     return {
                         message: message.SUCCES_CREATED_ITEM,

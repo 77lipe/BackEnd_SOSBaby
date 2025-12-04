@@ -23,9 +23,9 @@ export const insertResp = async function (user, contentType) {
                 user.telefone               == "" || user.telefone              == undefined || user.telefone        == null || user.telefone.length > 20        || !user.telefone.match(/^\(\d{2}\)\s?\d{4,5}-?\d{4}$/) ||
                 user.id_sexo                == "" || user.id_sexo               == undefined || user.id_sexo         == null || isNaN(user.id_sexo)              ||
                 user.arquivo                == "" || user.arquivo               == undefined || user.arquivo         == null || user.arquivo.length  > 3000      || 
-                user.id_user                == "" || user.id_user               == undefined || user.id_user         == null || isNaN(user.id_user)              ||
+                user.id_user                == "" || user.id_user               == undefined || user.id_user         == null || isNaN(user.id_user)             
 
-                user.id_convenio               == undefined ||  user.id_convenio               == null      || !Array.isArray(user.id_convenio)            || user.id_convenio.length === 0 
+                
             ){
                 return message.ERROR_REQUIRED_FIELDS
             }else{

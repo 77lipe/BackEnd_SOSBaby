@@ -33,7 +33,7 @@ export const getIdMessage = async function (idGet){
                     for(let item of resultGetId){
                         let dadosChat = await getIdChat(item.id_chat)
                         item.chat = dadosChat.data
-                        delete item.id_chat
+                        item.id_chat
 
                         let dadosUser = await selectIDUser(item.id_user)
                        console.log(dadosUser);

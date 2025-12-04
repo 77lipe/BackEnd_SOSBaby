@@ -14,15 +14,29 @@ import {getIdSQLChat} from '../../model/ChatDAO/getIdSQLChat.js'
 export const insertChat = async function(dadosChat, contentType){
     try {
         
-        if(String(contentType).toLocaleLowerCase() == 'application/json'){
+        if(String(contentType).toLowerCase() == 'application/json'){
             if(
                 dadosChat.user1_id == undefined || dadosChat.user1_id == null || dadosChat.user1_id == '' || isNaN(dadosChat.user1_id) ||
                 dadosChat.user2_id == undefined || dadosChat.user2_id == null || dadosChat.user2_id == '' || isNaN(dadosChat.user2_id)
             ){
                 return message.ERROR_REQUIRED_FIELDS
-            }else{
+            } else {
 
-                console.log(dadosChat)
+                // normaliza os ids para ordem canônica
+                let a = Number(dadosChat.user1_id)
+                let b = Number(dadosChat.user2_id)
+
+                    if (isNaN(a) || isNaN(b)) return message.ERROR_REQUIRED_FIELDS
+
+                    // ordena
+                    if (a <= b) {
+                        dadosChat.user1_id = a
+                        dadosChat.user2_id = b
+                    } else {
+                        dadosChat.user1_id = b
+                        dadosChat.user2_id = a
+                }
+
                 let existChat = await getIdSQLChat(dadosChat.user1_id, dadosChat.user2_id)
                 if(existChat){
                     return {
@@ -30,25 +44,24 @@ export const insertChat = async function(dadosChat, contentType){
                         message: message.SUCCES_CREATED_ITEM.message,
                         chat: existChat
                     }
-
-                }else{
-
+                } else {
                     let resultInsert = await postSQLChat(dadosChat)
                     if(resultInsert){
-                    return{
+                        return {
                             ...message.SUCCES_CREATED_ITEM,
                             data: resultInsert
                         }
-                    }else{
+                    } else {
                         return message.ERROR_INTERNAL_SERVER_MODEL
                     }
                 }
             }
-        }else{
+        } else {
             return message.ERROR_CONTENT_TYPE
         }
 
     } catch (error) {
-        
+        console.log(error)
+        return message.ERROR_INTERNAL_SERVER
     }
 }

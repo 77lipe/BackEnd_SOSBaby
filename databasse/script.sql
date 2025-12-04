@@ -324,10 +324,21 @@ create table tbl_favorito (
     UNIQUE (id_user, id_dica) 
 );
 
-create table tbl_chat(
-    id_chat int auto_increment primary key not null,
-    nome_chat varchar(100) not null
-);
+CREATE TABLE tbl_chat (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user1_id INT NOT NULL,
+    user2_id INT NOT NULL,
+
+    CONSTRAINT unique_pair UNIQUE (user1_id, user2_id),
+
+    CONSTRAINT fk_chat_user1 
+        FOREIGN KEY (user1_id) REFERENCES tbl_user(id_user)
+        ON DELETE CASCADE ON UPDATE CASCADE,
+
+    CONSTRAINT fk_chat_user2 
+        FOREIGN KEY (user2_id) REFERENCES tbl_user(id_user)
+        ON DELETE CASCADE ON UPDATE CASCADE
+) 
 
 create table tbl_messager(
     id_mensagem int auto_increment primary key not null,
@@ -344,25 +355,6 @@ create table tbl_messager(
     foreign key (id_user)
     references tbl_user(id_user)
 );
-
-create table tbl_chat_message(
-    id_chat_user int auto_increment primary key not null,
-    id_chat int,
-    id_mensagem int,
-
-    constraint FK_CHAT_USER_CHAT
-    foreign key (id_chat)
-    references tbl_chat(id_chat),
-
-    constraint FK_CHAT_USER_USER
-    foreign key (id_mensagem)
-    references tbl_messager(id_mensagem)
-);
-
-
-
-
-
 
 
 VIEW

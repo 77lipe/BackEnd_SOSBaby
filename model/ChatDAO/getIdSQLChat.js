@@ -10,24 +10,25 @@ import pkg from "@prisma/client"
 const { PrismaClient } = pkg
 const prisma = new PrismaClient()
 
-export const getIdSQLChat = async function(user1_id, user2_id){
+export const getIdSQLChat = async function(user1, user2) {
     try {
-
         const sql = `
-            SELECT * 
-            FROM tbl_chat 
-            WHERE user1_id = ? AND user2_id = ?;
+            SELECT *
+            FROM tbl_chat
+            WHERE (user1_id = ? AND user2_id = ?)
+               OR (user1_id = ? AND user2_id = ?)
+            LIMIT 1;
         `;
 
-        const result = await prisma.$queryRawUnsafe(sql, user1_id, user2_id);
+        const result = await prisma.$queryRawUnsafe(sql, user1, user2, user2, user1);
 
-        if (result.length > 0)
-            return result[0];
-        else
-            return false;
+        if (result.length > 0) {
+            return result[0]; // chat encontrado
+        }
 
+        return false; // não existe
     } catch (error) {
-        console.log("Erro no getIdSQLChat:", error);
+        console.log(error);
         return false;
     }
 }

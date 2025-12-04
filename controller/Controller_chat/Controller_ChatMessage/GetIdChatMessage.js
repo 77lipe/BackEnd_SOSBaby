@@ -24,7 +24,14 @@ export const getIdChatMessage = async function (id_chat) {
             if (resultChatMessage) {
                 if (resultChatMessage.length > 0) {
 
-                    return resultChatMessage
+                    return {
+                        status_code: message.SUCCES_SEARCH_ITEM.status_code,
+                        message: message.SUCCES_SEARCH_ITEM.message,
+                        itens: resultChatMessage.length,
+                        mensagens: resultChatMessage
+
+                    }
+                        resultChatMessage
                 } else {
                     return message.ERROR_NOT_FOUND
                 }

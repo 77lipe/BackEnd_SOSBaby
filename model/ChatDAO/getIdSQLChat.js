@@ -16,7 +16,7 @@ export const getIdSQLChat = async function(user1_id, user2_id){
         const sql = `
             SELECT * 
             FROM tbl_chat 
-            WHERE id_user_1 = ? AND id_user_2 = ?;
+            WHERE user1_id = ? AND user2_id = ?;
         `;
 
         const result = await prisma.$queryRawUnsafe(sql, user1_id, user2_id);

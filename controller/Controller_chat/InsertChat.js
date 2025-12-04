@@ -26,15 +26,15 @@ export const insertChat = async function(dadosChat, contentType){
                 let existChat = await getIdSQLChat(dadosChat.user1_id, dadosChat.user2_id)
                 if(existChat){
                     return {
-                        message: message.SUCCES_CREATED_ITEM,
-                        motivo: console.log("CHAT já existente:"),
+                        status_code: message.SUCCES_CREATED_ITEM.status_code,
+                        message: message.SUCCES_CREATED_ITEM.message,
                         chat: existChat
                     }
 
                 }else{
 
                     let resultInsert = await postSQLChat(dadosChat)
-                if(resultInsert){
+                    if(resultInsert){
                     return{
                             ...message.SUCCES_CREATED_ITEM,
                             data: resultInsert

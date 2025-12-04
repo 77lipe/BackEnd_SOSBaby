@@ -403,14 +403,18 @@ CREATE OR REPLACE VIEW vw_responsavel_info AS
 SELECT 
     r.id_responsavel,
     r.nome AS nome_responsavel,
+    r.data_nascimento,
     r.cpf,
     r.telefone,
-    r.data_nascimento,
+    r.id_user,
     s.sexo AS sexo_responsavel,
-    u.nome_user
+    u.nome_user,
+    u.nome_user AS usuario_vinculado
 FROM tbl_responsavel r
-LEFT JOIN tbl_sexo s ON r.id_sexo = s.id_sexo
-LEFT JOIN tbl_user u ON r.id_user = u.id
+LEFT JOIN tbl_sexo s 
+    ON r.id_sexo = s.id_sexo
+LEFT JOIN tbl_user u 
+    ON r.id_user = u.id_user;
 
 
 //FILTRO DE NOMES RESPONSÁVEIS

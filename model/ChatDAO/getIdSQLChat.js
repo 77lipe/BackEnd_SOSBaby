@@ -6,24 +6,28 @@
  *       o Banco de Dados
  **************************************************/
 
- import pkg from "@prisma/client"
- const { PrismaClient } = pkg
- const prisma = new PrismaClient()
+import pkg from "@prisma/client"
+const { PrismaClient } = pkg
+const prisma = new PrismaClient()
 
-export const getIdSQLChat = async function(id){
+export const getIdSQLChat = async function(user1_id, user2_id){
     try {
-        
-        let sql = `SELECT * FROM tbl_chat WHERE id_chat = ${id}`
-        
-        let result = await prisma.$queryRawUnsafe(sql)
-        if(result){
-            return result
-        }else{
-            return false
-        }
+
+        const sql = `
+            SELECT * 
+            FROM tbl_chat 
+            WHERE id_user_1 = ? AND id_user_2 = ?;
+        `;
+
+        const result = await prisma.$queryRawUnsafe(sql, user1_id, user2_id);
+
+        if (result.length > 0)
+            return result[0];
+        else
+            return false;
 
     } catch (error) {
-        console.log(error)
-        return false
+        console.log("Erro no getIdSQLChat:", error);
+        return false;
     }
 }

@@ -17,7 +17,7 @@ export const postSQLChat = async function(dataChat){
         user2_id
         )VALUES(?, ?)`
         
-        let result = await prisma.$executeRawUnsafe(sql,dataChat.nome_chat)
+        let result = await prisma.$executeRawUnsafe(sql,dataChat.user1_id, dataChat.user2_id)
         if(result){
             let idGET = await prisma.$queryRawUnsafe('SELECT * FROM tbl_chat ORDER BY id_chat DESC LIMIT 1')
             let id = idGET

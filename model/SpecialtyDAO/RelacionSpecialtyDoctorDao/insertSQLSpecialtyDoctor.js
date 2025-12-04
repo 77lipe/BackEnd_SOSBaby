@@ -2,26 +2,26 @@ import pkg from "@prisma/client"
 const { PrismaClient } = pkg
 const prisma = new PrismaClient()
 
-export const insertSQLRelacionEspecialidade = async function (especialidade) {
+export const insertSQLEspecialidadeMedico = async function (especialidade) {
     console.log("DADOS PARA RELACIONAMENTO:", especialidade);
     
     try {
 
         let sql = `
-        INSERT INTO tbl_especialidade_clinica (
-            id_clinica,
+        INSERT INTO tbl_especialidade_medico (
+            id_medico,
             id_especialidade
         )
         VALUES
         (
-            '${especialidade.id_clinica}',
+            '${especialidade.id_medico}',
             '${especialidade.id_especialidade}'
         )`
 
         let resultSQL = await prisma.$executeRawUnsafe(sql)
 
         if (resultSQL) {
-            let getID = `SELECT * FROM tbl_especialidade_clinica ORDER BY id DESC LIMIT 1`
+            let getID = `SELECT * FROM tbl_especialidade_medico ORDER BY id DESC LIMIT 1`
             let id = await prisma.$queryRawUnsafe(getID)
             return id[0]
         }

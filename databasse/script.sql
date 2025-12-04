@@ -167,7 +167,7 @@ create table tbl_medico(
     
 	constraint FK_USUARIO_MEDICO
     foreign key (id_user)
-    references tbl_user(id_user) 
+    references tbl_user(id_user), 
 
     constraint FK_CLINICA_MEDICO
     foreign key (id_clinica)

@@ -12,6 +12,8 @@ import { loginSQLUser } from "../../model/UserDAO/LoginUser.js"
 import { idTypeUser } from "../../model/TypeUserDAO/SelectByIdTypeUser.js";
 
 export const loginUser = async function (user, contentType) {
+    console.log(user);
+    
     try {
     
         let dataJson = {}

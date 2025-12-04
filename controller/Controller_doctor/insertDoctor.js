@@ -10,7 +10,7 @@ import * as message from '../../config/status/status.js'
 
 import { insertSQLDoctor } from '../../model/DoctorDAO/InsertDoctor.js'
 import { SelectIdSQLEspecialidade } from '../../model/SpecialtyDAO/getIdSQLSpecialty.js'
-import { insertSQLRelacionEspecialidade } from '../../model/SpecialtyDAO/RelacionSpecialtyDAO/inserRelacionamenoSpecialty.js'
+import { insertSQLEspecialidadeMedico } from '../../model/SpecialtyDAO/RelacionSpecialtyDoctorDao/insertSQLSpecialtyDoctor.js'
 
 export const insertDoctor = async function (dataDoctor, contentType) {
     try {
@@ -51,37 +51,42 @@ export const insertDoctor = async function (dataDoctor, contentType) {
                 }
 
                 let resultInsertDoctor = await insertSQLDoctor(dataDoctor)
-                console.log("Retorno na controller do MÉDICO:", resultInsertDoctor);
+                //console.log("Retorno na controller do MÉDICO:", resultInsertDoctor);
                 
                 if (resultInsertDoctor) {
 
-                    const id_user = resultInsertDoctor.id_user
-                    console.log("data de id_user:", id_user);
-                    
+                    const id_medico = resultInsertDoctor.id_medico
+                    //console.log("data de id_user:", id_medico);
+                
+                    let relacionamentos = []  // <---- array para guardar todos os retornos
+                
                     for (let id_especialidade of dataDoctor.id_especialidade) {
-
+                
                         const dataRelacion = {
-                            id_user,
+                            id_medico,
                             id_especialidade
                         }
-                        var relacionamento = await insertSQLRelacionEspecialidade(dataRelacion)
-                        console.log(relacionamento);
-                        
-
+                
+                        const relacionamento = await insertSQLEspecialidadeMedico(dataRelacion)
+                        //console.log(relacionamento)
+                
                         if (!relacionamento) {
                             return message.ERROR_INTERNAL_SERVER_MODEL
                         }
+                
+                        relacionamentos.push(relacionamento) // <--- salva todos
                     }
-
+                
                     return {
                         ...message.SUCCES_CREATED_ITEM,
                         data: resultInsertDoctor,
-                        relacionamento_especialidade: relacionamento
+                        relacionamentos_especialidade: relacionamentos // <--- retorna todos
                     }
-
+                
                 } else {
                     return message.ERROR_INTERNAL_SERVER_MODEL
                 }
+                
             }
 
         } else {

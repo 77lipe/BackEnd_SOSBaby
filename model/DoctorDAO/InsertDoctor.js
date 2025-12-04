@@ -11,6 +11,7 @@
  const prisma = new PrismaClient()
 
 export const insertSQLDoctor = async function(dataDoctor){
+    console.log(dataDoctor);
     
     try {
         
@@ -26,7 +27,7 @@ export const insertSQLDoctor = async function(dataDoctor){
         id_clinica
         )
         VALUES(
-        ?, ?, ?, ?, ?, ?, ?, ?
+        ?, ?, ?, ?, ?, ?, ?, ?, ?
         )`
         let resultDoctor = await prisma.$executeRawUnsafe(
             sql,

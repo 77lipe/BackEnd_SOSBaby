@@ -29,8 +29,9 @@ export const getAllChatMessage = async function () {
 
                 for (let item of resultChatMessage) {
                     let dadoChat = await getIdChat(item.id_chat)
+                    item.id_chat = dadoChat.data[0].id_chat
                     item.chat = dadoChat.data[0].nome_chat
-                    delete item.id_chat
+
 
                     let dadoMessage = await getIdMessage(item.id_mensagem)
                     item.mensagem_enviada = {

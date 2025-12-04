@@ -794,3 +794,31 @@ LEFT JOIN tbl_especialidade e
        ON e.id_especialidade = ue.id_especialidade
 
 WHERE e.id_especialidade IS NOT NULL;
+
+
+CREATE OR REPLACE VIEW vw_chat_mensagens AS
+SELECT
+    m.id_mensagem,
+    m.conteudo,
+    m.id_chat,
+    m.id_user,
+    u.nome_user,
+    m.created_at
+FROM tbl_messager AS m
+INNER JOIN tbl_user AS u
+    ON u.id_user = m.id_user
+ORDER BY m.created_at ASC;
+
+///// RESPONSÁVEIS
+CREATE OR REPLACE VIEW vw_responsavel_info AS
+SELECT 
+    r.id_responsavel,
+    r.nome AS nome_responsavel,
+    r.cpf,
+    r.telefone,
+    r.data_nascimento,
+    s.sexo AS sexo_responsavel,
+    u.nome_user
+FROM tbl_responsavel r
+LEFT JOIN tbl_sexo s ON r.id_sexo = s.id_sexo
+LEFT JOIN tbl_user u ON r.id_user = u.id

@@ -397,6 +397,22 @@ GROUP BY m.id_medico, m.nome, m.email, m.telefone, m.crm, s.sexo, u.nome_user, c
 ORDER BY m.id_medico DESC;
 
 
+
+///// RESPONSÁVEIS
+CREATE OR REPLACE VIEW vw_responsavel_info AS
+SELECT 
+    r.id_responsavel,
+    r.nome AS nome_responsavel,
+    r.cpf,
+    r.telefone,
+    r.data_nascimento,
+    s.sexo AS sexo_responsavel,
+    u.nome_user
+FROM tbl_responsavel r
+LEFT JOIN tbl_sexo s ON r.id_sexo = s.id_sexo
+LEFT JOIN tbl_user u ON r.id_user = u.id
+
+
 //FILTRO DE NOMES RESPONSÁVEIS
 CREATE OR REPLACE VIEW vw_responsavel_info AS
 SELECT 

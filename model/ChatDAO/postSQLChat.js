@@ -13,8 +13,9 @@ export const postSQLChat = async function(dataChat){
     try {
         
         let sql = `INSERT INTO tbl_chat(
-        nome_chat
-        )VALUES(?)`
+        user1_id,
+        user2_id
+        )VALUES(?, ?)`
         
         let result = await prisma.$executeRawUnsafe(sql,dataChat.nome_chat)
         if(result){

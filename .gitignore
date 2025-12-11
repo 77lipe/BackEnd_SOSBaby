@@ -3,6 +3,7 @@
 .env.production
 .env.development
 .env.local
+.env.backup
 
 # Ignorar dependências
 node_modules/

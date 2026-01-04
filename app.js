@@ -40,6 +40,12 @@ import http from 'http'
 import { PrismaClient } from '@prisma/client'
 import nodemailer from 'nodemailer'
 
+//
+import swaggerUI from 'swagger-ui-express'
+import swaggerDoc from './config/swagger.json' assert {type: "json"}
+//
+
+
 // Importação das rotas
 import babyRoutes from './routes/babyRoutes/index.js'
 import userRoutes from './routes/userRoutes/index.js'
@@ -67,6 +73,7 @@ import TokenCallSolicited from './routes/videoCallRoutes/index.js'
 import ChamadaVideo from './routes/chamadaRoutes/index.js'
 import Convenio from './routes/convenioRoute/index.js'
 import Especialidade from './routes/specialtyRoutes/index.js'
+import { assert } from 'console'
 
 
 // Inicializa Prisma
@@ -141,6 +148,8 @@ app.use('/v1/sosbaby', TokenCallSolicited)
 app.use('/v1/sosbaby', ChamadaVideo)
 app.use('/v1/sosbaby', Convenio)
 app.use('/v1/sosbaby', Especialidade)
+
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(swaggerDoc))
 
 // Porta para Azure ou padrão 3030
 const port = process.env.PORT || 3030;

@@ -9,7 +9,6 @@
 import jwt from "jsonwebtoken"
 import dotenv from "dotenv"
 
-import * as message from "../status/status.js"
 import { searchIDTypeUser } from "../../controller/Controller_type_user/searchIdType.js";
 import { selectIDUser } from "../../controller/Controller_user/searchIdUser.js";
 
@@ -60,7 +59,7 @@ export const authAccess = (rolesPermitidos) => {
           
             next()
           }else{
-            return res.status(403).json({message:`Acesso negado para esse tipo de usuário`})
+            return res.status(403).json({message:`Acesso negado para esse tipo de usuário: ${tipoString}`})
           }
         }
         }

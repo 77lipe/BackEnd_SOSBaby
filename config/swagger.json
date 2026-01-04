@@ -1,0 +1,165 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "API - SOSBABY",
+        "description": "Documentação manual da API - V.1",
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3030",
+            "description": "Server local"
+        },
+        {
+            "url": "https://backend-sosbaby.onrender.com",
+            "description": "Server na Nuvem - Render"
+        }
+    ],
+    "paths": {
+        "/users": {
+            "get": {
+                "sumary": "Listar usuários",
+                "description": "Retorna todos os usuários registrados",
+                "tags": ["Listar usuários"],
+                "responses": {
+                    "200": {
+                        "description": "Busca realizada com sucesso!!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties":{
+                                        "id": {
+                                            "type": "integer",
+                                            "description":"Id do usuário",
+                                            "exemple": 1
+                                        },
+                                        "name": {
+                                            "type":"string",
+                                            "description":"Nome do Usuário",
+                                            "exemple":"Felipe Vieria"
+                                        },
+                                        "email":{
+                                            "type": "string",
+                                            "description":"Email do Usuário",
+                                            "exemple":"felipe@gmail.com"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Nenhum item encontrado",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message":{
+                                            "type": "string",
+                                            "description": "Mensagem de Erro",
+                                            "exemple": "Nenhum item encontrado!!"
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "description": "Status Code retornado",
+                                            "exemple": "404"
+                                        }
+                                    }                                
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            
+        },
+        "/user/cadastro": {
+            "post": {
+                "sumary": "Criar Usuário",
+                "description": "Cadastrar um novo usuário",
+                "tags": ["Criar Usuários"],    
+                "responses": {
+                    "201": {
+                        "description": "Usuário criado com sucesso!!",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": { 
+                                            "type": "integer",
+                                            "description": "Id do usuário",
+                                            "exemple": 1
+                                        },
+                                        "name":{
+                                            "type": "string",
+                                            "description": "Nome do Usuário",
+                                            "exemple":"Felipe Vieria"
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "description": "Email do Usuário",
+                                            "exemple": "felipe@gmail.com"
+                                        },
+                                        "senha":{
+                                            "type": "string",
+                                            "description": "Senha do Usuário",
+                                            "exemple": "senha1234_" 
+                                        }
+                                    }
+                                }
+                            }
+                        }        
+                    },
+                    "400": {
+                            "description": "Erro ao cadastrar usuário",
+                            "content": {
+                                "application/json":{
+                                    "schema": {
+                                        "type":"object",
+                                        "properties": {
+                                            "message":{
+                                                "type": "string",
+                                                "description": "Mensagem de Erro",
+                                                "exemple": "Nenhum item encontrado!!"
+                                            },
+                                            "status": {
+                                                "type": "string",
+                                                "description": "Status Code retornado",
+                                                "exemple": "404"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                }
+            }
+        }
+    },
+
+
+    "components": {
+        "schemas": {
+            "users": {
+                "type": "object",
+                "properties": {
+                    "id": { "type": "integer", "exemple": 1},
+                    "nome": { "type": "string", "exemple": "Felipe Vieria"},
+                    "email": { "type": "string", "exemple": "felipe@gmail.com"}
+                },
+                "required": ["nome", "email"]
+
+            },
+            "ErrorResponses": {
+                "type": "object",
+                "properties": {
+                    "message": { "type": "string"},
+                    "status": { "type": "integer"}
+                }
+            }
+        }
+    }
+}
